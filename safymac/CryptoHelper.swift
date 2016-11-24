@@ -11,6 +11,14 @@ import CryptoSwift
 
 
 class CryptoHelper{
+    
+    //ENUM
+    public enum decryptionresult{
+        case ok
+        case error
+    }
+    
+    
     //MARK: Headers and footers of armored files
     static var armorHeader:String!{
         return String("----Safy----\n")
@@ -54,38 +62,51 @@ class CryptoHelper{
         if let value = UInt8(capturedIteratorString, radix: 16) {
             capturedIterator = Int(value)
         }
-        
         //Get Real Cipher
         let cipherStartIndex = cipher.index(cipher.startIndex, offsetBy:34)
         let cipherEndIndex = cipher.index(cipher.endIndex, offsetBy:-1)
         let restCipher:String = cipher[cipherStartIndex...cipherEndIndex]
         //print("Captured cipher \(restCipher)")
+
+        //Return
         return (cipher:restCipher, iv: capturedIV, iterations: capturedIterator)
     }
     
+
     
     //MARK: Encryption functions
-    static func decryptAES256fromBytes(databytes: Array<UInt8>, password:String) -> Array<UInt8>{
-        //Create pass and load IV + chipher
+    
+    static func decryptAES256fromBytes(databytes: Array<UInt8>, password:String) -> (plaintext: Array<UInt8>, status: decryptionresult){
+        //Load needed values from data
         let separator = self.SeparateIvFromCipherString(cipher: databytes.toHexString())
         let vector = separator.iv
         let realcipher = separator.cipher
         let iterations = separator.iterations
-        //Decrypt:
+        //Prepare byte values
         let input: Array<UInt8> = Array<UInt8>(hex: realcipher)
         let iv: Array<UInt8> = Array<UInt8>(hex: vector)
         let key: Array<UInt8> = deriveKeyFromPassword(pass: password, vectorsalt: iv, iterationFactor: iterations)
+
+        //Decrypt:
         do {
             let decrypted = try AES(key: key, iv: iv, blockMode: .CBC, padding: PKCS7()).decrypt(input)
-            return decrypted
+            if(decrypted.count>0){
+                //Test if password was right. First 4 bytes have to be 80. If not, password was wrong or data corrupted...
+                if(decrypted[0] == 80 && decrypted[1] == 80 && decrypted[2] == 80 && decrypted[3] == 80){
+                        var newArrayOfBytes = decrypted;
+                        for _ in 0...3 { newArrayOfBytes.remove(at: 0)} //remove 4 bytes
+                        return (plaintext: newArrayOfBytes, status: .ok)
+                }
+            }
         } catch {
             print(error)
         }
-        return []
+        return (plaintext: [], status: .error)
     }
     
     static func encryptAES256fromBytes(databytes: Array<UInt8>, password: String) -> Array<UInt8>{
-        let input: Array<UInt8> = databytes
+        var input: Array<UInt8> = databytes
+        for _ in 0...3 { input.insert(80, at: 0)} //add 4 0x80 bytes
         
         let iv: Array<UInt8> = AES.randomIV(AES.blockSize)
         
@@ -96,14 +117,15 @@ class CryptoHelper{
         let key: Array<UInt8> = deriveKeyFromPassword(pass: password, vectorsalt: iv, iterationFactor: iterations)
         //print("IV es \(iv.toHexString())")
         do {
-            //Encrypt
-            var encrypted = try AES(key: key, iv: iv, blockMode: .CBC, padding: PKCS7()).encrypt(input)
-            //Store Hex string of the encrypted data:
-            let hexString = iv.toHexString().appending(iterHex).appending(encrypted.toHexString())
+            //1. Encrypt. Get cipher text in bytes
+            var ciphertext = try AES(key: key, iv: iv, blockMode: .CBC, padding: PKCS7()).encrypt(input)
+            //print("hmacSignature: \(hmacSignature.count) - \(hmacSignature.toHexString())");
+            //2. Create a long hexadecimal string appending all the parts /header, body, etc
+            let hexString = iv.toHexString().appending(iterHex).appending(ciphertext.toHexString())
             //Test - Get back Binary data from hex string:
-            encrypted = Array<UInt8>(hex: hexString)
+            ciphertext = Array<UInt8>(hex: hexString)
             //Return
-            return encrypted
+            return ciphertext
         } catch {
             print(error)
         }

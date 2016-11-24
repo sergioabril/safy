@@ -139,12 +139,33 @@ class ViewController: UIViewController, UITextFieldDelegate {
         //Desencripto in background
         DispatchQueue.global(qos: .background).async {
             //Decrypt
-            let decryptedBytes:Array<UInt8> = CryptoHelper.decryptAES256fromBytes(databytes: bytesToDecrypt, password: self.passTwo.text!)
-            
+            let cryptofunction = CryptoHelper.decryptAES256fromBytes(databytes: bytesToDecrypt, password: self.passTwo.text!)
+            let decryptedBytes:Array<UInt8> = cryptofunction.plaintext;
+            let decryptionstatus:CryptoHelper.decryptionresult = cryptofunction.status
+            print("Decrypted bytes:\(decryptedBytes), status: \(decryptionstatus)")
+            if(decryptionstatus == CryptoHelper.decryptionresult.error){
+                DispatchQueue.main.async {
+                    //Set string to textview
+                    self.showMessage(isError: true, text: "Password wrong or text corrupted (I)", warnuser: true)
+                    //Not work anymore
+                    self.unmarkBusy()
+                }
+                //Exit
+                return;
+            }
             //Ahora mapeo los bytes a caracteres gracias a la extension: "extension UInt8 { var character: Character {... " que he puesto justo despues
-            //let characters = decryptedBytes.map { $0.character }
-            //let newstring = String(characters)
-            let newstring = decryptedBytes.utf8string //custom extension
+            let newstring = decryptedBytes.utf8string
+            if(newstring.characters.count == 0){
+                //SInce this was text, and the string given wasn't text, assume the password was wrong or data corrupted
+                DispatchQueue.main.async {
+                    self.showMessage(isError: true, text: "Password wrong or text corrupted (II)", warnuser: true)
+                    //Not work anymore
+                    self.unmarkBusy()
+                }
+                return;
+            }
+            
+            //Success: Back to main and update text
             DispatchQueue.main.async {
                 //Set string to textview
                 self.textview.text = newstring;

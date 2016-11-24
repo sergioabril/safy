@@ -29,6 +29,7 @@ class ViewController: NSViewController, NSTextFieldDelegate {
     var statusChecker:Timer = Timer()
     var lastStatus:currentLayoutStatus = currentLayoutStatus.none
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -116,7 +117,7 @@ class ViewController: NSViewController, NSTextFieldDelegate {
             }
     
             let bytesToEncrypt = textview.string!.utf8.map{$0}
-            print("Bytes to encript \(bytesToEncrypt)");
+            //print("Bytes to encript \(bytesToEncrypt)");
             
             //Encripto en background
             DispatchQueue.global(qos: .background).async {
@@ -168,10 +169,33 @@ class ViewController: NSViewController, NSTextFieldDelegate {
             //Desencripto in background
             DispatchQueue.global(qos: .background).async {
                 //Decrypt
-                let decryptedBytes:Array<UInt8> = CryptoHelper.decryptAES256fromBytes(databytes: bytesToDecrypt, password: self.passOne.stringValue)
-                
+                let cryptofunction = CryptoHelper.decryptAES256fromBytes(databytes: bytesToDecrypt, password: self.passOne.stringValue)
+                let decryptedBytes:Array<UInt8> = cryptofunction.plaintext;
+                let decryptionstatus:CryptoHelper.decryptionresult = cryptofunction.status
+                print("Decrypted bytes:\(decryptedBytes), status: \(decryptionstatus)")
+                if(decryptionstatus == CryptoHelper.decryptionresult.error){
+                    DispatchQueue.main.async {
+                        //Set string to textview
+                        self.showMessage(isError: true, text: "Password wrong or text corrupted (I)", warnuser: true)
+
+                        //Not work anymore
+                        self.unmarkBusy()
+                    }
+                    //Exit
+                    return;
+                }
                 //Ahora mapeo los bytes a caracteres gracias a la extension: "extension UInt8 { var character: Character {... " que he puesto justo despues
                 let newstring = decryptedBytes.utf8string
+                if(newstring.characters.count == 0){
+                    //SInce this was text, and the string given wasn't text, assume the password was wrong or data corrupted
+                    DispatchQueue.main.async {
+                        self.showMessage(isError: true, text: "Password wrong or text corrupted (II)", warnuser: true)
+                        //Not work anymore
+                        self.unmarkBusy()
+                    }
+                    return;
+                }
+                //Back to main and update text
                 DispatchQueue.main.async {
                     //Set string to textview
                     self.textview.string = newstring;
@@ -199,9 +223,9 @@ class ViewController: NSViewController, NSTextFieldDelegate {
                 lastStatus = .decryptText
                 busyChangingStatus = true
                 //Anim
-                //self.buttonDecrypt.setTitle("Decrypt", for: .normal)
+                self.buttonDecrypt.title = "Decrypt"
                 //self.passOne.alpha = 0
-                //self.passOne.isHidden = true
+                self.passTwo.isHidden = true
                 self.busyChangingStatus = false
 
             }
@@ -212,8 +236,8 @@ class ViewController: NSViewController, NSTextFieldDelegate {
                 lastStatus = .encryptText
                 busyChangingStatus = true
                 //Anim
-               // self.passOne.isHidden = false
-                //self.buttonDecrypt.setTitle("Encrypt", for: .normal)
+                self.passTwo.isHidden = false
+                self.buttonDecrypt.title = "Encrypt"
                 //self.passOne.alpha = 1
                 self.busyChangingStatus = false
             }
