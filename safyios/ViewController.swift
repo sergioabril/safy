@@ -28,13 +28,16 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var lastStatus:currentLayoutStatus = currentLayoutStatus.none
     
     //ProgressBall
-    var loader:HolderView?
+    var loader:SALoaderOvalBlur?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.passOne.delegate = self
         self.passTwo.delegate = self
+       
+        //INstantiate loader
+        self.loader = SALoaderOvalBlur(onView:self.view, radius: 20, blurBackground: true)
     
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -71,6 +74,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             return;
         }
         
+  
         if(textview.text!.characters.count > 0){
             print("El texto a encryptar es \(textview.text!)")
         }else{
@@ -78,6 +82,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             unmarkBusy()
             return;
         }
+        
         
         let bytesToEncrypt = textview.text!.utf8.map{$0}
        // print("Bytes to encript \(bytesToEncrypt)");
@@ -109,6 +114,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }else{
             print("Using password:\(self.passTwo.text!)")
         }
+        
         
         //Avoid empty texts
         if(textview.text == nil){
@@ -144,7 +150,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 self.textview.text = newstring;
                 //Not work anymore
                 self.unmarkBusy()
-
+                //Clean passwords and lose focus
+                self.passOne.text = ""
+                self.passTwo.text = ""
             }
         }
         
@@ -152,28 +160,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
     //MARK: Busy and nonbusy. Variable and animations. Loader
     func markBusy(){
         busyWorking = true;
-        //Blur text
-        self.view.blurView()
         //Show loader
-        if(loader != nil) { return; }
-        self.loader = HolderView(frame: CGRect(x: self.view.frame.width/2 - 20,y: self.view.frame.height/2 - 20,width: 40, height: 40))
-        //loader!.alpha = 0
-        self.view.addSubview(self.loader!)
-        //self.loader!.fadeIn(duration: 0.5, delay: 0.0)
-
+       self.loader?.show()
     }
     func unmarkBusy(){
         busyWorking = false;
-        //UnBlur text
-        self.view.unBlurView()
-        //Hide loader
-        if(loader != nil){
-            self.loader!.removeFromSuperview()
-            self.loader = nil;
-            //loader!.fadeOut(duration: 0.5, delay: 0, completion: { (finished) in
-               
-           // })
-        }
+        //Remove loader
+        self.loader?.hide()
     }
     
 

@@ -23,8 +23,7 @@
 		495FBC0E1DE6A8CB0071AD16 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495FBC0B1DE6A8CB0071AD16 /* iTunesArtwork@2x.png */; };
 		495FBC0F1DE6A8CB0071AD16 /* iTunesArtwork@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495FBC0C1DE6A8CB0071AD16 /* iTunesArtwork@3x.png */; };
 		495FBC101DE6A8E10071AD16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49C3909F1DE658C80043F304 /* Assets.xcassets */; };
-		49811D211DE725D8007D2051 /* HolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49811D1B1DE725D8007D2051 /* HolderView.swift */; };
-		49811D221DE725D8007D2051 /* OvalLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49811D1C1DE725D8007D2051 /* OvalLayer.swift */; };
+		49811D211DE725D8007D2051 /* SALoaderOvalBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49811D1B1DE725D8007D2051 /* SALoaderOvalBlur.swift */; };
 		49C390991DE658C80043F304 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C390981DE658C80043F304 /* AppDelegate.swift */; };
 		49C3909B1DE658C80043F304 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C3909A1DE658C80043F304 /* ViewController.swift */; };
 		49C3909E1DE658C80043F304 /* safymac.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 49C3909C1DE658C80043F304 /* safymac.xcdatamodeld */; };
@@ -140,8 +139,7 @@
 		495FBC0A1DE6A8CB0071AD16 /* iTunesArtwork@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@1x.png"; sourceTree = "<group>"; };
 		495FBC0B1DE6A8CB0071AD16 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
 		495FBC0C1DE6A8CB0071AD16 /* iTunesArtwork@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@3x.png"; sourceTree = "<group>"; };
-		49811D1B1DE725D8007D2051 /* HolderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HolderView.swift; sourceTree = "<group>"; };
-		49811D1C1DE725D8007D2051 /* OvalLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OvalLayer.swift; sourceTree = "<group>"; };
+		49811D1B1DE725D8007D2051 /* SALoaderOvalBlur.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SALoaderOvalBlur.swift; sourceTree = "<group>"; };
 		49C390951DE658C80043F304 /* safymac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = safymac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49C390981DE658C80043F304 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49C3909A1DE658C80043F304 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -256,8 +254,7 @@
 		49811D171DE725D8007D2051 /* SALoader */ = {
 			isa = PBXGroup;
 			children = (
-				49811D1B1DE725D8007D2051 /* HolderView.swift */,
-				49811D1C1DE725D8007D2051 /* OvalLayer.swift */,
+				49811D1B1DE725D8007D2051 /* SALoaderOvalBlur.swift */,
 			);
 			path = SALoader;
 			sourceTree = "<group>";
@@ -596,8 +593,7 @@
 			files = (
 				495FBC031DE692DD0071AD16 /* ClassExtensions.swift in Sources */,
 				495FBBDA1DE692A90071AD16 /* safyios.xcdatamodeld in Sources */,
-				49811D211DE725D8007D2051 /* HolderView.swift in Sources */,
-				49811D221DE725D8007D2051 /* OvalLayer.swift in Sources */,
+				49811D211DE725D8007D2051 /* SALoaderOvalBlur.swift in Sources */,
 				495FBBD41DE692A90071AD16 /* ViewController.swift in Sources */,
 				495FBC011DE692C20071AD16 /* CryptoHelper.swift in Sources */,
 				495FBBD21DE692A90071AD16 /* AppDelegate.swift in Sources */,
