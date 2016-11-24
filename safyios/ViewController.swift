@@ -27,6 +27,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var statusChecker:Timer = Timer()
     var lastStatus:currentLayoutStatus = currentLayoutStatus.none
     
+    //ProgressBall
+    var loader:HolderView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -58,7 +61,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             unmarkBusy()
             return;
         }else{
-            print("Using password:\(self.passOne.text!)")
+           // print("Using password:\(self.passOne.text!)")
         }
         
         //Check if passwords are equal
@@ -77,7 +80,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
         
         let bytesToEncrypt = textview.text!.utf8.map{$0}
-        print("Bytes to encript \(bytesToEncrypt)");
+       // print("Bytes to encript \(bytesToEncrypt)");
         
         //Encripto en background
         DispatchQueue.global(qos: .background).async {
@@ -87,9 +90,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
             
             DispatchQueue.main.async {
                 //Set string to textview
-                print("Finished: \(cadenaFinal)")
+                //print("Finished: \(cadenaFinal)")
                 self.textview.text = cadenaFinal
                 self.unmarkBusy()
+                //Share
+                self.shareEncryptedResult()
             }
         }
         
@@ -131,25 +136,47 @@ class ViewController: UIViewController, UITextFieldDelegate {
             let decryptedBytes:Array<UInt8> = CryptoHelper.decryptAES256fromBytes(databytes: bytesToDecrypt, password: self.passTwo.text!)
             
             //Ahora mapeo los bytes a caracteres gracias a la extension: "extension UInt8 { var character: Character {... " que he puesto justo despues
-            let characters = decryptedBytes.map { $0.character }
-            let newstring = String(characters)
+            //let characters = decryptedBytes.map { $0.character }
+            //let newstring = String(characters)
+            let newstring = decryptedBytes.utf8string //custom extension
             DispatchQueue.main.async {
                 //Set string to textview
                 self.textview.text = newstring;
                 //Not work anymore
                 self.unmarkBusy()
+
             }
         }
         
     }
-    //MARK: Busy and nonbusy. Variable and animations
+    //MARK: Busy and nonbusy. Variable and animations. Loader
     func markBusy(){
         busyWorking = true;
+        //Blur text
+        self.view.blurView()
+        //Show loader
+        if(loader != nil) { return; }
+        self.loader = HolderView(frame: CGRect(x: self.view.frame.width/2 - 20,y: self.view.frame.height/2 - 20,width: 40, height: 40))
+        //loader!.alpha = 0
+        self.view.addSubview(self.loader!)
+        //self.loader!.fadeIn(duration: 0.5, delay: 0.0)
+
     }
     func unmarkBusy(){
         busyWorking = false;
+        //UnBlur text
+        self.view.unBlurView()
+        //Hide loader
+        if(loader != nil){
+            self.loader!.removeFromSuperview()
+            self.loader = nil;
+            //loader!.fadeOut(duration: 0.5, delay: 0, completion: { (finished) in
+               
+           // })
+        }
     }
     
+
     //MARK: Apariencia según estado
     func checkStatusChange(){
         if(busyWorking || busyChangingStatus){return}
@@ -262,5 +289,33 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func configureViewForKeyboard(view: UIView, keyboardorigin: CGFloat){
         view.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: keyboardorigin)
     }
+    
+    //MARK: Share
+    func shareEncryptedResult() {
+        //var shareItems:Array = [img, messageStr]
+        var shareItems:[String] = []
+        shareItems.append(self.textview.text)
+        
+        if(shareItems.count == 0){
+            showMessage(isError: true, text: "Can't share, no text", warnuser: true)
+            return;
+        }
+        
+        let activityViewController:UIActivityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
+        activityViewController.excludedActivityTypes = [UIActivityType.postToWeibo]
+        
+        //Before showing the controller, check if it's ipad or iphone
+        if (UIDevice.current.userInterfaceIdiom == .pad){
+            //It's an ipad, set popover location!
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            //activityViewController.popoverPresentationController.sourceRect = self.frame;
+            self.present(activityViewController, animated: true, completion: nil)
+        }else{
+            //It's an iPhone
+            self.present(activityViewController, animated: true, completion: nil)
+        }
+
+    }
+
 }
 

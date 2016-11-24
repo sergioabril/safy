@@ -171,8 +171,7 @@ class ViewController: NSViewController, NSTextFieldDelegate {
                 let decryptedBytes:Array<UInt8> = CryptoHelper.decryptAES256fromBytes(databytes: bytesToDecrypt, password: self.passOne.stringValue)
                 
                 //Ahora mapeo los bytes a caracteres gracias a la extension: "extension UInt8 { var character: Character {... " que he puesto justo despues
-                let characters = decryptedBytes.map { $0.character }
-                let newstring = String(characters)
+                let newstring = decryptedBytes.utf8string
                 DispatchQueue.main.async {
                     //Set string to textview
                     self.textview.string = newstring;
