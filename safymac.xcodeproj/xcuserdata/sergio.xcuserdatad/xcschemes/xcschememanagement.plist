@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>safyios.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>safymac.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>495FBBCE1DE692A90071AD16</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>495FBBE41DE692A90071AD16</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>495FBBEF1DE692A90071AD16</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>49C390941DE658C80043F304</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>49C390A81DE658C80043F304</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>49C390B31DE658C80043F304</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>

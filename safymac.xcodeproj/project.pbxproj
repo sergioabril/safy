@@ -1,0 +1,1072 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		495FBBD21DE692A90071AD16 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495FBBD11DE692A90071AD16 /* AppDelegate.swift */; };
+		495FBBD41DE692A90071AD16 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495FBBD31DE692A90071AD16 /* ViewController.swift */; };
+		495FBBD71DE692A90071AD16 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 495FBBD51DE692A90071AD16 /* Main.storyboard */; };
+		495FBBDA1DE692A90071AD16 /* safyios.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 495FBBD81DE692A90071AD16 /* safyios.xcdatamodeld */; };
+		495FBBDC1DE692A90071AD16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 495FBBDB1DE692A90071AD16 /* Assets.xcassets */; };
+		495FBBDF1DE692A90071AD16 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 495FBBDD1DE692A90071AD16 /* LaunchScreen.storyboard */; };
+		495FBBEA1DE692A90071AD16 /* safyiosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495FBBE91DE692A90071AD16 /* safyiosTests.swift */; };
+		495FBBF51DE692A90071AD16 /* safyiosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495FBBF41DE692A90071AD16 /* safyiosUITests.swift */; };
+		495FBC011DE692C20071AD16 /* CryptoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C390E91DE65B580043F304 /* CryptoHelper.swift */; };
+		495FBC031DE692DD0071AD16 /* ClassExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495FBC021DE692DD0071AD16 /* ClassExtensions.swift */; };
+		495FBC051DE6961F0071AD16 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C390D01DE65A5F0043F304 /* CryptoSwift.framework */; };
+		495FBC061DE6961F0071AD16 /* CryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 49C390D01DE65A5F0043F304 /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		495FBC0D1DE6A8CB0071AD16 /* iTunesArtwork@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495FBC0A1DE6A8CB0071AD16 /* iTunesArtwork@1x.png */; };
+		495FBC0E1DE6A8CB0071AD16 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495FBC0B1DE6A8CB0071AD16 /* iTunesArtwork@2x.png */; };
+		495FBC0F1DE6A8CB0071AD16 /* iTunesArtwork@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495FBC0C1DE6A8CB0071AD16 /* iTunesArtwork@3x.png */; };
+		495FBC101DE6A8E10071AD16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49C3909F1DE658C80043F304 /* Assets.xcassets */; };
+		49C390991DE658C80043F304 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C390981DE658C80043F304 /* AppDelegate.swift */; };
+		49C3909B1DE658C80043F304 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C3909A1DE658C80043F304 /* ViewController.swift */; };
+		49C3909E1DE658C80043F304 /* safymac.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 49C3909C1DE658C80043F304 /* safymac.xcdatamodeld */; };
+		49C390A01DE658C80043F304 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49C3909F1DE658C80043F304 /* Assets.xcassets */; };
+		49C390A31DE658C80043F304 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49C390A11DE658C80043F304 /* Main.storyboard */; };
+		49C390AE1DE658C80043F304 /* safymacTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C390AD1DE658C80043F304 /* safymacTests.swift */; };
+		49C390B91DE658C80043F304 /* safymacUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C390B81DE658C80043F304 /* safymacUITests.swift */; };
+		49C390E41DE65AF50043F304 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C390D01DE65A5F0043F304 /* CryptoSwift.framework */; };
+		49C390E51DE65AF50043F304 /* CryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 49C390D01DE65A5F0043F304 /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		49C390EA1DE65B580043F304 /* CryptoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C390E91DE65B580043F304 /* CryptoHelper.swift */; };
+		49C390ED1DE675790043F304 /* ClassExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C390EC1DE675790043F304 /* ClassExtensions.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		495FBBE61DE692A90071AD16 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 49C3908D1DE658C80043F304 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 495FBBCE1DE692A90071AD16;
+			remoteInfo = safyios;
+		};
+		495FBBF11DE692A90071AD16 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 49C3908D1DE658C80043F304 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 495FBBCE1DE692A90071AD16;
+			remoteInfo = safyios;
+		};
+		495FBC071DE6961F0071AD16 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 49C390CA1DE65A5F0043F304 /* CryptoSwift.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 754BE45419693E190098E6F3;
+			remoteInfo = CryptoSwift;
+		};
+		49C390AA1DE658C80043F304 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 49C3908D1DE658C80043F304 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 49C390941DE658C80043F304;
+			remoteInfo = safymac;
+		};
+		49C390B51DE658C80043F304 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 49C3908D1DE658C80043F304 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 49C390941DE658C80043F304;
+			remoteInfo = safymac;
+		};
+		49C390CF1DE65A5F0043F304 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 49C390CA1DE65A5F0043F304 /* CryptoSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 754BE45519693E190098E6F3;
+			remoteInfo = CryptoSwift;
+		};
+		49C390D11DE65A5F0043F304 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 49C390CA1DE65A5F0043F304 /* CryptoSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 754BE46019693E190098E6F3;
+			remoteInfo = Tests;
+		};
+		49C390E61DE65AF50043F304 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 49C390CA1DE65A5F0043F304 /* CryptoSwift.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 754BE45419693E190098E6F3;
+			remoteInfo = CryptoSwift;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		495FBC091DE6961F0071AD16 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				495FBC061DE6961F0071AD16 /* CryptoSwift.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49C390E81DE65AF50043F304 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				49C390E51DE65AF50043F304 /* CryptoSwift.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		495FBBCF1DE692A90071AD16 /* safyios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = safyios.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		495FBBD11DE692A90071AD16 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		495FBBD31DE692A90071AD16 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		495FBBD61DE692A90071AD16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		495FBBD91DE692A90071AD16 /* safyios.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = safyios.xcdatamodel; sourceTree = "<group>"; };
+		495FBBDB1DE692A90071AD16 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		495FBBDE1DE692A90071AD16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		495FBBE01DE692A90071AD16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		495FBBE51DE692A90071AD16 /* safyiosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = safyiosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		495FBBE91DE692A90071AD16 /* safyiosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = safyiosTests.swift; sourceTree = "<group>"; };
+		495FBBEB1DE692A90071AD16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		495FBBF01DE692A90071AD16 /* safyiosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = safyiosUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		495FBBF41DE692A90071AD16 /* safyiosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = safyiosUITests.swift; sourceTree = "<group>"; };
+		495FBBF61DE692A90071AD16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		495FBC021DE692DD0071AD16 /* ClassExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassExtensions.swift; sourceTree = "<group>"; };
+		495FBC0A1DE6A8CB0071AD16 /* iTunesArtwork@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@1x.png"; sourceTree = "<group>"; };
+		495FBC0B1DE6A8CB0071AD16 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
+		495FBC0C1DE6A8CB0071AD16 /* iTunesArtwork@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@3x.png"; sourceTree = "<group>"; };
+		49C390951DE658C80043F304 /* safymac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = safymac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		49C390981DE658C80043F304 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		49C3909A1DE658C80043F304 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		49C3909D1DE658C80043F304 /* safymac.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = safymac.xcdatamodel; sourceTree = "<group>"; };
+		49C3909F1DE658C80043F304 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		49C390A21DE658C80043F304 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		49C390A41DE658C80043F304 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49C390A91DE658C80043F304 /* safymacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = safymacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		49C390AD1DE658C80043F304 /* safymacTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = safymacTests.swift; sourceTree = "<group>"; };
+		49C390AF1DE658C80043F304 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49C390B41DE658C80043F304 /* safymacUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = safymacUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		49C390B81DE658C80043F304 /* safymacUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = safymacUITests.swift; sourceTree = "<group>"; };
+		49C390BA1DE658C80043F304 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49C390CA1DE65A5F0043F304 /* CryptoSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoSwift.xcodeproj; path = CryptoSwift/CryptoSwift.xcodeproj; sourceTree = "<group>"; };
+		49C390E91DE65B580043F304 /* CryptoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoHelper.swift; sourceTree = "<group>"; };
+		49C390EC1DE675790043F304 /* ClassExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassExtensions.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		495FBBCC1DE692A90071AD16 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				495FBC051DE6961F0071AD16 /* CryptoSwift.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		495FBBE21DE692A90071AD16 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		495FBBED1DE692A90071AD16 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49C390921DE658C80043F304 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49C390E41DE65AF50043F304 /* CryptoSwift.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49C390A61DE658C80043F304 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49C390B11DE658C80043F304 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		495FBBD01DE692A90071AD16 /* safyios */ = {
+			isa = PBXGroup;
+			children = (
+				495FBC0A1DE6A8CB0071AD16 /* iTunesArtwork@1x.png */,
+				495FBC0B1DE6A8CB0071AD16 /* iTunesArtwork@2x.png */,
+				495FBC0C1DE6A8CB0071AD16 /* iTunesArtwork@3x.png */,
+				495FBBD11DE692A90071AD16 /* AppDelegate.swift */,
+				495FBBD31DE692A90071AD16 /* ViewController.swift */,
+				495FBBD51DE692A90071AD16 /* Main.storyboard */,
+				495FBBDB1DE692A90071AD16 /* Assets.xcassets */,
+				495FBBDD1DE692A90071AD16 /* LaunchScreen.storyboard */,
+				495FBBE01DE692A90071AD16 /* Info.plist */,
+				495FBBD81DE692A90071AD16 /* safyios.xcdatamodeld */,
+				495FBC021DE692DD0071AD16 /* ClassExtensions.swift */,
+			);
+			path = safyios;
+			sourceTree = "<group>";
+		};
+		495FBBE81DE692A90071AD16 /* safyiosTests */ = {
+			isa = PBXGroup;
+			children = (
+				495FBBE91DE692A90071AD16 /* safyiosTests.swift */,
+				495FBBEB1DE692A90071AD16 /* Info.plist */,
+			);
+			path = safyiosTests;
+			sourceTree = "<group>";
+		};
+		495FBBF31DE692A90071AD16 /* safyiosUITests */ = {
+			isa = PBXGroup;
+			children = (
+				495FBBF41DE692A90071AD16 /* safyiosUITests.swift */,
+				495FBBF61DE692A90071AD16 /* Info.plist */,
+			);
+			path = safyiosUITests;
+			sourceTree = "<group>";
+		};
+		49C3908C1DE658C80043F304 = {
+			isa = PBXGroup;
+			children = (
+				49C390CA1DE65A5F0043F304 /* CryptoSwift.xcodeproj */,
+				49C390971DE658C80043F304 /* safymac */,
+				49C390AC1DE658C80043F304 /* safymacTests */,
+				49C390B71DE658C80043F304 /* safymacUITests */,
+				495FBBD01DE692A90071AD16 /* safyios */,
+				495FBBE81DE692A90071AD16 /* safyiosTests */,
+				495FBBF31DE692A90071AD16 /* safyiosUITests */,
+				49C390961DE658C80043F304 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		49C390961DE658C80043F304 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				49C390951DE658C80043F304 /* safymac.app */,
+				49C390A91DE658C80043F304 /* safymacTests.xctest */,
+				49C390B41DE658C80043F304 /* safymacUITests.xctest */,
+				495FBBCF1DE692A90071AD16 /* safyios.app */,
+				495FBBE51DE692A90071AD16 /* safyiosTests.xctest */,
+				495FBBF01DE692A90071AD16 /* safyiosUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		49C390971DE658C80043F304 /* safymac */ = {
+			isa = PBXGroup;
+			children = (
+				49C390E91DE65B580043F304 /* CryptoHelper.swift */,
+				49C390981DE658C80043F304 /* AppDelegate.swift */,
+				49C3909A1DE658C80043F304 /* ViewController.swift */,
+				49C3909F1DE658C80043F304 /* Assets.xcassets */,
+				49C390A11DE658C80043F304 /* Main.storyboard */,
+				49C390A41DE658C80043F304 /* Info.plist */,
+				49C3909C1DE658C80043F304 /* safymac.xcdatamodeld */,
+				49C390EC1DE675790043F304 /* ClassExtensions.swift */,
+			);
+			path = safymac;
+			sourceTree = "<group>";
+		};
+		49C390AC1DE658C80043F304 /* safymacTests */ = {
+			isa = PBXGroup;
+			children = (
+				49C390AD1DE658C80043F304 /* safymacTests.swift */,
+				49C390AF1DE658C80043F304 /* Info.plist */,
+			);
+			path = safymacTests;
+			sourceTree = "<group>";
+		};
+		49C390B71DE658C80043F304 /* safymacUITests */ = {
+			isa = PBXGroup;
+			children = (
+				49C390B81DE658C80043F304 /* safymacUITests.swift */,
+				49C390BA1DE658C80043F304 /* Info.plist */,
+			);
+			path = safymacUITests;
+			sourceTree = "<group>";
+		};
+		49C390CB1DE65A5F0043F304 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				49C390D01DE65A5F0043F304 /* CryptoSwift.framework */,
+				49C390D21DE65A5F0043F304 /* Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		495FBBCE1DE692A90071AD16 /* safyios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 495FBBFE1DE692A90071AD16 /* Build configuration list for PBXNativeTarget "safyios" */;
+			buildPhases = (
+				495FBBCB1DE692A90071AD16 /* Sources */,
+				495FBBCC1DE692A90071AD16 /* Frameworks */,
+				495FBBCD1DE692A90071AD16 /* Resources */,
+				495FBC091DE6961F0071AD16 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				495FBC081DE6961F0071AD16 /* PBXTargetDependency */,
+			);
+			name = safyios;
+			productName = safyios;
+			productReference = 495FBBCF1DE692A90071AD16 /* safyios.app */;
+			productType = "com.apple.product-type.application";
+		};
+		495FBBE41DE692A90071AD16 /* safyiosTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 495FBBFF1DE692A90071AD16 /* Build configuration list for PBXNativeTarget "safyiosTests" */;
+			buildPhases = (
+				495FBBE11DE692A90071AD16 /* Sources */,
+				495FBBE21DE692A90071AD16 /* Frameworks */,
+				495FBBE31DE692A90071AD16 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				495FBBE71DE692A90071AD16 /* PBXTargetDependency */,
+			);
+			name = safyiosTests;
+			productName = safyiosTests;
+			productReference = 495FBBE51DE692A90071AD16 /* safyiosTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		495FBBEF1DE692A90071AD16 /* safyiosUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 495FBC001DE692A90071AD16 /* Build configuration list for PBXNativeTarget "safyiosUITests" */;
+			buildPhases = (
+				495FBBEC1DE692A90071AD16 /* Sources */,
+				495FBBED1DE692A90071AD16 /* Frameworks */,
+				495FBBEE1DE692A90071AD16 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				495FBBF21DE692A90071AD16 /* PBXTargetDependency */,
+			);
+			name = safyiosUITests;
+			productName = safyiosUITests;
+			productReference = 495FBBF01DE692A90071AD16 /* safyiosUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		49C390941DE658C80043F304 /* safymac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 49C390BD1DE658C80043F304 /* Build configuration list for PBXNativeTarget "safymac" */;
+			buildPhases = (
+				49C390911DE658C80043F304 /* Sources */,
+				49C390921DE658C80043F304 /* Frameworks */,
+				49C390931DE658C80043F304 /* Resources */,
+				49C390E81DE65AF50043F304 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				49C390E71DE65AF50043F304 /* PBXTargetDependency */,
+			);
+			name = safymac;
+			productName = safymac;
+			productReference = 49C390951DE658C80043F304 /* safymac.app */;
+			productType = "com.apple.product-type.application";
+		};
+		49C390A81DE658C80043F304 /* safymacTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 49C390C01DE658C80043F304 /* Build configuration list for PBXNativeTarget "safymacTests" */;
+			buildPhases = (
+				49C390A51DE658C80043F304 /* Sources */,
+				49C390A61DE658C80043F304 /* Frameworks */,
+				49C390A71DE658C80043F304 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				49C390AB1DE658C80043F304 /* PBXTargetDependency */,
+			);
+			name = safymacTests;
+			productName = safymacTests;
+			productReference = 49C390A91DE658C80043F304 /* safymacTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		49C390B31DE658C80043F304 /* safymacUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 49C390C31DE658C80043F304 /* Build configuration list for PBXNativeTarget "safymacUITests" */;
+			buildPhases = (
+				49C390B01DE658C80043F304 /* Sources */,
+				49C390B11DE658C80043F304 /* Frameworks */,
+				49C390B21DE658C80043F304 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				49C390B61DE658C80043F304 /* PBXTargetDependency */,
+			);
+			name = safymacUITests;
+			productName = safymacUITests;
+			productReference = 49C390B41DE658C80043F304 /* safymacUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		49C3908D1DE658C80043F304 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0810;
+				LastUpgradeCheck = 0810;
+				ORGANIZATIONNAME = "Sergio Abril Herrero";
+				TargetAttributes = {
+					495FBBCE1DE692A90071AD16 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = A7M3Z65R3N;
+						ProvisioningStyle = Automatic;
+					};
+					495FBBE41DE692A90071AD16 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = A7M3Z65R3N;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 495FBBCE1DE692A90071AD16;
+					};
+					495FBBEF1DE692A90071AD16 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = A7M3Z65R3N;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 495FBBCE1DE692A90071AD16;
+					};
+					49C390941DE658C80043F304 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = A7M3Z65R3N;
+						ProvisioningStyle = Automatic;
+					};
+					49C390A81DE658C80043F304 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = A7M3Z65R3N;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 49C390941DE658C80043F304;
+					};
+					49C390B31DE658C80043F304 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = A7M3Z65R3N;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 49C390941DE658C80043F304;
+					};
+				};
+			};
+			buildConfigurationList = 49C390901DE658C80043F304 /* Build configuration list for PBXProject "safymac" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 49C3908C1DE658C80043F304;
+			productRefGroup = 49C390961DE658C80043F304 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 49C390CB1DE65A5F0043F304 /* Products */;
+					ProjectRef = 49C390CA1DE65A5F0043F304 /* CryptoSwift.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				49C390941DE658C80043F304 /* safymac */,
+				49C390A81DE658C80043F304 /* safymacTests */,
+				49C390B31DE658C80043F304 /* safymacUITests */,
+				495FBBCE1DE692A90071AD16 /* safyios */,
+				495FBBE41DE692A90071AD16 /* safyiosTests */,
+				495FBBEF1DE692A90071AD16 /* safyiosUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		49C390D01DE65A5F0043F304 /* CryptoSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CryptoSwift.framework;
+			remoteRef = 49C390CF1DE65A5F0043F304 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		49C390D21DE65A5F0043F304 /* Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Tests.xctest;
+			remoteRef = 49C390D11DE65A5F0043F304 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		495FBBCD1DE692A90071AD16 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				495FBBDF1DE692A90071AD16 /* LaunchScreen.storyboard in Resources */,
+				495FBC0E1DE6A8CB0071AD16 /* iTunesArtwork@2x.png in Resources */,
+				495FBBDC1DE692A90071AD16 /* Assets.xcassets in Resources */,
+				495FBC0D1DE6A8CB0071AD16 /* iTunesArtwork@1x.png in Resources */,
+				495FBC101DE6A8E10071AD16 /* Assets.xcassets in Resources */,
+				495FBC0F1DE6A8CB0071AD16 /* iTunesArtwork@3x.png in Resources */,
+				495FBBD71DE692A90071AD16 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		495FBBE31DE692A90071AD16 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		495FBBEE1DE692A90071AD16 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49C390931DE658C80043F304 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49C390A01DE658C80043F304 /* Assets.xcassets in Resources */,
+				49C390A31DE658C80043F304 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49C390A71DE658C80043F304 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49C390B21DE658C80043F304 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		495FBBCB1DE692A90071AD16 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				495FBC031DE692DD0071AD16 /* ClassExtensions.swift in Sources */,
+				495FBBDA1DE692A90071AD16 /* safyios.xcdatamodeld in Sources */,
+				495FBBD41DE692A90071AD16 /* ViewController.swift in Sources */,
+				495FBC011DE692C20071AD16 /* CryptoHelper.swift in Sources */,
+				495FBBD21DE692A90071AD16 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		495FBBE11DE692A90071AD16 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				495FBBEA1DE692A90071AD16 /* safyiosTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		495FBBEC1DE692A90071AD16 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				495FBBF51DE692A90071AD16 /* safyiosUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49C390911DE658C80043F304 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49C390ED1DE675790043F304 /* ClassExtensions.swift in Sources */,
+				49C3909E1DE658C80043F304 /* safymac.xcdatamodeld in Sources */,
+				49C3909B1DE658C80043F304 /* ViewController.swift in Sources */,
+				49C390EA1DE65B580043F304 /* CryptoHelper.swift in Sources */,
+				49C390991DE658C80043F304 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49C390A51DE658C80043F304 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49C390AE1DE658C80043F304 /* safymacTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49C390B01DE658C80043F304 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49C390B91DE658C80043F304 /* safymacUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		495FBBE71DE692A90071AD16 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 495FBBCE1DE692A90071AD16 /* safyios */;
+			targetProxy = 495FBBE61DE692A90071AD16 /* PBXContainerItemProxy */;
+		};
+		495FBBF21DE692A90071AD16 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 495FBBCE1DE692A90071AD16 /* safyios */;
+			targetProxy = 495FBBF11DE692A90071AD16 /* PBXContainerItemProxy */;
+		};
+		495FBC081DE6961F0071AD16 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CryptoSwift;
+			targetProxy = 495FBC071DE6961F0071AD16 /* PBXContainerItemProxy */;
+		};
+		49C390AB1DE658C80043F304 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 49C390941DE658C80043F304 /* safymac */;
+			targetProxy = 49C390AA1DE658C80043F304 /* PBXContainerItemProxy */;
+		};
+		49C390B61DE658C80043F304 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 49C390941DE658C80043F304 /* safymac */;
+			targetProxy = 49C390B51DE658C80043F304 /* PBXContainerItemProxy */;
+		};
+		49C390E71DE65AF50043F304 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CryptoSwift;
+			targetProxy = 49C390E61DE65AF50043F304 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		495FBBD51DE692A90071AD16 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				495FBBD61DE692A90071AD16 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		495FBBDD1DE692A90071AD16 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				495FBBDE1DE692A90071AD16 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		49C390A11DE658C80043F304 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				49C390A21DE658C80043F304 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		495FBBF71DE692A90071AD16 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = A7M3Z65R3N;
+				INFOPLIST_FILE = safyios/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sergioabril.safyios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		495FBBF81DE692A90071AD16 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = A7M3Z65R3N;
+				INFOPLIST_FILE = safyios/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sergioabril.safyios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		495FBBF91DE692A90071AD16 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = A7M3Z65R3N;
+				INFOPLIST_FILE = safyiosTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sergioabril.safyiosTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/safyios.app/safyios";
+			};
+			name = Debug;
+		};
+		495FBBFA1DE692A90071AD16 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = A7M3Z65R3N;
+				INFOPLIST_FILE = safyiosTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sergioabril.safyiosTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/safyios.app/safyios";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		495FBBFB1DE692A90071AD16 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = A7M3Z65R3N;
+				INFOPLIST_FILE = safyiosUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sergioabril.safyiosUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = safyios;
+			};
+			name = Debug;
+		};
+		495FBBFC1DE692A90071AD16 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = A7M3Z65R3N;
+				INFOPLIST_FILE = safyiosUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sergioabril.safyiosUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = safyios;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		49C390BB1DE658C80043F304 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		49C390BC1DE658C80043F304 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+			};
+			name = Release;
+		};
+		49C390BE1DE658C80043F304 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = A7M3Z65R3N;
+				INFOPLIST_FILE = safymac/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sergioabril.safymac;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		49C390BF1DE658C80043F304 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = A7M3Z65R3N;
+				INFOPLIST_FILE = safymac/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sergioabril.safymac;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		49C390C11DE658C80043F304 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = A7M3Z65R3N;
+				INFOPLIST_FILE = safymacTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sergioabril.safymacTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/safymac.app/Contents/MacOS/safymac";
+			};
+			name = Debug;
+		};
+		49C390C21DE658C80043F304 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = A7M3Z65R3N;
+				INFOPLIST_FILE = safymacTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sergioabril.safymacTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/safymac.app/Contents/MacOS/safymac";
+			};
+			name = Release;
+		};
+		49C390C41DE658C80043F304 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = A7M3Z65R3N;
+				INFOPLIST_FILE = safymacUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sergioabril.safymacUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = safymac;
+			};
+			name = Debug;
+		};
+		49C390C51DE658C80043F304 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = A7M3Z65R3N;
+				INFOPLIST_FILE = safymacUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sergioabril.safymacUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = safymac;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		495FBBFE1DE692A90071AD16 /* Build configuration list for PBXNativeTarget "safyios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				495FBBF71DE692A90071AD16 /* Debug */,
+				495FBBF81DE692A90071AD16 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		495FBBFF1DE692A90071AD16 /* Build configuration list for PBXNativeTarget "safyiosTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				495FBBF91DE692A90071AD16 /* Debug */,
+				495FBBFA1DE692A90071AD16 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		495FBC001DE692A90071AD16 /* Build configuration list for PBXNativeTarget "safyiosUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				495FBBFB1DE692A90071AD16 /* Debug */,
+				495FBBFC1DE692A90071AD16 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		49C390901DE658C80043F304 /* Build configuration list for PBXProject "safymac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49C390BB1DE658C80043F304 /* Debug */,
+				49C390BC1DE658C80043F304 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		49C390BD1DE658C80043F304 /* Build configuration list for PBXNativeTarget "safymac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49C390BE1DE658C80043F304 /* Debug */,
+				49C390BF1DE658C80043F304 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		49C390C01DE658C80043F304 /* Build configuration list for PBXNativeTarget "safymacTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49C390C11DE658C80043F304 /* Debug */,
+				49C390C21DE658C80043F304 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		49C390C31DE658C80043F304 /* Build configuration list for PBXNativeTarget "safymacUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49C390C41DE658C80043F304 /* Debug */,
+				49C390C51DE658C80043F304 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		495FBBD81DE692A90071AD16 /* safyios.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				495FBBD91DE692A90071AD16 /* safyios.xcdatamodel */,
+			);
+			currentVersion = 495FBBD91DE692A90071AD16 /* safyios.xcdatamodel */;
+			path = safyios.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		49C3909C1DE658C80043F304 /* safymac.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				49C3909D1DE658C80043F304 /* safymac.xcdatamodel */,
+			);
+			currentVersion = 49C3909D1DE658C80043F304 /* safymac.xcdatamodel */;
+			path = safymac.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 49C3908D1DE658C80043F304 /* Project object */;
+}
