@@ -11,15 +11,32 @@ import CryptoSwift
 
 
 class CryptoHelper{
+    //MARK: Enums and structs
     
-    //ENUM
+    //Decryption status
     public enum decryptionresult{
         case ok
         case error
     }
     
+    //File format struct
+    public struct fileFormatPack {
+        let fileformat:fileFormat
+        let kindOfFileIndex:UInt8
+    }
+    //File format possibilities
+    public enum fileFormat:String{
+        case plaintext = ""
+        case txt = "txt"
+        case jpg = "jpg"
+        case png = "png"
+        case mp4 = "mp4"
+        case mov = "mov"
+        
+        static let allValues = [plaintext,txt,jpg,png,mp4,mov]
+    }
     
-    //MARK: Headers and footers of armored files
+    //MARK: Headers for ascii text
     static var armorHeader:String!{
         return String("----Safy----\n")
     }
@@ -27,7 +44,40 @@ class CryptoHelper{
         return String("\n----End of encryption----")
     }
     
-    //MARK: Derive password
+    //MARK: file format methods
+    static func getFileFormatFromPath(path:URL?) -> fileFormat
+    {
+        //By default, just plain text
+        var thefileformat:fileFormat = .plaintext
+        let fileextension:String? = path?.pathExtension
+        if(fileextension == nil){return thefileformat}
+        for format in fileFormat.allValues{
+            if(format.rawValue == fileextension){
+                thefileformat = CryptoHelper.fileFormat(rawValue: format.rawValue)!
+                break
+            }
+        }
+        return thefileformat
+    }
+    //Get byte value from a given fileformat
+    static func getByteFlagForFileFormat(fileformat:fileFormat) -> UInt8{
+        let index = fileFormat.allValues.index(of: fileformat)!
+        let byteflag:UInt8 = UInt8(exactly: index)!
+        return byteflag
+    }
+    //Get fileformat from given UInt8 value given
+    static func getFileFormatForByteFlag(bytenumber:UInt8) -> fileFormat{
+        for (index,fileform) in fileFormat.allValues.enumerated(){
+            if(index == Int(bytenumber)){
+                return fileform
+            }
+        }
+        return .plaintext
+    }
+    
+    //MARK: Previous operations
+    
+    //Derive password
     static func deriveKeyFromPassword(pass:String, vectorsalt: Array<UInt8>, iterationFactor: Int) -> Array<UInt8>{
         var value: [UInt8] = []
         do{
@@ -42,7 +92,7 @@ class CryptoHelper{
         return value;
     }
     
-    //MARK: Separate Headers and Encrypted data
+    //Separate Headers and Encrypted data
     static func SeparateIvFromCipherString(cipher:String) -> (cipher:String, iv:String, iterations: Int){
         //Try to read the iv string Hex again:
         let ivStartIndex = cipher.index(cipher.startIndex, offsetBy: 0)
@@ -75,7 +125,7 @@ class CryptoHelper{
 
     
     //MARK: Encryption functions
-    
+    //Decrypt
     static func decryptAES256fromBytes(databytes: Array<UInt8>, password:String) -> (plaintext: Array<UInt8>, status: decryptionresult){
         //Load needed values from data
         let separator = self.SeparateIvFromCipherString(cipher: databytes.toHexString())
@@ -103,7 +153,7 @@ class CryptoHelper{
         }
         return (plaintext: [], status: .error)
     }
-    
+    //Encrypt
     static func encryptAES256fromBytes(databytes: Array<UInt8>, password: String) -> Array<UInt8>{
         var input: Array<UInt8> = databytes
         for _ in 0...3 { input.insert(80, at: 0)} //add 4 0x80 bytes
