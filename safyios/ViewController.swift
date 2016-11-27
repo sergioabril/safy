@@ -113,6 +113,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         //Encripto en background
         DispatchQueue.global(qos: .background).async {
+            self.lastStatus = .none //reset status so it has to change after compression
             
             let bytesEncryptados = CryptoHelper.encryptAES256fromBytes(databytes: bytesToEncrypt, password: self.passOne.text!)
             let cadenaFinal = CryptoHelper.armorHeader.appending(bytesEncryptados.toBase64()!).appending(CryptoHelper.armorFooter)
@@ -123,6 +124,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 //print("Finished: \(cadenaFinal)")
                 self.textview.text = cadenaFinal
                 self.unmarkBusy()
+                //Save url so it
+                self.fileDataPath = finalUrlOfFile as URL
                 //Share with the url
                 self.shareEncryptedResult(urlpath: finalUrlOfFile)
             }
@@ -140,29 +143,59 @@ class ViewController: UIViewController, UITextFieldDelegate {
             print("Using password:\(self.passTwo.text!)")
         }
         
-        
-        //Avoid empty texts
-        if(textview.text == nil){
-            showMessage(isError: true, text: "No hay nada que desencriptar", warnuser: true)
-            unmarkBusy()
-            return;
+        //2. Check if it's text or a textfile
+        //Avoid empty texts if it's a textfile
+        if(lastStatus == .decryptText){
+            if(textview.text == nil){
+                showMessage(isError: true, text: "No hay texto que desencriptar", warnuser: true)
+                unmarkBusy()
+                return;
+            }
+        }else if(lastStatus == .decryptFile){
+            if(self.fileDataPath == nil){
+                showMessage(isError: true, text: "No hay file que desencriptar", warnuser: true)
+                unmarkBusy()
+                return;
+            }
         }
+
         
-        //Obtengo texto y quito headers y footers. Esa es mi base64
-        var newBase64:String! = textview.text!.replacingOccurrences(of: CryptoHelper.armorHeader, with: "")
-        newBase64 = newBase64.replacingOccurrences(of: CryptoHelper.armorFooter, with: "")
-        
-        //COnvierto base64 a data. Si falla suele ser porque esta alterada, asique error y salgo
-        let dataToDecrypt:Data? = Data(base64Encoded: newBase64)
-        if(dataToDecrypt == nil){
-            showMessage(isError: true, text: "Datos corruptos o alterados!", warnuser: true)
-            unmarkBusy()
-            return
-        }
-        let bytesToDecrypt:Array<UInt8> = dataToDecrypt!.bytes;
-        
-        //Desencripto in background
+        //3. Obtengo data para encryptar. Todo en background
         DispatchQueue.global(qos: .background).async {
+            var dataToDecrypt:Data?
+            if(self.lastStatus == .decryptText){
+                //Obtengo texto y quito headers y footers. Esa es mi base64
+                var newBase64:String! = self.textview.text!.replacingOccurrences(of: CryptoHelper.armorHeader, with: "")
+                newBase64 = newBase64.replacingOccurrences(of: CryptoHelper.armorFooter, with: "")
+                
+                //COnvierto base64 a data. Si falla suele ser porque esta alterada, asique error y salgo
+                dataToDecrypt = Data(base64Encoded: newBase64)
+            }
+            if(self.lastStatus == .decryptFile){
+                do{
+                    try dataToDecrypt = Data(contentsOf: self.fileDataPath!)
+                }catch{
+                    print("Error convirtiendo file a Data: \(error)")
+                    DispatchQueue.main.async {
+                        self.showMessage(isError: true, text: "Datos corruptos o alterados! Can't get anyting", warnuser: true)
+                        self.unmarkBusy()
+                        return
+                    }
+                }
+            }
+            
+            
+            //4. Check if data is nil.. because you can't encrypt. COnvert to bytes
+            if(dataToDecrypt == nil){
+                DispatchQueue.main.async {
+                    self.showMessage(isError: true, text: "Datos corruptos o alterados! Can't get anyting", warnuser: true)
+                    self.unmarkBusy()
+                    return
+                }
+            }
+            let bytesToDecrypt:Array<UInt8> = dataToDecrypt!.bytes;
+            
+            //5. Desencripto (in background too)
             //Decrypt
             let cryptofunction = CryptoHelper.decryptAES256fromBytes(databytes: bytesToDecrypt, password: self.passTwo.text!)
             let decryptedBytes:Array<UInt8> = cryptofunction.plaintext;
@@ -190,6 +223,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 return;
             }
             
+            //Success: remove filepath if there was.
+            if(self.fileDataPath != nil){
+                print("Borro referencia a:\(self.fileDataPath!)")
+                do{
+                    try FileManager.default.removeItem(at: self.fileDataPath!)
+                }catch{
+                    print("Error removing file from inbox. \(error)")
+                }
+                self.fileDataPath = nil
+            }
+            
             //Success: Back to main and update text
             DispatchQueue.main.async {
                 //Set string to textview
@@ -199,6 +243,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 //Clean passwords and lose focus
                 self.passOne.text = ""
                 self.passTwo.text = ""
+                self.passOne.becomeFirstResponder()
+
             }
         }
         
@@ -255,16 +301,18 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     busyChangingStatus = true
                     self.fileimage.isHidden = false
                     //Anim
-                    UIView.animate(withDuration: 1.0, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-                        self.buttonDecrypt.setTitle("Decrypt", for: .normal)
-                        self.passOne.alpha = 0
-                        self.fileimage.alpha = 1
-                        self.textview.alpha = 0 //change text for image
-                    }, completion: {_ in
-                        print("Status cambiado a .decryptText")
-                        self.busyChangingStatus = false
-                        self.passOne.isHidden = true
-                    })
+                    DispatchQueue.main.async {
+                        UIView.animate(withDuration: 1.0, delay: 0.1, options: UIViewAnimationOptions.curveEaseOut, animations: {
+                            self.buttonDecrypt.setTitle("Decrypt", for: .normal)
+                            self.passOne.alpha = 0
+                            self.fileimage.alpha = 1
+                            self.textview.alpha = 0 //change text for image
+                        }, completion: {_ in
+                            print("Status cambiado a .decryptText")
+                            self.busyChangingStatus = false
+                            self.passOne.isHidden = true
+                        })
+                    }
                 }
             }else{
                 //Esta en estado textCanencrypt. Si el last status no es igual, toca animar
@@ -273,18 +321,20 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     lastStatus = .encryptText
                     busyChangingStatus = true
                     //Anim
-                    self.passOne.isHidden = false
-                    UIView.animate(withDuration: 1.0, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-                        self.buttonDecrypt.setTitle("Encrypt", for: .normal)
-                        self.passOne.alpha = 1
-                        self.fileimage.alpha = 0
-                        self.textview.alpha = 1 //fade imageicon and show text again
-                    }, completion: {_ in
-                        print("Status cambiado a .encryptText")
-                        self.busyChangingStatus = false
-                        self.fileimage.isHidden = true
+                    DispatchQueue.main.async {
+                        self.passOne.isHidden = false
+                        UIView.animate(withDuration: 1.0, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+                            self.buttonDecrypt.setTitle("Encrypt", for: .normal)
+                            self.passOne.alpha = 1
+                            self.fileimage.alpha = 0
+                            self.textview.alpha = 1 //fade imageicon and show text again
+                        }, completion: {_ in
+                            print("Status cambiado a .encryptText")
+                            self.busyChangingStatus = false
+                            self.fileimage.isHidden = true
 
-                    })
+                        })
+                    }
                 }
             }
         }else{
@@ -292,7 +342,22 @@ class ViewController: UIViewController, UITextFieldDelegate {
             if(self.fileDataPath!.pathExtension == "safy"){
                 if(lastStatus != .decryptFile){
                     lastStatus = .decryptFile
-                    print("Status cambiado a .decryptFile")
+                    DispatchQueue.main.async {
+                        self.fileimage.isHidden = false;
+                        UIView.animate(withDuration: 1.0, delay: 0.1, options: UIViewAnimationOptions.curveEaseOut, animations: {
+                            self.buttonDecrypt.setTitle("Decrypt file", for: .normal)
+                            self.passOne.alpha = 0
+                            self.fileimage.alpha = 1
+                            self.textview.alpha = 0 //change text for image
+                        }, completion: {_ in
+                            print("Status cambiado a .decryptFile")
+                            self.busyChangingStatus = false
+                            self.passOne.isHidden = true
+                            self.passTwo.text = ""
+                            self.passOne.text = ""
+                            self.passTwo.becomeFirstResponder()
+                        })
+                    }
                 }
             }else{
                 if(lastStatus != .encryptFile){
@@ -307,10 +372,21 @@ class ViewController: UIViewController, UITextFieldDelegate {
     //MARK: Check if valid for decryption
     func canDecrypt() ->Bool{
         var valor:Bool = false;
-        if(textview.text?.range(of: CryptoHelper.armorHeader) != nil && textview.text?.range(of: CryptoHelper.armorFooter) != nil){
-            //Can be decrypted
-            valor = true;
+        //A: If text
+        if(lastStatus == .decryptText){
+            if(textview.text?.range(of: CryptoHelper.armorHeader) != nil && textview.text?.range(of: CryptoHelper.armorFooter) != nil){
+                //Can be decrypted
+                valor = true;
+            }
         }
+        
+        //B: If file, only can be decrypted if its a safy file
+        if(lastStatus == .decryptFile){
+            if(self.fileDataPath?.pathExtension == "safy"){
+                valor = true
+            }
+        }
+        
         return valor;
     }
 
