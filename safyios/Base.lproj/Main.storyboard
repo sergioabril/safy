@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -63,6 +64,13 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textView>
+                            <imageView hidden="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fileprotected.png" translatesAutoresizingMaskIntoConstraints="NO" id="FDZ-aX-u56">
+                                <rect key="frame" x="117" y="263.5" width="140" height="140"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="140" id="npp-pX-9wF"/>
+                                    <constraint firstAttribute="width" secondItem="FDZ-aX-u56" secondAttribute="height" multiplier="1:1" id="xXh-t6-O4u"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.1159" green="0.43706499999999998" blue="0.60999999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -77,12 +85,15 @@
                             <constraint firstItem="BtM-iW-eKS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="PmV-ea-DUx"/>
                             <constraint firstAttribute="trailing" secondItem="OGa-CM-Xc8" secondAttribute="trailing" id="QfF-hy-osR"/>
                             <constraint firstItem="OGa-CM-Xc8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="YUg-6a-URA"/>
+                            <constraint firstItem="FDZ-aX-u56" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Z3m-7N-vyb"/>
                             <constraint firstAttribute="trailing" secondItem="BtM-iW-eKS" secondAttribute="trailing" id="ea6-iV-Vld"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="BtM-iW-eKS" secondAttribute="bottom" id="rla-AA-pW7"/>
+                            <constraint firstItem="FDZ-aX-u56" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="usB-SR-8YV"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="buttonDecrypt" destination="BtM-iW-eKS" id="tqI-QG-rUa"/>
+                        <outlet property="fileimage" destination="FDZ-aX-u56" id="jb1-1e-MLu"/>
                         <outlet property="passOne" destination="dai-HZ-ADq" id="TyL-zG-x0c"/>
                         <outlet property="passTwo" destination="OGa-CM-Xc8" id="h7U-CG-VdU"/>
                         <outlet property="textview" destination="rp1-zQ-XgA" id="vek-wf-3U1"/>
@@ -93,4 +104,7 @@
             <point key="canvasLocation" x="136.80000000000001" y="94.902548725637189"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="fileprotected.png" width="800" height="800"/>
+    </resources>
 </document>

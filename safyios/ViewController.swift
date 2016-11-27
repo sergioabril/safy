@@ -14,6 +14,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         case none
         case encryptText
         case decryptText
+        case encryptFile
+        case decryptFile
     }
     
     @IBOutlet weak var passOne: UITextField!
@@ -22,10 +24,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var textview: UITextView!
     @IBOutlet weak var buttonDecrypt: UIButton!
     
+    @IBOutlet weak var fileimage: UIImageView!
+    
     var busyWorking:Bool = false
     var busyChangingStatus:Bool = false
     var statusChecker:Timer = Timer()
     var lastStatus:currentLayoutStatus = currentLayoutStatus.none
+    var fileDataPath:URL?
+    
     
     //ProgressBall
     var loader:SALoaderOvalBlur?
@@ -38,6 +44,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
        
         //INstantiate loader
         self.loader = SALoaderOvalBlur(onView:self.view, radius: 20, blurBackground: true)
+        
+        //Set AppDelegates reference only once
+        let appdel = UIApplication.shared.delegate as! AppDelegate
+        if(appdel.mainVC == nil){
+            appdel.mainVC = self
+        }
     
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -48,8 +60,20 @@ class ViewController: UIViewController, UITextFieldDelegate {
         //Reset timer to check the layout 
         statusChecker.invalidate()
         statusChecker = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(self.checkStatusChange), userInfo: nil, repeats: true)
+        
+        //Test for possible files. But it has to be called from becomeActive (etc) too.
+        testForInputFiles()
+        
     }
 
+    func testForInputFiles(){
+        //SInce this was text, and the string given wasn't text, assume the password was wrong or data corrupted
+        if ((UIApplication.shared.delegate as! AppDelegate).openedUrlFile != nil && self.fileDataPath == nil){
+            self.fileDataPath = (UIApplication.shared.delegate as! AppDelegate).openedUrlFile!
+            //self.markBusy()
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -93,13 +117,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
             let bytesEncryptados = CryptoHelper.encryptAES256fromBytes(databytes: bytesToEncrypt, password: self.passOne.text!)
             let cadenaFinal = CryptoHelper.armorHeader.appending(bytesEncryptados.toBase64()!).appending(CryptoHelper.armorFooter)
             
+            let finalUrlOfFile:NSURL = self.saveForSharing(bytes: bytesEncryptados, filetype: nil) //Just note: it ignores the header and footer...
             DispatchQueue.main.async {
                 //Set string to textview
                 //print("Finished: \(cadenaFinal)")
                 self.textview.text = cadenaFinal
                 self.unmarkBusy()
-                //Share
-                self.shareEncryptedResult()
+                //Share with the url
+                self.shareEncryptedResult(urlpath: finalUrlOfFile)
             }
         }
         
@@ -178,6 +203,32 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
         
     }
+    
+    
+    //MARK: Save data handler
+    func saveForSharing(bytes: Array<UInt8>, filetype: CryptoHelper.fileFormat?) ->NSURL{
+        //Data from bytes
+        let thedata:Data = Data(bytes)
+        //Prepare date
+        let date = NSDate()
+        let calendar = NSCalendar.current
+        let hour = calendar.component(.hour, from: date as Date)
+        let minutes = calendar.component(.minute, from: date as Date)
+        let secs = calendar.component(.second, from: date as Date)
+        //Build Url
+        let datestamp:String = "\(hour)-\(minutes)-\(secs)"
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        let filepath = "\(documentsPath)/file-\(datestamp).safy"
+        //Save to that url
+        do{
+            try thedata.write(to: NSURL(fileURLWithPath: filepath) as URL)
+        }catch{
+            print("Error writing safy file to documents dir: \(error)")
+        }
+        //Return url
+        return NSURL(fileURLWithPath: filepath)
+    }
+    
     //MARK: Busy and nonbusy. Variable and animations. Loader
     func markBusy(){
         busyWorking = true;
@@ -195,38 +246,61 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func checkStatusChange(){
         if(busyWorking || busyChangingStatus){return}
         
-        if(canDecrypt()){
-            //Esta en estado textCanDecrypt. Si el last status no es igual, toca animar
-            if(lastStatus != .decryptText){
-                lastStatus = .decryptText
-                busyChangingStatus = true
-                //Anim
-                UIView.animate(withDuration: 1.0, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-                    self.buttonDecrypt.setTitle("Decrypt", for: .normal)
-                    self.passOne.alpha = 0
-                }, completion: {_ in
-                    print("Status cambiado a .decryptText")
-                    self.busyChangingStatus = false
-                    self.passOne.isHidden = true
-                })
+        //A: If no file is found, just look for text convertions
+        if(self.fileDataPath == nil){
+            if(canDecrypt()){
+                //Esta en estado textCanDecrypt. Si el last status no es igual, toca animar
+                if(lastStatus != .decryptText){
+                    lastStatus = .decryptText
+                    busyChangingStatus = true
+                    self.fileimage.isHidden = false
+                    //Anim
+                    UIView.animate(withDuration: 1.0, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+                        self.buttonDecrypt.setTitle("Decrypt", for: .normal)
+                        self.passOne.alpha = 0
+                        self.fileimage.alpha = 1
+                        self.textview.alpha = 0 //change text for image
+                    }, completion: {_ in
+                        print("Status cambiado a .decryptText")
+                        self.busyChangingStatus = false
+                        self.passOne.isHidden = true
+                    })
+                }
+            }else{
+                //Esta en estado textCanencrypt. Si el last status no es igual, toca animar
+                if(lastStatus != .encryptText){
+                    //Change button and status
+                    lastStatus = .encryptText
+                    busyChangingStatus = true
+                    //Anim
+                    self.passOne.isHidden = false
+                    UIView.animate(withDuration: 1.0, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+                        self.buttonDecrypt.setTitle("Encrypt", for: .normal)
+                        self.passOne.alpha = 1
+                        self.fileimage.alpha = 0
+                        self.textview.alpha = 1 //fade imageicon and show text again
+                    }, completion: {_ in
+                        print("Status cambiado a .encryptText")
+                        self.busyChangingStatus = false
+                        self.fileimage.isHidden = true
+
+                    })
+                }
             }
         }else{
-            //Esta en estado textCanencrypt. Si el last status no es igual, toca animar
-            if(lastStatus != .encryptText){
-                //Change button and status
-                lastStatus = .encryptText
-                busyChangingStatus = true
-                //Anim
-                self.passOne.isHidden = false
-                UIView.animate(withDuration: 1.0, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-                    self.buttonDecrypt.setTitle("Encrypt", for: .normal)
-                    self.passOne.alpha = 1
-                }, completion: {_ in
-                    print("Status cambiado a .encryptText")
-                    self.busyChangingStatus = false
-                    
-                })
+        //B: When a file is provided
+            if(self.fileDataPath!.pathExtension == "safy"){
+                if(lastStatus != .decryptFile){
+                    lastStatus = .decryptFile
+                    print("Status cambiado a .decryptFile")
+                }
+            }else{
+                if(lastStatus != .encryptFile){
+                    lastStatus = .encryptFile
+                    print("Status cambiado a .encryptFile")
+                }
             }
+            
         }
     }
     
@@ -305,11 +379,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     //MARK: Share
-    func shareEncryptedResult() {
+    func shareEncryptedResult(urlpath: NSURL) {
         //var shareItems:Array = [img, messageStr]
-        var shareItems:[String] = []
-        shareItems.append(self.textview.text)
-        
+        var shareItems:[NSURL] = []
+        //shareItems.append(self.textview.text)
+        shareItems.append(urlpath)
         if(shareItems.count == 0){
             showMessage(isError: true, text: "Can't share, no text", warnuser: true)
             return;
