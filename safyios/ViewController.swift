@@ -32,8 +32,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var lastStatus:currentLayoutStatus = currentLayoutStatus.none
     var fileDataPath:URL?
     
-    
-    //ProgressBall
     var loader:SALoaderOvalBlur?
     
     override func viewDidLoad() {
@@ -49,6 +47,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let appdel = UIApplication.shared.delegate as! AppDelegate
         if(appdel.mainVC == nil){
             appdel.mainVC = self
+            
         }
     
     }
@@ -70,7 +69,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         //SInce this was text, and the string given wasn't text, assume the password was wrong or data corrupted
         if ((UIApplication.shared.delegate as! AppDelegate).openedUrlFile != nil && self.fileDataPath == nil){
             self.fileDataPath = (UIApplication.shared.delegate as! AppDelegate).openedUrlFile!
-            //self.markBusy()
+            //Remove from delegate
+            (UIApplication.shared.delegate as! AppDelegate).openedUrlFile = nil
         }
     }
     
@@ -243,8 +243,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 //Clean passwords and lose focus
                 self.passOne.text = ""
                 self.passTwo.text = ""
-                self.passOne.becomeFirstResponder()
-
+                self.textview.becomeFirstResponder()
             }
         }
         
@@ -344,7 +343,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     lastStatus = .decryptFile
                     DispatchQueue.main.async {
                         self.fileimage.isHidden = false;
-                        UIView.animate(withDuration: 1.0, delay: 0.1, options: UIViewAnimationOptions.curveEaseOut, animations: {
+                        UIView.animate(withDuration: 0.5, delay: 0.02, options: UIViewAnimationOptions.curveEaseOut, animations: {
                             self.buttonDecrypt.setTitle("Decrypt file", for: .normal)
                             self.passOne.alpha = 0
                             self.fileimage.alpha = 1
@@ -355,7 +354,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                             self.passOne.isHidden = true
                             self.passTwo.text = ""
                             self.passOne.text = ""
-                            self.passTwo.becomeFirstResponder()
+                            //self.passTwo.becomeFirstResponder()
                         })
                     }
                 }
@@ -424,12 +423,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: Keyboard: resize view
     func keyboardWillShow(notification: NSNotification) {
-        print("keyboard show")
         keyboardShowOrHide(notification: notification)
     }
     
     func keyboardWillHide(notification: NSNotification) {
-        print("keyboard hide")
         keyboardShowOrHide(notification: notification)
     }
     
