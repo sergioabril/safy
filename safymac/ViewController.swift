@@ -8,8 +8,7 @@
 
 import Cocoa
 
-
-class ViewController: NSViewController, NSTextFieldDelegate {
+class ViewController: NSViewController, NSTextFieldDelegate, NSDraggingDestination {
     
     enum currentLayoutStatus {
         case none
@@ -34,8 +33,8 @@ class ViewController: NSViewController, NSTextFieldDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
-       
+        self.textview.textColor = NSColor.white
+
     
     }
     override func viewDidAppear() {
@@ -283,6 +282,9 @@ class ViewController: NSViewController, NSTextFieldDelegate {
     override func controlTextDidBeginEditing(_ obj: Notification) {
 
     }
+    
+    
+
  
 }
 
