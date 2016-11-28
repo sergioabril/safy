@@ -24,6 +24,7 @@ class CryptoHelper{
         let fileformat:fileFormat
         let kindOfFileIndex:UInt8
     }
+    
     //File format possibilities
     public enum fileFormat:String{
         case plaintext = ""
@@ -93,45 +94,54 @@ class CryptoHelper{
     }
     
     //Separate Headers and Encrypted data
-    static func SeparateIvFromCipherString(cipher:String) -> (cipher:String, iv:String, iterations: Int){
-        //Try to read the iv string Hex again:
-        let ivStartIndex = cipher.index(cipher.startIndex, offsetBy: 0)
-        let ivEndIndex = cipher.index(cipher.startIndex, offsetBy: 31)
+    static func separateHeadersFromChipherString(cipher:String) -> (fileformat:fileFormat, cipher:String, iv:String, iterations: Int){
         
-        //Get IV
+        //First byte is File Format. 2 Hex Char.
+        let fformStartIndex = cipher.index(cipher.startIndex, offsetBy: 0)
+        let fformEndIndex = cipher.index(cipher.startIndex, offsetBy: 1)
+        let rangeFF = fformStartIndex...fformEndIndex
+        let ffHexString:String = cipher[rangeFF]
+        let ffBytes:Array<UInt8> = Array<UInt8>(hex: ffHexString)
+        let fileform = self.getFileFormatForByteFlag(bytenumber: ffBytes[0])
+        //print("Leyendo fake fileflag: \(ffHexString) - \(ffBytes) - \(fileform)");
+        
+        //Try to read the iv. Next 16Bytes/Octets (32HexChar)
+        let ivStartIndex = cipher.index(cipher.startIndex, offsetBy: 2)
+        let ivEndIndex = cipher.index(cipher.startIndex, offsetBy: 33)
         let rangeIV = ivStartIndex...ivEndIndex
         let capturedIV:String = cipher[rangeIV]
         //print("Captured UV \(capturedIV)")
         
         //Get iteration factor: 1 byte (0-255) : 2 characteres of an HexString
-        let iterStartIndex = cipher.index(cipher.startIndex, offsetBy: 32)
-        let iterEndIndex = cipher.index(cipher.startIndex, offsetBy: 33)
+        let iterStartIndex = cipher.index(cipher.startIndex, offsetBy: 34)
+        let iterEndIndex = cipher.index(cipher.startIndex, offsetBy: 35)
         let rangeIter = iterStartIndex...iterEndIndex
         let capturedIteratorString = cipher[rangeIter]
         var capturedIterator = 1; //By default 1 * 4096
         if let value = UInt8(capturedIteratorString, radix: 16) {
             capturedIterator = Int(value)
         }
-        //Get Real Cipher
-        let cipherStartIndex = cipher.index(cipher.startIndex, offsetBy:34)
+        //Get Real Cipher: the rest
+        let cipherStartIndex = cipher.index(cipher.startIndex, offsetBy:36)
         let cipherEndIndex = cipher.index(cipher.endIndex, offsetBy:-1)
         let restCipher:String = cipher[cipherStartIndex...cipherEndIndex]
         //print("Captured cipher \(restCipher)")
 
         //Return
-        return (cipher:restCipher, iv: capturedIV, iterations: capturedIterator)
+        return (fileformat: fileform, cipher:restCipher, iv: capturedIV, iterations: capturedIterator)
     }
     
 
     
     //MARK: Encryption functions
     //Decrypt
-    static func decryptAES256fromBytes(databytes: Array<UInt8>, password:String) -> (plaintext: Array<UInt8>, status: decryptionresult){
+    static func decryptAES256fromBytes(databytes: Array<UInt8>, password:String) -> (plaintext: Array<UInt8>, status: decryptionresult, fileformat:fileFormat?){
         //Load needed values from data
-        let separator = self.SeparateIvFromCipherString(cipher: databytes.toHexString())
+        let separator = self.separateHeadersFromChipherString(cipher: databytes.toHexString())
+        let fileformat = separator.fileformat
         let vector = separator.iv
-        let realcipher = separator.cipher
         let iterations = separator.iterations
+        let realcipher = separator.cipher
         //Prepare byte values
         let input: Array<UInt8> = Array<UInt8>(hex: realcipher)
         let iv: Array<UInt8> = Array<UInt8>(hex: vector)
@@ -145,16 +155,16 @@ class CryptoHelper{
                 if(decrypted[0] == 80 && decrypted[1] == 80 && decrypted[2] == 80 && decrypted[3] == 80){
                         var newArrayOfBytes = decrypted;
                         for _ in 0...3 { newArrayOfBytes.remove(at: 0)} //remove 4 bytes
-                        return (plaintext: newArrayOfBytes, status: .ok)
+                    return (plaintext: newArrayOfBytes, status: .ok, fileformat:fileformat)
                 }
             }
         } catch {
             print(error)
         }
-        return (plaintext: [], status: .error)
+        return (plaintext: [], status: .error, fileformat: nil)
     }
     //Encrypt
-    static func encryptAES256fromBytes(databytes: Array<UInt8>, password: String) -> Array<UInt8>{
+    static func encryptAES256fromBytes(databytes: Array<UInt8>, password: String, urlfile: URL? = nil) -> Array<UInt8>{
         var input: Array<UInt8> = databytes
         for _ in 0...3 { input.insert(80, at: 0)} //add 4 0x80 bytes
         
@@ -164,6 +174,8 @@ class CryptoHelper{
         let iterBytes:[UInt8] = [UInt8(iterations)]
         let iterHex = iterBytes.toHexString()
         
+        let fileformatFlag:Array<UInt8> = [self.getByteFlagForFileFormat(fileformat: self.getFileFormatFromPath(path: urlfile))]
+        
         let key: Array<UInt8> = deriveKeyFromPassword(pass: password, vectorsalt: iv, iterationFactor: iterations)
         //print("IV es \(iv.toHexString())")
         do {
@@ -171,7 +183,7 @@ class CryptoHelper{
             var ciphertext = try AES(key: key, iv: iv, blockMode: .CBC, padding: PKCS7()).encrypt(input)
             //print("hmacSignature: \(hmacSignature.count) - \(hmacSignature.toHexString())");
             //2. Create a long hexadecimal string appending all the parts /header, body, etc
-            let hexString = iv.toHexString().appending(iterHex).appending(ciphertext.toHexString())
+            let hexString = fileformatFlag.toHexString().appending(iv.toHexString()).appending(iterHex).appending(ciphertext.toHexString())
             //Test - Get back Binary data from hex string:
             ciphertext = Array<UInt8>(hex: hexString)
             //Return
