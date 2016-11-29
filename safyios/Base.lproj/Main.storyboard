@@ -23,6 +23,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZvY-Zm-h5k" userLabel="QR">
+                                <rect key="frame" x="331" y="32" width="28" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="28" id="BLq-SF-hWa"/>
+                                    <constraint firstAttribute="height" constant="28" id="Jlc-JY-dbD"/>
+                                </constraints>
+                                <state key="normal" image="Bidiscan"/>
+                                <connections>
+                                    <action selector="scanQr:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4jl-bC-4gU"/>
+                                </connections>
+                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="password" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dai-HZ-ADq">
                                 <rect key="frame" x="0.0" y="543" width="375" height="30"/>
                                 <color key="backgroundColor" red="0.16470441650000001" green="0.28755044569999999" blue="0.48842075889999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -72,15 +83,11 @@
                                     <constraint firstAttribute="width" secondItem="FDZ-aX-u56" secondAttribute="height" multiplier="1:1" id="xXh-t6-O4u"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZvY-Zm-h5k" userLabel="QR">
-                                <rect key="frame" x="335" y="18" width="32" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="32" id="BLq-SF-hWa"/>
-                                    <constraint firstAttribute="height" constant="32" id="Jlc-JY-dbD"/>
-                                </constraints>
-                                <state key="normal" title="QR"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zhy-0R-Pxt" userLabel="Cross">
+                                <rect key="frame" x="331" y="32" width="28" height="28"/>
+                                <state key="normal" image="Cross"/>
                                 <connections>
-                                    <action selector="scanQr:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4jl-bC-4gU"/>
+                                    <action selector="crossPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="V8I-py-QeH"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -91,22 +98,27 @@
                             <constraint firstItem="rp1-zQ-XgA" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="0La-ZI-Joe"/>
                             <constraint firstAttribute="trailing" secondItem="dai-HZ-ADq" secondAttribute="trailing" id="0tn-8M-K33"/>
                             <constraint firstItem="FDZ-aX-u56" firstAttribute="top" relation="lessThanOrEqual" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="190" id="1AE-H7-w6h"/>
+                            <constraint firstItem="ZvY-Zm-h5k" firstAttribute="leading" secondItem="Zhy-0R-Pxt" secondAttribute="leading" id="1CO-il-6h0"/>
                             <constraint firstItem="rp1-zQ-XgA" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="40" id="9sH-H1-myx"/>
                             <constraint firstItem="BtM-iW-eKS" firstAttribute="top" secondItem="OGa-CM-Xc8" secondAttribute="bottom" constant="2" id="AjI-9N-Sje"/>
                             <constraint firstItem="FDZ-aX-u56" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" priority="750" id="DJk-aM-7aF"/>
                             <constraint firstItem="rp1-zQ-XgA" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Fqv-HB-85q"/>
                             <constraint firstItem="OGa-CM-Xc8" firstAttribute="top" secondItem="dai-HZ-ADq" secondAttribute="bottom" constant="2" id="KI0-1L-NAN"/>
-                            <constraint firstAttribute="trailing" secondItem="ZvY-Zm-h5k" secondAttribute="trailing" constant="8" id="Laf-TF-fcj"/>
+                            <constraint firstAttribute="trailing" secondItem="ZvY-Zm-h5k" secondAttribute="trailing" constant="16" id="Laf-TF-fcj"/>
+                            <constraint firstItem="ZvY-Zm-h5k" firstAttribute="bottom" secondItem="Zhy-0R-Pxt" secondAttribute="bottom" id="OPN-k1-1Kc"/>
                             <constraint firstItem="BtM-iW-eKS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="PmV-ea-DUx"/>
                             <constraint firstAttribute="trailing" secondItem="OGa-CM-Xc8" secondAttribute="trailing" id="QfF-hy-osR"/>
                             <constraint firstItem="OGa-CM-Xc8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="YUg-6a-URA"/>
                             <constraint firstItem="FDZ-aX-u56" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Z3m-7N-vyb"/>
+                            <constraint firstItem="ZvY-Zm-h5k" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="12" id="eWe-56-EeW"/>
                             <constraint firstAttribute="trailing" secondItem="BtM-iW-eKS" secondAttribute="trailing" id="ea6-iV-Vld"/>
+                            <constraint firstItem="ZvY-Zm-h5k" firstAttribute="top" secondItem="Zhy-0R-Pxt" secondAttribute="top" id="jmx-Va-5U1"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="BtM-iW-eKS" secondAttribute="bottom" id="rla-AA-pW7"/>
-                            <constraint firstItem="ZvY-Zm-h5k" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="18" id="skg-zU-lb1"/>
+                            <constraint firstItem="ZvY-Zm-h5k" firstAttribute="trailing" secondItem="Zhy-0R-Pxt" secondAttribute="trailing" id="xdz-km-ZO1"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="buttonCross" destination="Zhy-0R-Pxt" id="4S1-Jq-n4V"/>
                         <outlet property="buttonDecrypt" destination="BtM-iW-eKS" id="tqI-QG-rUa"/>
                         <outlet property="buttonQr" destination="ZvY-Zm-h5k" id="b6a-8a-3qw"/>
                         <outlet property="fileimage" destination="FDZ-aX-u56" id="jb1-1e-MLu"/>
@@ -121,6 +133,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Bidiscan" width="28" height="28"/>
+        <image name="Cross" width="28" height="28"/>
         <image name="fileprotected.png" width="800" height="800"/>
     </resources>
 </document>

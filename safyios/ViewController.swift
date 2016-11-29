@@ -19,6 +19,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         case encryptFile
         case decryptFile
     }
+    @IBOutlet weak var buttonCross: UIButton!
     
     @IBOutlet weak var buttonQr: UIButton!
     
@@ -39,6 +40,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var loader:SALoaderOvalBlur?
     
     let qrscanner:QRCode = QRCode()
+    var isCameraScanning:Bool = false;
+    var qrview:UIView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +58,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
             appdel.mainVC = self
             
         }
-    
+        
+        //set share action to image
+        self.fileimage.mutableOrderedSetValue(forKey: <#T##String#>)
+        tapRec.addTarget(self, action: "tappedView")
     }
     override func viewWillAppear(_ animated: Bool) {
         //Add notifications for keyboard
@@ -64,7 +70,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         //Reset timer to check the layout 
         statusChecker.invalidate()
-        statusChecker = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(self.checkStatusChange), userInfo: nil, repeats: true)
+        statusChecker = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.checkStatusChange), userInfo: nil, repeats: true)
         
         //Test for possible files. But it has to be called from becomeActive (etc) too.
         testForInputFiles()
@@ -129,6 +135,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 //Set string to textview
                 //print("Finished: \(cadenaFinal)")
                 self.textview.text = cadenaFinal
+                //To avoid the text showing up hide the text
+                self.textview.alpha = 0
                 self.unmarkBusy()
                 //Save url so it
                 self.fileDataPath = finalUrlOfFile as URL
@@ -258,7 +266,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    //MARK: Save data handler
+    //MARK: Save data and get URL, so you can share
     func saveForSharing(bytes: Array<UInt8>, filetype: CryptoHelper.fileFormat?) ->NSURL{
         //Data from bytes
         let thedata:Data = Data(bytes)
@@ -294,9 +302,20 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.loader?.hide()
     }
     
+    
 
     //MARK: Apariencia según estado
+    func updateButtons(){
+        if(self.fileDataPath != nil || isCameraScanning){
+            self.buttonQr.isHidden = true;
+            self.buttonCross.isHidden = false;
+        }else{
+            self.buttonQr.isHidden = false;
+            self.buttonCross.isHidden = true;
+        }
+    }
     func checkStatusChange(){
+        self.updateButtons()
         if(busyWorking || busyChangingStatus){return}
         
         //A: If no file is found, just look for text convertions
@@ -460,6 +479,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     //MARK: Share
+    func manageShareType(urlpath:NSURL){
+        
+    }
+    
     func shareAsSafyFile(urlpath: NSURL) {
         //var shareItems:Array = [img, messageStr]
         var shareItems:[NSURL] = []
@@ -485,15 +508,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
 
     }
-    
-    //MARK: Share
     func shareAsQR(base64string: String) {
         //var shareItems:Array = [img, messageStr]
         var shareItems:[UIImage] = []
         //shareItems.append(self.textview.text)
         let qrstring:String = "safyqr:/".appending(base64string)
         print("About to share string:\(qrstring)")
-        let qrimage:UIImage = QRCode.generateImage(qrstring, showSafyFrame: false, avatarImage: UIImage(named: "fileprotected2"), avatarScale: 0.18)!
+        let qrimage:UIImage = QRCode.generateImage(qrstring, showSafyFrame: false, avatarImage: UIImage(named: "fileprotected2"), avatarScale: 0.20)!
         shareItems.append(qrimage)
         print("Array of share \(shareItems)")
         if(shareItems.count == 0){
@@ -517,23 +538,45 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    //MARK Scan QR
+    //MARK Buttons
     
     @IBAction func scanQr(_ sender: Any) {
-        let qrview = UIView(frame: self.view.bounds)
-        self.view.addSubview(qrview)
-        self.view.bringSubview(toFront: qrview)
-        qrscanner.prepareScan(qrview) { (stringValue) -> () in
-            //Create a string removing safyqr:/ and adding header+footer
-            let stringToShow = CryptoHelper.armorHeader.appending(stringValue.replacingOccurrences(of: "safyqr:/", with: "")).appending(CryptoHelper.armorFooter)
-            //Add that string to text so it can be decrypted
-            self.textview.text = stringToShow
+        qrview = UIView(frame: self.view.bounds)
+        self.view.addSubview(qrview!)
+        self.view.bringSubview(toFront: qrview!)
+        isCameraScanning = true;
+        qrscanner.prepareScan(qrview!) { (stringValue) -> () in
+            if(stringValue.range(of: "safyqr:/") == nil){
+                self.showMessage(isError: true, text: "Error: That's not a Safy QR encrypted code", warnuser: true);
+            }else{
+                //Create a string removing safyqr:/ and adding header+footer
+                let stringToShow = CryptoHelper.armorHeader.appending(stringValue.replacingOccurrences(of: "safyqr:/", with: "")).appending(CryptoHelper.armorFooter)
+                //Add that string to text so it can be decrypted
+                self.textview.text = stringToShow
+            }
             self.qrscanner.stopScan()
-            qrview.removeFromSuperview()
+            self.qrview?.removeFromSuperview()
+            self.isCameraScanning = false;
+            self.qrview = nil;
         }
-        qrscanner.scanFrame = qrview.bounds
+        self.view.bringSubview(toFront: self.buttonCross)
+        qrscanner.scanFrame = qrview!.bounds
         qrscanner.startScan()
+    
     }
 
+    @IBAction func crossPressed(_ sender: Any) {
+        if(isCameraScanning){
+            self.qrscanner.stopScan()
+            self.qrview?.removeFromSuperview()
+            isCameraScanning = false;
+            self.qrview = nil;
+        }
+        //Cleans the actual file
+        self.fileDataPath = nil;
+        self.textview.text = ""
+        self.textview.becomeFirstResponder()
+    }
+    
 }
 

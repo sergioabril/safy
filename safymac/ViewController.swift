@@ -22,6 +22,7 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSDraggingDestinati
     @IBOutlet weak var buttonDecrypt: NSButton!
 
     @IBOutlet var textview: NSTextView!
+    @IBOutlet weak var buttonCross: UIButton!
 
     var busyWorking = false
     var busyChangingStatus:Bool = false
