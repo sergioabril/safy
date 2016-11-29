@@ -60,8 +60,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
         
         //set share action to image
-        self.fileimage.mutableOrderedSetValue(forKey: <#T##String#>)
-        tapRec.addTarget(self, action: "tappedView")
+        let tapRec = UITapGestureRecognizer()
+        tapRec.addTarget(self, action: #selector(ViewController.manageShareType))
+        self.fileimage.addGestureRecognizer(tapRec)
+        self.fileimage.isUserInteractionEnabled = true
     }
     override func viewWillAppear(_ animated: Bool) {
         //Add notifications for keyboard
@@ -143,7 +145,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 //Share with the url
                 //self.shareAsSafyFile(urlpath: finalUrlOfFile)
                 //SHare as QR
-                self.shareAsQR(base64string: bytesEncryptados.toBase64()!)
+                //self.shareAsQR(base64string: bytesEncryptados.toBase64()!)
+                //Manage kind of share
+                self.manageShareType()
             }
         }
         
@@ -306,7 +310,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     //MARK: Apariencia según estado
     func updateButtons(){
-        if(self.fileDataPath != nil || isCameraScanning){
+        if(self.fileDataPath != nil || self.textview.text.characters.count>0 || isCameraScanning){
             self.buttonQr.isHidden = true;
             self.buttonCross.isHidden = false;
         }else{
@@ -479,8 +483,29 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     //MARK: Share
-    func manageShareType(urlpath:NSURL){
+    func manageShareType(){
+        print("Manage type share!!")
         
+        //If possible, create QR. If not, just share
+        if(self.textview.text.characters.count < 1 && self.textview.text.characters.count > 800){
+            //Only File
+            self.shareAsSafyFile(urlpath: self.fileDataPath! as NSURL)
+            return;
+        }
+        //Create Bidi removing possible cryptoheaders and footers
+        let base64String = self.textview.text.replacingOccurrences(of: CryptoHelper.armorFooter, with: "").replacingOccurrences(of: CryptoHelper.armorHeader, with: "")
+    
+        
+        //Show Alert Action sheet
+        let settingsActionSheet: UIAlertController = UIAlertController(title:nil, message:nil, preferredStyle:UIAlertControllerStyle.actionSheet)
+        settingsActionSheet.addAction(UIAlertAction(title:"Share as QR", style:UIAlertActionStyle.default, handler:{ action in
+            self.shareAsQR(base64string: base64String)
+        }))
+        settingsActionSheet.addAction(UIAlertAction(title:"Share as File", style:UIAlertActionStyle.default, handler:{ action in
+            self.shareAsSafyFile(urlpath: self.fileDataPath! as NSURL)
+        }))
+        settingsActionSheet.addAction(UIAlertAction(title:"Cancel", style:UIAlertActionStyle.cancel, handler:nil))
+        present(settingsActionSheet, animated:true, completion:nil)
     }
     
     func shareAsSafyFile(urlpath: NSURL) {
