@@ -80,8 +80,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
 
     func testForInputFiles(){
-        //SInce this was text, and the string given wasn't text, assume the password was wrong or data corrupted
-        if ((UIApplication.shared.delegate as! AppDelegate).openedUrlFile != nil && self.fileDataPath == nil){
+        if ((UIApplication.shared.delegate as! AppDelegate).openedUrlFile != nil/* && self.fileDataPath == nil*/){
             self.fileDataPath = (UIApplication.shared.delegate as! AppDelegate).openedUrlFile!
             //Remove from delegate
             (UIApplication.shared.delegate as! AppDelegate).openedUrlFile = nil

@@ -54,6 +54,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Handle URL
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         self.openedUrlFile = url
+        if(mainVC != nil){
+            self.mainVC!.testForInputFiles()
+        }
         return true
     }
     
