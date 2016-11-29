@@ -486,24 +486,37 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func manageShareType(){
         print("Manage type share!!")
         
+        //if it doesn't have URL (like for example, if you scanned a bidi), just show bidi option
+        var showFileOption = true;
+        if(self.fileDataPath == nil){
+            showFileOption = false;
+        }
+        
         //If possible, create QR. If not, just share
-        if(self.textview.text.characters.count < 1 && self.textview.text.characters.count > 800){
+        if(self.textview.text.characters.count < 1 || self.textview.text.characters.count > 2300){
             //Only File
-            self.shareAsSafyFile(urlpath: self.fileDataPath! as NSURL)
+            if(showFileOption){
+                self.shareAsSafyFile(urlpath: self.fileDataPath! as NSURL)
+            }else{
+                print("Has intentado compartir, pero no hay link ni posible bidi.")
+            }
             return;
         }
+        
         //Create Bidi removing possible cryptoheaders and footers
         let base64String = self.textview.text.replacingOccurrences(of: CryptoHelper.armorFooter, with: "").replacingOccurrences(of: CryptoHelper.armorHeader, with: "")
-    
+
         
         //Show Alert Action sheet
         let settingsActionSheet: UIAlertController = UIAlertController(title:nil, message:nil, preferredStyle:UIAlertControllerStyle.actionSheet)
-        settingsActionSheet.addAction(UIAlertAction(title:"Share as QR", style:UIAlertActionStyle.default, handler:{ action in
+        settingsActionSheet.addAction(UIAlertAction(title:"Share as QR image", style:UIAlertActionStyle.default, handler:{ action in
             self.shareAsQR(base64string: base64String)
         }))
-        settingsActionSheet.addAction(UIAlertAction(title:"Share as File", style:UIAlertActionStyle.default, handler:{ action in
-            self.shareAsSafyFile(urlpath: self.fileDataPath! as NSURL)
-        }))
+        if(showFileOption){
+            settingsActionSheet.addAction(UIAlertAction(title:"Share as File", style:UIAlertActionStyle.default, handler:{ action in
+                self.shareAsSafyFile(urlpath: self.fileDataPath! as NSURL)
+            }))
+        }
         settingsActionSheet.addAction(UIAlertAction(title:"Cancel", style:UIAlertActionStyle.cancel, handler:nil))
         present(settingsActionSheet, animated:true, completion:nil)
     }
@@ -578,6 +591,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 let stringToShow = CryptoHelper.armorHeader.appending(stringValue.replacingOccurrences(of: "safyqr:/", with: "")).appending(CryptoHelper.armorFooter)
                 //Add that string to text so it can be decrypted
                 self.textview.text = stringToShow
+                self.textview.alpha = 0; //no quiero que se vea
+                self.fileDataPath = nil; //no quiero que sobreescriba y se lie varios archivos diferentes
             }
             self.qrscanner.stopScan()
             self.qrview?.removeFromSuperview()
