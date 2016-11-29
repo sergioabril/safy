@@ -42,7 +42,7 @@ class CryptoHelper{
         return String("----Safy----\n")
     }
     static var armorFooter:String!{
-        return String("\n----End of encryption----")
+        return String("\n----/Safy----")
     }
     
     //MARK: file format methods

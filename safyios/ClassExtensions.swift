@@ -21,6 +21,8 @@ extension String.UTF8View {
     var arrayofutf8bytes: [UInt8] { return Array(self) }
 }
 
+
+
 extension UIView{
     
     //Blurrea y devuelve una referencia a la view blurreadora, para quitarla

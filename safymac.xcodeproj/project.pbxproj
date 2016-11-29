@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		494924031DEDC8D900FAE199 /* QRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494924021DEDC8D900FAE199 /* QRCode.swift */; };
+		494924051DEDCC6A00FAE199 /* fileprotected2.png in Resources */ = {isa = PBXBuildFile; fileRef = 494924041DEDCC6A00FAE199 /* fileprotected2.png */; };
 		495FBBD21DE692A90071AD16 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495FBBD11DE692A90071AD16 /* AppDelegate.swift */; };
 		495FBBD41DE692A90071AD16 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495FBBD31DE692A90071AD16 /* ViewController.swift */; };
 		495FBBD71DE692A90071AD16 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 495FBBD51DE692A90071AD16 /* Main.storyboard */; };
@@ -126,6 +128,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		494924021DEDC8D900FAE199 /* QRCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCode.swift; sourceTree = "<group>"; };
+		494924041DEDCC6A00FAE199 /* fileprotected2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fileprotected2.png; sourceTree = "<group>"; };
 		495FBBCF1DE692A90071AD16 /* safyios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = safyios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		495FBBD11DE692A90071AD16 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		495FBBD31DE692A90071AD16 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -212,6 +216,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		494924001DEDC8CD00FAE199 /* QRCode */ = {
+			isa = PBXGroup;
+			children = (
+				494924021DEDC8D900FAE199 /* QRCode.swift */,
+			);
+			path = QRCode;
+			sourceTree = "<group>";
+		};
 		495FBBD01DE692A90071AD16 /* safyios */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,6 +265,7 @@
 		49811D161DE725D8007D2051 /* classes */ = {
 			isa = PBXGroup;
 			children = (
+				494924001DEDC8CD00FAE199 /* QRCode */,
 				49811D171DE725D8007D2051 /* SALoader */,
 			);
 			path = classes;
@@ -269,6 +282,7 @@
 		49A0F55D1DEA87350070C296 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				494924041DEDCC6A00FAE199 /* fileprotected2.png */,
 				49A0F55E1DEA87350070C296 /* fileprotected.png */,
 			);
 			path = resources;
@@ -554,6 +568,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				495FBBDF1DE692A90071AD16 /* LaunchScreen.storyboard in Resources */,
+				494924051DEDCC6A00FAE199 /* fileprotected2.png in Resources */,
 				495FBC0E1DE6A8CB0071AD16 /* iTunesArtwork@2x.png in Resources */,
 				495FBBDC1DE692A90071AD16 /* Assets.xcassets in Resources */,
 				495FBC0D1DE6A8CB0071AD16 /* iTunesArtwork@1x.png in Resources */,
@@ -611,6 +626,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				494924031DEDC8D900FAE199 /* QRCode.swift in Sources */,
 				495FBC031DE692DD0071AD16 /* ClassExtensions.swift in Sources */,
 				495FBBDA1DE692A90071AD16 /* safyios.xcdatamodeld in Sources */,
 				49811D211DE725D8007D2051 /* SALoaderOvalBlur.swift in Sources */,

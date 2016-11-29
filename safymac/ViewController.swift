@@ -28,6 +28,7 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSDraggingDestinati
     var statusChecker:Timer = Timer()
     var lastStatus:currentLayoutStatus = currentLayoutStatus.none
     
+    @IBOutlet weak var buttonQR: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()

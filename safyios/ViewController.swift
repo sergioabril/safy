@@ -8,6 +8,8 @@
 
 import UIKit
 
+let globalcolor = UIColor(hue: 201.0/360.0, saturation: 81.0/100.0, brightness: 61.0/100.0, alpha: 0.95)
+
 class ViewController: UIViewController, UITextFieldDelegate {
 
     enum currentLayoutStatus {
@@ -17,6 +19,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         case encryptFile
         case decryptFile
     }
+    
+    @IBOutlet weak var buttonQr: UIButton!
     
     @IBOutlet weak var passOne: UITextField!
     @IBOutlet weak var passTwo: UITextField!
@@ -33,6 +37,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var fileDataPath:URL?
     
     var loader:SALoaderOvalBlur?
+    
+    let qrscanner:QRCode = QRCode()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -127,7 +133,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 //Save url so it
                 self.fileDataPath = finalUrlOfFile as URL
                 //Share with the url
-                self.shareEncryptedResult(urlpath: finalUrlOfFile)
+                //self.shareAsSafyFile(urlpath: finalUrlOfFile)
+                //SHare as QR
+                self.shareAsQR(base64string: bytesEncryptados.toBase64()!)
             }
         }
         
@@ -372,7 +380,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func canDecrypt() ->Bool{
         var valor:Bool = false;
         //A: If text
-        if(lastStatus == .decryptText){
+        if(self.fileDataPath == nil){
             if(textview.text?.range(of: CryptoHelper.armorHeader) != nil && textview.text?.range(of: CryptoHelper.armorFooter) != nil){
                 //Can be decrypted
                 valor = true;
@@ -452,7 +460,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     //MARK: Share
-    func shareEncryptedResult(urlpath: NSURL) {
+    func shareAsSafyFile(urlpath: NSURL) {
         //var shareItems:Array = [img, messageStr]
         var shareItems:[NSURL] = []
         //shareItems.append(self.textview.text)
@@ -476,6 +484,55 @@ class ViewController: UIViewController, UITextFieldDelegate {
             self.present(activityViewController, animated: true, completion: nil)
         }
 
+    }
+    
+    //MARK: Share
+    func shareAsQR(base64string: String) {
+        //var shareItems:Array = [img, messageStr]
+        var shareItems:[UIImage] = []
+        //shareItems.append(self.textview.text)
+        let qrstring:String = "safyqr:/".appending(base64string)
+        print("About to share string:\(qrstring)")
+        let qrimage:UIImage = QRCode.generateImage(qrstring, showSafyFrame: false, avatarImage: UIImage(named: "fileprotected2"), avatarScale: 0.18)!
+        shareItems.append(qrimage)
+        print("Array of share \(shareItems)")
+        if(shareItems.count == 0){
+            showMessage(isError: true, text: "Can't share, no qr image", warnuser: true)
+            return;
+        }
+        
+        let activityViewController:UIActivityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
+        activityViewController.excludedActivityTypes = [UIActivityType.postToWeibo]
+        
+        //Before showing the controller, check if it's ipad or iphone
+        if (UIDevice.current.userInterfaceIdiom == .pad){
+            //It's an ipad, set popover location!
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            //activityViewController.popoverPresentationController.sourceRect = self.frame;
+            self.present(activityViewController, animated: true, completion: nil)
+        }else{
+            //It's an iPhone
+            self.present(activityViewController, animated: true, completion: nil)
+        }
+        
+    }
+    
+    //MARK Scan QR
+    
+    @IBAction func scanQr(_ sender: Any) {
+        let qrview = UIView(frame: self.view.bounds)
+        self.view.addSubview(qrview)
+        self.view.bringSubview(toFront: qrview)
+        qrscanner.prepareScan(qrview) { (stringValue) -> () in
+            //Create a string removing safyqr:/ and adding header+footer
+            let stringToShow = CryptoHelper.armorHeader.appending(stringValue.replacingOccurrences(of: "safyqr:/", with: "")).appending(CryptoHelper.armorFooter)
+            //Add that string to text so it can be decrypted
+            self.textview.text = stringToShow
+            self.qrscanner.stopScan()
+            qrview.removeFromSuperview()
+        }
+        qrscanner.scanFrame = qrview.bounds
+        qrscanner.startScan()
     }
 
 }

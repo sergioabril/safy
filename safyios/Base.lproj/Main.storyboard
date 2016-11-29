@@ -72,6 +72,17 @@
                                     <constraint firstAttribute="width" secondItem="FDZ-aX-u56" secondAttribute="height" multiplier="1:1" id="xXh-t6-O4u"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZvY-Zm-h5k" userLabel="QR">
+                                <rect key="frame" x="335" y="18" width="32" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="32" id="BLq-SF-hWa"/>
+                                    <constraint firstAttribute="height" constant="32" id="Jlc-JY-dbD"/>
+                                </constraints>
+                                <state key="normal" title="QR"/>
+                                <connections>
+                                    <action selector="scanQr:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4jl-bC-4gU"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.1159" green="0.43706499999999998" blue="0.60999999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -85,16 +96,19 @@
                             <constraint firstItem="FDZ-aX-u56" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" priority="750" id="DJk-aM-7aF"/>
                             <constraint firstItem="rp1-zQ-XgA" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Fqv-HB-85q"/>
                             <constraint firstItem="OGa-CM-Xc8" firstAttribute="top" secondItem="dai-HZ-ADq" secondAttribute="bottom" constant="2" id="KI0-1L-NAN"/>
+                            <constraint firstAttribute="trailing" secondItem="ZvY-Zm-h5k" secondAttribute="trailing" constant="8" id="Laf-TF-fcj"/>
                             <constraint firstItem="BtM-iW-eKS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="PmV-ea-DUx"/>
                             <constraint firstAttribute="trailing" secondItem="OGa-CM-Xc8" secondAttribute="trailing" id="QfF-hy-osR"/>
                             <constraint firstItem="OGa-CM-Xc8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="YUg-6a-URA"/>
                             <constraint firstItem="FDZ-aX-u56" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Z3m-7N-vyb"/>
                             <constraint firstAttribute="trailing" secondItem="BtM-iW-eKS" secondAttribute="trailing" id="ea6-iV-Vld"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="BtM-iW-eKS" secondAttribute="bottom" id="rla-AA-pW7"/>
+                            <constraint firstItem="ZvY-Zm-h5k" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="18" id="skg-zU-lb1"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="buttonDecrypt" destination="BtM-iW-eKS" id="tqI-QG-rUa"/>
+                        <outlet property="buttonQr" destination="ZvY-Zm-h5k" id="b6a-8a-3qw"/>
                         <outlet property="fileimage" destination="FDZ-aX-u56" id="jb1-1e-MLu"/>
                         <outlet property="passOne" destination="dai-HZ-ADq" id="TyL-zG-x0c"/>
                         <outlet property="passTwo" destination="OGa-CM-Xc8" id="h7U-CG-VdU"/>
