@@ -19,7 +19,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         case encryptFile
         case decryptFile
     }
-    
     @IBOutlet weak var buttonCross: UIButton!
     
     @IBOutlet weak var buttonQr: UIButton!
@@ -36,9 +35,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var busyChangingStatus:Bool = false
     var statusChecker:Timer = Timer()
     var lastStatus:currentLayoutStatus = currentLayoutStatus.none
-    
-    //var fileDataPath:URL?
-    var encrypted:EncryptedPackage?
+    var fileDataPath:URL?
     
     var loader:SALoaderOvalBlur?
     
@@ -114,24 +111,38 @@ class ViewController: UIViewController, UITextFieldDelegate {
             return;
         }
         
-  
-        if(textview.text!.characters.count > 0){
-            print("El texto a encryptar es \(textview.text!)")
+        //Check if its text or a file
+        var bytesToEncrypt:Array<UInt8> = Array<UInt8>()
+        if(self.fileDataPath == nil){
+            
+            if(textview.text!.characters.count > 0){
+                print("El texto a encryptar es \(textview.text!)")
+            }else{
+                showMessage(isError: true, text: "Texto vacio", warnuser: true)
+                unmarkBusy()
+                return;
+            }
+            bytesToEncrypt = textview.text!.utf8.map{$0}
+
         }else{
-            showMessage(isError: true, text: "Texto vacio", warnuser: true)
-            unmarkBusy()
-            return;
+            //It's a file
+            print("Encrypting \(self.fileDataPath?.pathExtension) file...")
+            do{
+                let data = try Data(contentsOf: self.fileDataPath!)
+                bytesToEncrypt = data.bytes
+            }catch{
+                print("Error leyendo archivo.")
+                return;
+            }
         }
         
-        
-        let bytesToEncrypt = textview.text!.utf8.map{$0}
        // print("Bytes to encript \(bytesToEncrypt)");
         
         //Encripto en background
         DispatchQueue.global(qos: .background).async {
             self.lastStatus = .none //reset status so it has to change after compression
             
-            let bytesEncryptados = CryptoHelper.encryptAES256fromBytes(databytes: bytesToEncrypt, password: self.passOne.text!)
+            let bytesEncryptados = CryptoHelper.encryptAES256fromBytes(databytes: bytesToEncrypt, password: self.passOne.text!, urlfile: self.fileDataPath)
             let cadenaFinal = CryptoHelper.armorHeader.appending(bytesEncryptados.toBase64()!).appending(CryptoHelper.armorFooter)
             
             let finalUrlOfFile:NSURL = self.saveForSharing(bytes: bytesEncryptados, filetype: nil) //Just note: it ignores the header and footer...
@@ -195,7 +206,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
             }
             if(self.lastStatus == .decryptFile){
                 do{
-                    try dataToDecrypt = Data(contentsOf: self.fileDataPath!)
+                    print("Leyendo archivos a desencriptar de url...")
+                    dataToDecrypt = try Data(contentsOf: self.fileDataPath!)
                 }catch{
                     print("Error convirtiendo file a Data: \(error)")
                     DispatchQueue.main.async {
@@ -221,6 +233,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             //Decrypt
             let cryptofunction = CryptoHelper.decryptAES256fromBytes(databytes: bytesToDecrypt, password: self.passTwo.text!)
             let decryptedBytes:Array<UInt8> = cryptofunction.plaintext;
+            let fileformat = cryptofunction.fileformat
             let decryptionstatus:CryptoHelper.decryptionresult = cryptofunction.status
             print("Decrypted bytes:\(decryptedBytes), status: \(decryptionstatus)")
             if(decryptionstatus == CryptoHelper.decryptionresult.error){
@@ -233,28 +246,62 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 //Exit
                 return;
             }
-            //Ahora mapeo los bytes a caracteres gracias a la extension: "extension UInt8 { var character: Character {... " que he puesto justo despues
-            let newstring = decryptedBytes.utf8string
-            if(newstring.characters.count == 0){
-                //SInce this was text, and the string given wasn't text, assume the password was wrong or data corrupted
-                DispatchQueue.main.async {
-                    self.showMessage(isError: true, text: "Password wrong or text corrupted (II)", warnuser: true)
-                    //Not work anymore
-                    self.unmarkBusy()
+            
+            //Ahora cargo lo que he desencriptado segun el tipo de archivo
+            var newstring:String! = ""
+
+            //A: Si es texto plano
+            if(fileformat == CryptoHelper.fileFormat.plaintext){
+                //Ahora mapeo los bytes a caracteres gracias a la extension: "extension UInt8 { var character: Character {... " que he puesto justo despues
+                newstring = decryptedBytes.utf8string
+                if(newstring.characters.count == 0){
+                    //SInce this was text, and the string given wasn't text, assume the password was wrong or data corrupted
+                    DispatchQueue.main.async {
+                        self.showMessage(isError: true, text: "Password wrong or text corrupted (II)", warnuser: true)
+                        //Not work anymore
+                        self.unmarkBusy()
+                    }
+                    return;
                 }
-                return;
+                
+                //Success: Now remove filepath if there was.
+                if(self.fileDataPath != nil){
+                    print("Borro referencia a:\(self.fileDataPath!)")
+                    do{
+                        try FileManager.default.removeItem(at: self.fileDataPath!)
+                    }catch{
+                        print("Error removing file from inbox. \(error)")
+                    }
+                    self.fileDataPath = nil
+                }
             }
             
-            //Success: remove filepath if there was.
-            if(self.fileDataPath != nil){
+            //B: Si es una foto jpg
+            if(fileformat == CryptoHelper.fileFormat.jpg){
+                //Dejo la string de texto vacia
+                newstring = ""
+                //Creo un archivo con extension jpg y guardo lo que he desencriptado
+                let imgdata = Data(decryptedBytes)
+                let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+                let filepath = "\(documentsPath)/testimg.jpg"
+                let newImgPath = URL(fileURLWithPath: filepath)
+                do{
+                 try imgdata.write(to: newImgPath)
+                }catch{
+                    print("Error escribiendo foto jpg tras desencriptar")
+                }
+                //Borro el antiguo .safy
                 print("Borro referencia a:\(self.fileDataPath!)")
                 do{
                     try FileManager.default.removeItem(at: self.fileDataPath!)
                 }catch{
-                    print("Error removing file from inbox. \(error)")
+                    print("Error removing file from inbox (jpg). \(error)")
                 }
-                self.fileDataPath = nil
+                //Actualizo la ruta al URL actual
+                self.fileDataPath = newImgPath
             }
+
+            
             
             //Success: Back to main and update text
             DispatchQueue.main.async {
@@ -374,6 +421,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
             if(self.fileDataPath!.pathExtension == "safy"){
                 if(lastStatus != .decryptFile){
                     lastStatus = .decryptFile
+                    //Change image to default encrypted image
+                    self.fileimage.image = UIImage(named: "fileprotected")
+                    //Animate
                     DispatchQueue.main.async {
                         self.fileimage.isHidden = false;
                         UIView.animate(withDuration: 0.5, delay: 0.02, options: UIViewAnimationOptions.curveEaseOut, animations: {
@@ -395,6 +445,29 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 if(lastStatus != .encryptFile){
                     lastStatus = .encryptFile
                     print("Status cambiado a .encryptFile")
+                    if(self.fileDataPath!.pathExtension == "jpg"){
+                        //Change image to the given img
+                        self.fileimage.image = UIImage(contentsOfFile: self.fileDataPath!.path)
+                        self.fileimage.layer.cornerRadius = self.fileimage.frame.size.width/2
+                        self.fileimage.layer.masksToBounds = true;
+                        self.fileimage.contentMode = .scaleAspectFill
+                    }
+                    //Animate the central image and everything
+                    DispatchQueue.main.async {
+                        self.fileimage.isHidden = false;
+                        self.passOne.isHidden = false
+                        UIView.animate(withDuration: 0.5, delay: 0.02, options: UIViewAnimationOptions.curveEaseOut, animations: {
+                            self.buttonDecrypt.setTitle("Encrypt file", for: .normal)
+                            self.passOne.alpha = 1 //keep passone shown
+                            self.fileimage.alpha = 0.8
+                            self.textview.alpha = 0 //change text for image
+                        }, completion: {_ in
+                            self.busyChangingStatus = false
+                            self.passTwo.text = ""
+                            self.passOne.text = ""
+                            //self.passTwo.becomeFirstResponder()
+                        })
+                    }
                 }
             }
             
@@ -486,7 +559,30 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: Share
     func manageShareType(){
-        print("Manage type share!!")
+        
+        //Special case, jpg. Share it.
+        if(self.fileDataPath?.pathExtension == "jpg"){
+            var shareItems:[UIImage] = []
+            let theimg = UIImage(contentsOfFile: self.fileDataPath!.path)
+            shareItems.append(theimg!)
+            if(shareItems.count == 0){
+                showMessage(isError: true, text: "Can't share jpg", warnuser: true)
+                return;
+            }
+            let activityViewController:UIActivityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
+            activityViewController.excludedActivityTypes = [UIActivityType.postToWeibo]
+            //Before showing the controller, check if it's ipad or iphone
+            if (UIDevice.current.userInterfaceIdiom == .pad){
+                activityViewController.popoverPresentationController?.sourceView = self.view
+                self.present(activityViewController, animated: true, completion: nil)
+            }else{
+                //It's an iPhone
+                self.present(activityViewController, animated: true, completion: nil)
+            }
+            return;
+        }
+        
+        
         
         //if it doesn't have URL (like for example, if you scanned a bidi), just show bidi option
         var showFileOption = true;

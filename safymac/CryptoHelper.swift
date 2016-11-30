@@ -10,13 +10,6 @@ import Foundation
 import CryptoSwift
 
 
-struct EncryptedPackage {
-    var filepath:URL?
-    var base64data:String?
-    var rawcipherstring:String?
-    var filetype:CryptoHelper.fileFormat!
-}
-
 class CryptoHelper{
     //MARK: Enums and structs
     //Decryption status
@@ -60,7 +53,8 @@ class CryptoHelper{
         let fileextension:String? = path?.pathExtension
         if(fileextension == nil){return thefileformat}
         for format in fileFormat.allValues{
-            if(format.rawValue == fileextension){
+            print("getfilefrom...\(format.rawValue) and \(fileextension!) ")
+            if(format.rawValue == fileextension!){
                 thefileformat = CryptoHelper.fileFormat(rawValue: format.rawValue)!
                 break
             }
@@ -182,7 +176,7 @@ class CryptoHelper{
         let iterHex = iterBytes.toHexString()
         
         let fileformatFlag:Array<UInt8> = [self.getByteFlagForFileFormat(fileformat: self.getFileFormatFromPath(path: urlfile))]
-        
+        print("Flag file format for \(urlfile) is \(fileformatFlag)")
         let key: Array<UInt8> = deriveKeyFromPassword(pass: password, vectorsalt: iv, iterationFactor: iterations)
         //print("IV es \(iv.toHexString())")
         do {
