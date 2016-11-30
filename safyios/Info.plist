@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSCameraUsageDescription</key>
-	<string>Scan QR Codes</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDocumentTypes</key>
@@ -12,7 +10,7 @@
 			<key>CFBundleTypeIconFiles</key>
 			<array/>
 			<key>CFBundleTypeName</key>
-			<string>Safy encrypted file</string>
+			<string>Safy Encrypted File</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSHandlerRank</key>
@@ -26,10 +24,10 @@
 			<key>CFBundleTypeIconFiles</key>
 			<array/>
 			<key>CFBundleTypeName</key>
-			<string>Any file</string>
+			<string>Jpg image</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>public.data</string>
+				<string>public.jpeg</string>
 			</array>
 		</dict>
 	</array>
@@ -49,6 +47,10 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Scan QR Codes</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Save QR Codes</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -82,9 +84,13 @@
 				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>Safy encrypted</string>
+			<string>Safy encrypted file</string>
 			<key>UTTypeIdentifier</key>
 			<string>com.sergioabril.safyios.ext</string>
+			<key>UTTypeSize320IconFile</key>
+			<string>iTunesArtwork@2x</string>
+			<key>UTTypeSize64IconFile</key>
+			<string>iTunesArtwork@1x</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>

@@ -10,9 +10,15 @@ import Foundation
 import CryptoSwift
 
 
+struct EncryptedPackage {
+    var filepath:URL?
+    var base64data:String?
+    var rawcipherstring:String?
+    var filetype:CryptoHelper.fileFormat!
+}
+
 class CryptoHelper{
     //MARK: Enums and structs
-    
     //Decryption status
     public enum decryptionresult{
         case ok
@@ -30,11 +36,12 @@ class CryptoHelper{
         case plaintext = ""
         case txt = "txt"
         case jpg = "jpg"
+        case jpeg = "jpeg"
         case png = "png"
         case mp4 = "mp4"
         case mov = "mov"
         
-        static let allValues = [plaintext,txt,jpg,png,mp4,mov]
+        static let allValues = [plaintext,txt,jpg,jpeg,png,mp4,mov]
     }
     
     //MARK: Headers for ascii text

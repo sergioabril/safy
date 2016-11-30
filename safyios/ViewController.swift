@@ -19,6 +19,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         case encryptFile
         case decryptFile
     }
+    
     @IBOutlet weak var buttonCross: UIButton!
     
     @IBOutlet weak var buttonQr: UIButton!
@@ -35,7 +36,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var busyChangingStatus:Bool = false
     var statusChecker:Timer = Timer()
     var lastStatus:currentLayoutStatus = currentLayoutStatus.none
-    var fileDataPath:URL?
+    
+    //var fileDataPath:URL?
+    var encrypted:EncryptedPackage?
     
     var loader:SALoaderOvalBlur?
     
