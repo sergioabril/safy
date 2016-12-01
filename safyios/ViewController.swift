@@ -151,34 +151,35 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
                 return;
             }
         }
-        
-       // print("Bytes to encript \(bytesToEncrypt)");
-        
-        //Encripto en background
+                
+        //Background decrypt
         DispatchQueue.global(qos: .background).async {
-            self.lastStatus = .none //reset status so it has to change after compression
-            
+            //reset status so it has to change after compression
+            self.lastStatus = .none
+
+            //Decrypt into an array of bytes
             let bytesEncryptados = CryptoHelper.encryptAES256fromBytes(databytes: bytesToEncrypt, password: self.passOne.text!, urlfile: self.fileDataPath)
-            let cadenaFinal = CryptoHelper.armorHeader.appending(bytesEncryptados.toBase64()!).appending(CryptoHelper.armorFooter)
             
+            //If the number of bytes is low, it's probably text, so it's worth to generate an armored text string
+            var cadenaFinal = ""
+            if(bytesEncryptados.count < 4000){
+                cadenaFinal = CryptoHelper.armorHeader.appending(bytesEncryptados.toBase64()!).appending(CryptoHelper.armorFooter)
+            }
+            
+            //Save to a file and Generate a URL.
             let finalUrlOfFile:NSURL = self.saveForSharing(bytes: bytesEncryptados, filetype: nil) //Just note: it ignores the header and footer...
             DispatchQueue.main.async {
-                //Set string to textview
-                //print("Finished: \(cadenaFinal)")
-                if(cadenaFinal.characters.count < 5000){
+                //Set string to textview if it even exists
+                if(cadenaFinal.characters.count > 1){
                     //If its larger, it probably isn't text, but a picture. clampsy way of checking though
                     self.textview.text = cadenaFinal
                 }
                 //To avoid the text showing up hide the text
                 self.textview.alpha = 0
                 self.unmarkBusy()
-                //Save url so it
+                //Save url to global variable
                 self.fileDataPath = finalUrlOfFile as URL
-                //Share with the url
-                //self.shareAsSafyFile(urlpath: finalUrlOfFile)
-                //SHare as QR
-                //self.shareAsQR(base64string: bytesEncryptados.toBase64()!)
-                //Manage kind of share
+                //Call share popover
                 self.manageShareType()
             }
         }
@@ -192,7 +193,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
             unmarkBusy()
             return;
         }else{
-            print("Using password:\(self.passTwo.text!)")
+            //print("Using password:\(self.passTwo.text!)")
         }
         
         //2. Check if it's text or a textfile

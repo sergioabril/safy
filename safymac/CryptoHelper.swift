@@ -132,13 +132,38 @@ class CryptoHelper{
         return (fileformat: fileform, cipher:restCipher, iv: capturedIV, iterations: capturedIterator)
     }
     
+    //Separate Headers and Encrypted data (using bytes)
+    static func separateHeadersFromBytes(encryptedbytes:[UInt8]) -> (fileformat:fileFormat, cipher:Array<UInt8>, iv:Array<UInt8>, iterations: Int){
+        
+        //First byte is File Format. 2 Hex Char.
+        let ffByte:UInt8 = encryptedbytes[0]
+        let fileform = self.getFileFormatForByteFlag(bytenumber: ffByte)
+        //print("Leyendo fake fileflag: \(ffByte) - \(fileform)");
+        
+        //Try to read the iv. Next 16Bytes/Octets (32HexChar)
+        let ivBytes = encryptedbytes[1..<17] //Subarray from [1] to [16] inclusive. 16bytes.
+        //print("Captured UV \(ivBytes)")
+        
+        //Get iteration factor: 1 byte (0-255) : 2 characteres of an HexString
+        let iterByte = encryptedbytes[17]
+        let capturedIterator = Int(iterByte); //By default 1 * 4096
+        //print("Iteration count: \(capturedIterator)")
+        
+        //Get Real Cipher: the rest of bytes
+        let ciphertext = encryptedbytes[18..<encryptedbytes.count] //from 18(inclusive) to the index number of elements(exclusive). An alternative is [18...encryptedbytes.count-1]
+        //print("Captured cipher \(restCipher)")
+        
+        //Return
+        return (fileformat: fileform, cipher:Array(ciphertext), iv: Array(ivBytes), iterations: capturedIterator)
+    }
 
     
     //MARK: Encryption functions
     //Decrypt
     static func decryptAES256fromBytes(databytes: Array<UInt8>, password:String) -> (plaintext: Array<UInt8>, status: decryptionresult, fileformat:fileFormat?){
-        //Load needed values from data
-        let separator = self.separateHeadersFromChipherString(cipher: databytes.toHexString())
+        //Load needed values from data. Old way for testing: using hex strings.
+        /*
+         let separator = self.separateHeadersFromChipherString(cipher: databytes.toHexString())
         let fileformat = separator.fileformat
         let vector = separator.iv
         let iterations = separator.iterations
@@ -146,6 +171,13 @@ class CryptoHelper{
         //Prepare byte values
         let input: Array<UInt8> = Array<UInt8>(hex: realcipher)
         let iv: Array<UInt8> = Array<UInt8>(hex: vector)
+        let key: Array<UInt8> = deriveKeyFromPassword(pass: password, vectorsalt: iv, iterationFactor: iterations)
+        */
+        let separator = self.separateHeadersFromBytes(encryptedbytes: databytes);
+        let input = separator.cipher
+        let iv = separator.iv
+        let iterations = separator.iterations
+        let fileformat = separator.fileformat
         let key: Array<UInt8> = deriveKeyFromPassword(pass: password, vectorsalt: iv, iterationFactor: iterations)
 
         //Decrypt:
@@ -167,28 +199,33 @@ class CryptoHelper{
     //Encrypt
     static func encryptAES256fromBytes(databytes: Array<UInt8>, password: String, urlfile: URL? = nil) -> Array<UInt8>{
         var input: Array<UInt8> = databytes
-        for _ in 0...3 { input.insert(80, at: 0)} //add 4 0x80 bytes
+        for _ in 0...3 { input.insert(80, at: 0)} //add 4 0x80 bytes that will be checked after decrypt (a clampsy way of checking if the password was right)
         
         let iv: Array<UInt8> = AES.randomIV(AES.blockSize)
         
         let iterations = 10
         let iterBytes:[UInt8] = [UInt8(iterations)]
-        let iterHex = iterBytes.toHexString()
+        //let iterHex = iterBytes.toHexString()
         
-        let fileformatFlag:Array<UInt8> = [self.getByteFlagForFileFormat(fileformat: self.getFileFormatFromPath(path: urlfile))]
-        print("Flag file format for \(urlfile) is \(fileformatFlag)")
+        var fileformatFlag:Array<UInt8> = [self.getByteFlagForFileFormat(fileformat: self.getFileFormatFromPath(path: urlfile))]
+        //print("Flag file format for \(urlfile) is \(fileformatFlag)")
         let key: Array<UInt8> = deriveKeyFromPassword(pass: password, vectorsalt: iv, iterationFactor: iterations)
         //print("IV es \(iv.toHexString())")
         do {
             //1. Encrypt. Get cipher text in bytes
-            var ciphertext = try AES(key: key, iv: iv, blockMode: .CBC, padding: PKCS7()).encrypt(input)
-            //print("hmacSignature: \(hmacSignature.count) - \(hmacSignature.toHexString())");
+            let ciphertext = try AES(key: key, iv: iv, blockMode: .CBC, padding: PKCS7()).encrypt(input)
             //2. Create a long hexadecimal string appending all the parts /header, body, etc
-            let hexString = fileformatFlag.toHexString().appending(iv.toHexString()).appending(iterHex).appending(ciphertext.toHexString())
-            //Test - Get back Binary data from hex string:
-            ciphertext = Array<UInt8>(hex: hexString)
+            //let hexString = fileformatFlag.toHexString().appending(iv.toHexString()).appending(iterHex).appending(ciphertext.toHexString())
+            //ciphertext = Array<UInt8>(hex: hexString)
+            
+            //Better: appending headers as bytes
+            fileformatFlag.append(contentsOf: iv)
+            fileformatFlag.append(contentsOf: iterBytes)
+            fileformatFlag.append(contentsOf: ciphertext)
+            return fileformatFlag
+            
             //Return
-            return ciphertext
+            //return ciphertext
         } catch {
             print(error)
         }
