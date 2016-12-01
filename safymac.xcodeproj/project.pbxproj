@@ -12,7 +12,7 @@
 		495FBBD41DE692A90071AD16 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495FBBD31DE692A90071AD16 /* ViewController.swift */; };
 		495FBBD71DE692A90071AD16 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 495FBBD51DE692A90071AD16 /* Main.storyboard */; };
 		495FBBDA1DE692A90071AD16 /* safyios.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 495FBBD81DE692A90071AD16 /* safyios.xcdatamodeld */; };
-		495FBBDC1DE692A90071AD16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 495FBBDB1DE692A90071AD16 /* Assets.xcassets */; };
+		495FBBDC1DE692A90071AD16 /* AssetsiOS.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 495FBBDB1DE692A90071AD16 /* AssetsiOS.xcassets */; };
 		495FBBDF1DE692A90071AD16 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 495FBBDD1DE692A90071AD16 /* LaunchScreen.storyboard */; };
 		495FBBEA1DE692A90071AD16 /* safyiosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495FBBE91DE692A90071AD16 /* safyiosTests.swift */; };
 		495FBBF51DE692A90071AD16 /* safyiosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495FBBF41DE692A90071AD16 /* safyiosUITests.swift */; };
@@ -23,7 +23,6 @@
 		495FBC0D1DE6A8CB0071AD16 /* iTunesArtwork@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495FBC0A1DE6A8CB0071AD16 /* iTunesArtwork@1x.png */; };
 		495FBC0E1DE6A8CB0071AD16 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495FBC0B1DE6A8CB0071AD16 /* iTunesArtwork@2x.png */; };
 		495FBC0F1DE6A8CB0071AD16 /* iTunesArtwork@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495FBC0C1DE6A8CB0071AD16 /* iTunesArtwork@3x.png */; };
-		495FBC101DE6A8E10071AD16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49C3909F1DE658C80043F304 /* Assets.xcassets */; };
 		49811D211DE725D8007D2051 /* SALoaderOvalBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49811D1B1DE725D8007D2051 /* SALoaderOvalBlur.swift */; };
 		49A0F55F1DEA87350070C296 /* fileprotected.png in Resources */ = {isa = PBXBuildFile; fileRef = 49A0F55E1DEA87350070C296 /* fileprotected.png */; };
 		49C390991DE658C80043F304 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C390981DE658C80043F304 /* AppDelegate.swift */; };
@@ -134,7 +133,7 @@
 		495FBBD31DE692A90071AD16 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		495FBBD61DE692A90071AD16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		495FBBD91DE692A90071AD16 /* safyios.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = safyios.xcdatamodel; sourceTree = "<group>"; };
-		495FBBDB1DE692A90071AD16 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		495FBBDB1DE692A90071AD16 /* AssetsiOS.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AssetsiOS.xcassets; sourceTree = "<group>"; };
 		495FBBDE1DE692A90071AD16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		495FBBE01DE692A90071AD16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		495FBBE51DE692A90071AD16 /* safyiosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = safyiosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -235,7 +234,7 @@
 				495FBBD11DE692A90071AD16 /* AppDelegate.swift */,
 				495FBBD31DE692A90071AD16 /* ViewController.swift */,
 				495FBBD51DE692A90071AD16 /* Main.storyboard */,
-				495FBBDB1DE692A90071AD16 /* Assets.xcassets */,
+				495FBBDB1DE692A90071AD16 /* AssetsiOS.xcassets */,
 				495FBBDD1DE692A90071AD16 /* LaunchScreen.storyboard */,
 				495FBBE01DE692A90071AD16 /* Info.plist */,
 				495FBBD81DE692A90071AD16 /* safyios.xcdatamodeld */,
@@ -570,9 +569,8 @@
 				495FBBDF1DE692A90071AD16 /* LaunchScreen.storyboard in Resources */,
 				49F605951DF07D900077DD87 /* QRCenterLogo.png in Resources */,
 				495FBC0E1DE6A8CB0071AD16 /* iTunesArtwork@2x.png in Resources */,
-				495FBBDC1DE692A90071AD16 /* Assets.xcassets in Resources */,
+				495FBBDC1DE692A90071AD16 /* AssetsiOS.xcassets in Resources */,
 				495FBC0D1DE6A8CB0071AD16 /* iTunesArtwork@1x.png in Resources */,
-				495FBC101DE6A8E10071AD16 /* Assets.xcassets in Resources */,
 				495FBC0F1DE6A8CB0071AD16 /* iTunesArtwork@3x.png in Resources */,
 				49A0F55F1DEA87350070C296 /* fileprotected.png in Resources */,
 				495FBBD71DE692A90071AD16 /* Main.storyboard in Resources */,

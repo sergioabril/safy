@@ -8,7 +8,9 @@
 	<array>
 		<dict>
 			<key>CFBundleTypeIconFiles</key>
-			<array/>
+			<array>
+				<string>iTunesArtwork@1x</string>
+			</array>
 			<key>CFBundleTypeName</key>
 			<string>Safy Encrypted File</string>
 			<key>CFBundleTypeRole</key>

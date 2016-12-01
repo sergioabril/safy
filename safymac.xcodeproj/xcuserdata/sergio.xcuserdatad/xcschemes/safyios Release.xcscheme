@@ -28,26 +28,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "495FBBE41DE692A90071AD16"
-               BuildableName = "safyiosTests.xctest"
-               BlueprintName = "safyiosTests"
-               ReferencedContainer = "container:safymac.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "495FBBEF1DE692A90071AD16"
-               BuildableName = "safyiosUITests.xctest"
-               BlueprintName = "safyiosUITests"
-               ReferencedContainer = "container:safymac.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
