@@ -23,12 +23,19 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSDraggingDestinati
 
     @IBOutlet var textview: NSTextView!
     @IBOutlet weak var buttonCross: UIButton!
+    @IBOutlet weak var buttonCross: UIButton!
+    @IBOutlet weak var buttonCross: UIButton!
 
     var busyWorking = false
     var busyChangingStatus:Bool = false
     var statusChecker:Timer = Timer()
     var lastStatus:currentLayoutStatus = currentLayoutStatus.none
+    @IBOutlet weak var helloView: UIView!
     
+    @IBOutlet weak var helloView: UIView!
+    @IBOutlet weak var helloview: UIView!
+    @IBOutlet weak var hellowview: UIView!
+    @IBOutlet weak var helloView: UIView!
     @IBOutlet weak var buttonQR: UIButton!
     
     override func viewDidLoad() {
@@ -173,7 +180,7 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSDraggingDestinati
                 let cryptofunction = CryptoHelper.decryptAES256fromBytes(databytes: bytesToDecrypt, password: self.passOne.stringValue)
                 let decryptedBytes:Array<UInt8> = cryptofunction.plaintext;
                 let decryptionstatus:CryptoHelper.decryptionresult = cryptofunction.status
-                print("Decrypted bytes:\(decryptedBytes), status: \(decryptionstatus)")
+                //print("Decrypted bytes:\(decryptedBytes), status: \(decryptionstatus)")
                 if(decryptionstatus == CryptoHelper.decryptionresult.error){
                     DispatchQueue.main.async {
                         //Set string to textview

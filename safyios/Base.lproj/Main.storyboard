@@ -23,116 +23,130 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZvY-Zm-h5k" userLabel="QR">
-                                <rect key="frame" x="331" y="32" width="28" height="28"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KiD-qS-HU8" userLabel="HelloView">
+                                <rect key="frame" x="107" y="150" width="160" height="140"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or add an external file to encrypt/decrypt" textAlignment="center" lineBreakMode="middleTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bnH-OW-bP6">
+                                        <rect key="frame" x="0.0" y="25" width="160" height="41"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="41" id="NXH-OY-X4k"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="15"/>
+                                        <color key="textColor" red="0.60777515169999996" green="0.60788232090000005" blue="0.60776835679999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TAP TO START WRITING" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t6b-CS-EzG">
+                                        <rect key="frame" x="0.0" y="5" width="160" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="qJz-uH-zMR"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="14"/>
+                                        <color key="textColor" red="0.2334992588" green="0.28995454310000002" blue="0.31513160470000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="28" id="BLq-SF-hWa"/>
-                                    <constraint firstAttribute="height" constant="28" id="Jlc-JY-dbD"/>
+                                    <constraint firstAttribute="width" constant="160" id="4y6-MR-UeE"/>
+                                    <constraint firstAttribute="trailing" secondItem="bnH-OW-bP6" secondAttribute="trailing" id="CNx-KM-sLp"/>
+                                    <constraint firstItem="bnH-OW-bP6" firstAttribute="leading" secondItem="KiD-qS-HU8" secondAttribute="leading" id="Rmp-dR-i2Z"/>
+                                    <constraint firstItem="t6b-CS-EzG" firstAttribute="leading" secondItem="KiD-qS-HU8" secondAttribute="leading" id="Vbp-M7-0ci"/>
+                                    <constraint firstAttribute="height" constant="140" id="Xho-Dq-OHN"/>
+                                    <constraint firstAttribute="trailing" secondItem="t6b-CS-EzG" secondAttribute="trailing" id="Zvn-ow-ahH"/>
+                                    <constraint firstItem="t6b-CS-EzG" firstAttribute="top" secondItem="KiD-qS-HU8" secondAttribute="top" constant="5" id="ggu-pN-TuF"/>
+                                    <constraint firstItem="bnH-OW-bP6" firstAttribute="top" secondItem="t6b-CS-EzG" secondAttribute="bottom" id="znY-OL-KyQ"/>
                                 </constraints>
-                                <state key="normal" image="Bidiscan"/>
-                                <connections>
-                                    <action selector="scanQr:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4jl-bC-4gU"/>
-                                </connections>
-                            </button>
+                            </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="password" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dai-HZ-ADq">
-                                <rect key="frame" x="0.0" y="543" width="375" height="30"/>
-                                <color key="backgroundColor" red="0.16470441650000001" green="0.28755044569999999" blue="0.48842075889999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="tintColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                <rect key="frame" x="0.0" y="516" width="375" height="49"/>
+                                <color key="backgroundColor" red="1" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.60777515169999996" green="0.60788232090000005" blue="0.60776835679999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="mRZ-Al-Aoc"/>
+                                    <constraint firstAttribute="height" constant="49" id="mRZ-Al-Aoc"/>
                                 </constraints>
-                                <color key="textColor" red="0.1159" green="0.43706499999999998" blue="0.60999999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="0.60777515169999996" green="0.60788232090000005" blue="0.60776835679999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="password" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OGa-CM-Xc8">
-                                <rect key="frame" x="0.0" y="575" width="375" height="30"/>
-                                <color key="backgroundColor" red="0.16470441650000001" green="0.28755044569999999" blue="0.48842075889999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="tintColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                <rect key="frame" x="0.0" y="566" width="375" height="49"/>
+                                <color key="backgroundColor" red="1" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.60777515169999996" green="0.60788232090000005" blue="0.60776835679999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="Xbn-I8-7Cc"/>
+                                    <constraint firstAttribute="height" constant="49" id="Xbn-I8-7Cc"/>
                                 </constraints>
-                                <color key="textColor" red="0.1159" green="0.43706499999999998" blue="0.60999999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="0.60777515169999996" green="0.60788232090000005" blue="0.60776835679999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BtM-iW-eKS">
-                                <rect key="frame" x="0.0" y="607" width="375" height="60"/>
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="eMw-RD-Do2"/>
+                                    <constraint firstAttribute="height" constant="50" id="eMw-RD-Do2"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
                                 <state key="normal" title="Encrypt">
-                                    <color key="titleColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="titleColor" red="0.2334992588" green="0.28995454310000002" blue="0.31513160470000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="textButtonDecryption:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HDo-Ej-ENc"/>
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="rp1-zQ-XgA">
-                                <rect key="frame" x="16" y="75" width="343" height="441"/>
-                                <color key="tintColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                <color key="textColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
+                                <rect key="frame" x="16" y="75" width="343" height="414"/>
+                                <color key="tintColor" red="0.2334992588" green="0.28995454310000002" blue="0.31513160470000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="0.60777515169999996" green="0.60788232090000005" blue="0.60776835679999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textView>
                             <imageView hidden="YES" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fileprotected.png" translatesAutoresizingMaskIntoConstraints="NO" id="FDZ-aX-u56">
-                                <rect key="frame" x="117" y="210" width="140" height="140"/>
+                                <rect key="frame" x="122" y="210" width="130" height="130"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="140" id="npp-pX-9wF"/>
+                                    <constraint firstAttribute="width" constant="130" id="npp-pX-9wF"/>
                                     <constraint firstAttribute="width" secondItem="FDZ-aX-u56" secondAttribute="height" multiplier="1:1" id="xXh-t6-O4u"/>
                                 </constraints>
                             </imageView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zhy-0R-Pxt" userLabel="Cross">
-                                <rect key="frame" x="331" y="32" width="28" height="28"/>
-                                <state key="normal" image="Cross"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zhy-0R-Pxt" userLabel="AddCross">
+                                <rect key="frame" x="337" y="32" width="22" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="0du-Ai-Gct"/>
+                                    <constraint firstAttribute="width" constant="22" id="yWR-6k-YBz"/>
+                                </constraints>
+                                <state key="normal" image="CrossAdd"/>
                                 <connections>
-                                    <action selector="crossPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="V8I-py-QeH"/>
+                                    <action selector="CrossPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zxx-Jb-Zgg"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Safy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jdk-NH-lyJ">
-                                <rect key="frame" x="168.5" y="35" width="38" height="23.5"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="38" id="UkC-B0-bua"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.1159" green="0.43706499999999998" blue="0.60999999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.96068006750000001" green="0.96084433790000001" blue="0.96066969629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="dai-HZ-ADq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="065-zJ-jea"/>
                             <constraint firstItem="dai-HZ-ADq" firstAttribute="top" secondItem="rp1-zQ-XgA" secondAttribute="bottom" constant="27" id="0Jc-jB-0k6"/>
                             <constraint firstItem="rp1-zQ-XgA" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="0La-ZI-Joe"/>
                             <constraint firstAttribute="trailing" secondItem="dai-HZ-ADq" secondAttribute="trailing" id="0tn-8M-K33"/>
                             <constraint firstItem="FDZ-aX-u56" firstAttribute="top" relation="lessThanOrEqual" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="190" id="1AE-H7-w6h"/>
-                            <constraint firstItem="ZvY-Zm-h5k" firstAttribute="leading" secondItem="Zhy-0R-Pxt" secondAttribute="leading" id="1CO-il-6h0"/>
                             <constraint firstItem="rp1-zQ-XgA" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="55" id="9sH-H1-myx"/>
                             <constraint firstItem="BtM-iW-eKS" firstAttribute="top" secondItem="OGa-CM-Xc8" secondAttribute="bottom" constant="2" id="AjI-9N-Sje"/>
                             <constraint firstItem="FDZ-aX-u56" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" priority="750" id="DJk-aM-7aF"/>
                             <constraint firstItem="rp1-zQ-XgA" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Fqv-HB-85q"/>
-                            <constraint firstItem="jdk-NH-lyJ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="15" id="Jdg-IZ-nIS"/>
-                            <constraint firstItem="OGa-CM-Xc8" firstAttribute="top" secondItem="dai-HZ-ADq" secondAttribute="bottom" constant="2" id="KI0-1L-NAN"/>
-                            <constraint firstAttribute="trailing" secondItem="ZvY-Zm-h5k" secondAttribute="trailing" constant="16" id="Laf-TF-fcj"/>
-                            <constraint firstItem="jdk-NH-lyJ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Mi4-ij-GFo"/>
-                            <constraint firstItem="ZvY-Zm-h5k" firstAttribute="bottom" secondItem="Zhy-0R-Pxt" secondAttribute="bottom" id="OPN-k1-1Kc"/>
+                            <constraint firstItem="KiD-qS-HU8" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="130" id="GBr-1O-vtQ"/>
+                            <constraint firstItem="OGa-CM-Xc8" firstAttribute="top" secondItem="dai-HZ-ADq" secondAttribute="bottom" constant="1" id="KI0-1L-NAN"/>
                             <constraint firstItem="BtM-iW-eKS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="PmV-ea-DUx"/>
                             <constraint firstAttribute="trailing" secondItem="OGa-CM-Xc8" secondAttribute="trailing" id="QfF-hy-osR"/>
+                            <constraint firstItem="Zhy-0R-Pxt" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="QjN-ty-kXj"/>
                             <constraint firstItem="OGa-CM-Xc8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="YUg-6a-URA"/>
                             <constraint firstItem="FDZ-aX-u56" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Z3m-7N-vyb"/>
-                            <constraint firstItem="ZvY-Zm-h5k" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="12" id="eWe-56-EeW"/>
+                            <constraint firstItem="KiD-qS-HU8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cFC-ZY-GoB"/>
                             <constraint firstAttribute="trailing" secondItem="BtM-iW-eKS" secondAttribute="trailing" id="ea6-iV-Vld"/>
-                            <constraint firstItem="ZvY-Zm-h5k" firstAttribute="top" secondItem="Zhy-0R-Pxt" secondAttribute="top" id="jmx-Va-5U1"/>
+                            <constraint firstItem="Zhy-0R-Pxt" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="12" id="mvX-Bk-ub0"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="BtM-iW-eKS" secondAttribute="bottom" id="rla-AA-pW7"/>
-                            <constraint firstItem="ZvY-Zm-h5k" firstAttribute="trailing" secondItem="Zhy-0R-Pxt" secondAttribute="trailing" id="xdz-km-ZO1"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="buttonCross" destination="Zhy-0R-Pxt" id="4S1-Jq-n4V"/>
+                        <outlet property="buttonCross" destination="Zhy-0R-Pxt" id="p3F-Ww-ZkP"/>
                         <outlet property="buttonDecrypt" destination="BtM-iW-eKS" id="tqI-QG-rUa"/>
-                        <outlet property="buttonQr" destination="ZvY-Zm-h5k" id="b6a-8a-3qw"/>
                         <outlet property="fileimage" destination="FDZ-aX-u56" id="jb1-1e-MLu"/>
+                        <outlet property="helloView" destination="KiD-qS-HU8" id="n45-Oo-pFm"/>
                         <outlet property="passOne" destination="dai-HZ-ADq" id="TyL-zG-x0c"/>
                         <outlet property="passTwo" destination="OGa-CM-Xc8" id="h7U-CG-VdU"/>
                         <outlet property="textview" destination="rp1-zQ-XgA" id="vek-wf-3U1"/>
@@ -144,8 +158,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Bidiscan" width="28" height="28"/>
-        <image name="Cross" width="28" height="28"/>
-        <image name="fileprotected.png" width="800" height="800"/>
+        <image name="CrossAdd" width="26" height="26"/>
+        <image name="fileprotected.png" width="774" height="774"/>
     </resources>
 </document>

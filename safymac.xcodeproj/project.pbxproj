@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		494924031DEDC8D900FAE199 /* QRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494924021DEDC8D900FAE199 /* QRCode.swift */; };
-		494924051DEDCC6A00FAE199 /* fileprotected2.png in Resources */ = {isa = PBXBuildFile; fileRef = 494924041DEDCC6A00FAE199 /* fileprotected2.png */; };
 		495FBBD21DE692A90071AD16 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495FBBD11DE692A90071AD16 /* AppDelegate.swift */; };
 		495FBBD41DE692A90071AD16 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495FBBD31DE692A90071AD16 /* ViewController.swift */; };
 		495FBBD71DE692A90071AD16 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 495FBBD51DE692A90071AD16 /* Main.storyboard */; };
@@ -41,6 +40,7 @@
 		49DEBF371DEBEEF000A1025D /* iTunesArtwork@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495FBC0A1DE6A8CB0071AD16 /* iTunesArtwork@1x.png */; };
 		49DEBF381DEBEEF000A1025D /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495FBC0B1DE6A8CB0071AD16 /* iTunesArtwork@2x.png */; };
 		49DEBF391DEBEEF000A1025D /* iTunesArtwork@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495FBC0C1DE6A8CB0071AD16 /* iTunesArtwork@3x.png */; };
+		49F605951DF07D900077DD87 /* QRCenterLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 49F605941DF07D900077DD87 /* QRCenterLogo.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,7 +129,6 @@
 
 /* Begin PBXFileReference section */
 		494924021DEDC8D900FAE199 /* QRCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCode.swift; sourceTree = "<group>"; };
-		494924041DEDCC6A00FAE199 /* fileprotected2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fileprotected2.png; sourceTree = "<group>"; };
 		495FBBCF1DE692A90071AD16 /* safyios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = safyios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		495FBBD11DE692A90071AD16 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		495FBBD31DE692A90071AD16 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -166,6 +165,7 @@
 		49C390CA1DE65A5F0043F304 /* CryptoSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoSwift.xcodeproj; path = CryptoSwift/CryptoSwift.xcodeproj; sourceTree = "<group>"; };
 		49C390E91DE65B580043F304 /* CryptoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoHelper.swift; sourceTree = "<group>"; };
 		49C390EC1DE675790043F304 /* ClassExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassExtensions.swift; sourceTree = "<group>"; };
+		49F605941DF07D900077DD87 /* QRCenterLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QRCenterLogo.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -282,7 +282,7 @@
 		49A0F55D1DEA87350070C296 /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				494924041DEDCC6A00FAE199 /* fileprotected2.png */,
+				49F605941DF07D900077DD87 /* QRCenterLogo.png */,
 				49A0F55E1DEA87350070C296 /* fileprotected.png */,
 			);
 			path = resources;
@@ -568,7 +568,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				495FBBDF1DE692A90071AD16 /* LaunchScreen.storyboard in Resources */,
-				494924051DEDCC6A00FAE199 /* fileprotected2.png in Resources */,
+				49F605951DF07D900077DD87 /* QRCenterLogo.png in Resources */,
 				495FBC0E1DE6A8CB0071AD16 /* iTunesArtwork@2x.png in Resources */,
 				495FBBDC1DE692A90071AD16 /* Assets.xcassets in Resources */,
 				495FBC0D1DE6A8CB0071AD16 /* iTunesArtwork@1x.png in Resources */,

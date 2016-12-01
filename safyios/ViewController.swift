@@ -8,9 +8,12 @@
 
 import UIKit
 
-let globalcolor = UIColor(hue: 201.0/360.0, saturation: 81.0/100.0, brightness: 61.0/100.0, alpha: 0.95)
+let globalcolor = UIColor(hue: 212.0/360.0, saturation: 57.0/100.0, brightness: 89.0/100.0, alpha: 1.0) //Azul
+let globaldarktxt = UIColor(hue: 198.0/360.0, saturation: 25.0/100.0, brightness: 31.0/100.0, alpha: 1.0); //Gris
+let globallighttxt = UIColor(hue: 285.0/360.0, saturation: 0.0/100.0, brightness: 61.0/100.0, alpha: 1.0); //Gris claro para texto
+let globallightbg = UIColor(hue: 0.0/360.0, saturation: 0.0/100.0, brightness: 100.0/100.0, alpha: 1.0); //Gris claro para Fondo
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     enum currentLayoutStatus {
         case none
@@ -19,9 +22,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         case encryptFile
         case decryptFile
     }
+
     @IBOutlet weak var buttonCross: UIButton!
-    
-    @IBOutlet weak var buttonQr: UIButton!
+    var buttonCrossRotated = false;
     
     @IBOutlet weak var passOne: UITextField!
     @IBOutlet weak var passTwo: UITextField!
@@ -30,9 +33,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var buttonDecrypt: UIButton!
     
     @IBOutlet weak var fileimage: UIImageView!
+    @IBOutlet weak var helloView: UIView!
+
+    let picker = UIImagePickerController()
     
     var busyWorking:Bool = false
     var busyChangingStatus:Bool = false
+    var busyAnimatingButtonCross:Bool = false
     var statusChecker:Timer = Timer()
     var lastStatus:currentLayoutStatus = currentLayoutStatus.none
     var fileDataPath:URL?
@@ -50,7 +57,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.passTwo.delegate = self
        
         //INstantiate loader
-        self.loader = SALoaderOvalBlur(onView:self.view, radius: 20, blurBackground: true)
+        self.loader = SALoaderOvalBlur(onView: self.view, radius: 20, blurBackground: true, color: globalcolor)
         
         //Set AppDelegates reference only once
         let appdel = UIApplication.shared.delegate as! AppDelegate
@@ -58,6 +65,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
             appdel.mainVC = self
             
         }
+        //Delegate image picker. He tenido que añadir arriba:UIImagePickerControllerDelegate, UINavigationControllerDelegate
+        picker.delegate = self
         
         //set share action to image
         let tapRec = UITapGestureRecognizer()
@@ -149,7 +158,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
             DispatchQueue.main.async {
                 //Set string to textview
                 //print("Finished: \(cadenaFinal)")
-                self.textview.text = cadenaFinal
+                if(cadenaFinal.characters.count < 5000){
+                    //If its larger, it probably isn't text, but a picture. clampsy way of checking though
+                    self.textview.text = cadenaFinal
+                }
                 //To avoid the text showing up hide the text
                 self.textview.alpha = 0
                 self.unmarkBusy()
@@ -235,7 +247,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             let decryptedBytes:Array<UInt8> = cryptofunction.plaintext;
             let fileformat = cryptofunction.fileformat
             let decryptionstatus:CryptoHelper.decryptionresult = cryptofunction.status
-            print("Decrypted bytes:\(decryptedBytes), status: \(decryptionstatus)")
+            //print("Decrypted bytes:\(decryptedBytes), status: \(decryptionstatus)")
             if(decryptionstatus == CryptoHelper.decryptionresult.error){
                 DispatchQueue.main.async {
                     //Set string to textview
@@ -359,13 +371,47 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     //MARK: Apariencia según estado
     func updateButtons(){
-        if(self.fileDataPath != nil || self.textview.text.characters.count>0 || isCameraScanning){
-            self.buttonQr.isHidden = true;
-            self.buttonCross.isHidden = false;
+        //A: Tint crypt button
+        if(self.fileDataPath == nil && self.textview.text.characters.count == 0){
+            self.buttonDecrypt.backgroundColor = UIColor.clear
+            self.buttonDecrypt.setTitleColor(globaldarktxt, for: .normal)
         }else{
-            self.buttonQr.isHidden = false;
-            self.buttonCross.isHidden = true;
+            self.buttonDecrypt.backgroundColor = globalcolor
+            self.buttonDecrypt.setTitleColor(UIColor.white, for: .normal)
+            
+            //Si helloview esta visible, quito. Only happens first time.
+            if(helloView.alpha == 1){
+                helloView.alpha = 0.99
+                DispatchQueue.main.async {
+                    UIView.animate(withDuration: 0.2, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+                        self.helloView.alpha = 0
+                    }, completion: {_ in
+                        self.helloView.isHidden = true
+                    })
+                }
+            }
+
         }
+        
+        //B: ANimate cross/add button
+        if(busyAnimatingButtonCross){return}
+        var rotAngle = CGFloat(0);
+        if(self.fileDataPath != nil || self.textview.text.characters.count>0 || isCameraScanning){
+            rotAngle = CGFloat(M_PI_4)
+            buttonCrossRotated = true;
+        }else{
+             rotAngle = CGFloat(0)
+            buttonCrossRotated = false
+        }
+        busyAnimatingButtonCross = true;
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+                self.buttonCross.transform = CGAffineTransform(rotationAngle: CGFloat(rotAngle))
+            }, completion: {_ in
+                self.busyAnimatingButtonCross = false;
+            })
+        }
+
     }
     func checkStatusChange(){
         self.updateButtons()
@@ -650,7 +696,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         //shareItems.append(self.textview.text)
         let qrstring:String = "safyqr:/".appending(base64string)
         print("About to share string:\(qrstring)")
-        let qrimage:UIImage = QRCode.generateImage(qrstring, showSafyFrame: false, avatarImage: UIImage(named: "fileprotected2"), avatarScale: 0.20)!
+        let qrimage:UIImage = QRCode.generateImage(qrstring, showSafyFrame: false, avatarImage: UIImage(named: "QRCenterLogo"), avatarScale: 0.20)!
         shareItems.append(qrimage)
         print("Array of share \(shareItems)")
         if(shareItems.count == 0){
@@ -676,7 +722,28 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     //MARK Buttons
     
-    @IBAction func scanQr(_ sender: Any) {
+    @IBAction func CrossPressed(_ sender: Any) {
+        //Según rotaticón, una función u otra
+        if(buttonCrossRotated){
+            self.cancelPressed()
+        }else{
+            //Show options
+            let settingsActionSheet: UIAlertController = UIAlertController(title:nil, message:nil, preferredStyle:UIAlertControllerStyle.actionSheet)
+            settingsActionSheet.addAction(UIAlertAction(title:"Decrypt QR code", style:UIAlertActionStyle.default, handler:{ action in
+                self.scanQr()
+            }))
+            settingsActionSheet.addAction(UIAlertAction(title:"Encrypt photo from library", style:UIAlertActionStyle.default, handler:{ action in
+                self.browseLocalPhotos()
+            }))
+            settingsActionSheet.addAction(UIAlertAction(title:"Cancel", style:UIAlertActionStyle.cancel, handler:nil))
+            present(settingsActionSheet, animated:true, completion:nil)
+
+
+        }
+    }
+    
+    func scanQr() {
+    
         qrview = UIView(frame: self.view.bounds)
         self.view.addSubview(qrview!)
         self.view.bringSubview(toFront: qrview!)
@@ -703,7 +770,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     }
 
-    @IBAction func crossPressed(_ sender: Any) {
+    func cancelPressed() {
         if(isCameraScanning){
             self.qrscanner.stopScan()
             self.qrview?.removeFromSuperview()
@@ -716,5 +783,38 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.textview.becomeFirstResponder()
     }
     
+    //MARK: Picker delegates
+    func browseLocalPhotos(){
+        picker.allowsEditing = false //2
+        picker.sourceType = .photoLibrary
+        present(picker, animated: true, completion: nil)//4
+    }
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        print("Dismissed picker with picture")
+        let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage //2
+
+        //Creo un archivo con extension jpg y guardo lo que he desencriptado
+        let imgdata:Data = NSData(data: UIImageJPEGRepresentation(chosenImage, 1.0)!) as Data
+
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        let filepath = "\(documentsPath)/testimg.jpg"
+        let newImgPath = URL(fileURLWithPath: filepath)
+        do{
+            try imgdata.write(to: newImgPath)
+        }catch{
+            print("Error escribiendo foto jpg uipicker")
+        }
+        
+        self.fileDataPath = newImgPath;
+        dismiss(animated: true, completion: nil) //5
+
+    }
+
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        print("Dismissed picker without picture")
+        dismiss(animated: true, completion: nil)
+    }
 }
 

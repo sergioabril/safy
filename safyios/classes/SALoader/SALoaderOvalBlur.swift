@@ -81,7 +81,7 @@ class SALoaderOvalBlur: UIView {
     
     //MARK: Blur
     func createBlur(){
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = parentView.frame
         blurEffectView.alpha = 0
@@ -196,7 +196,7 @@ class OvalLayer: CAShapeLayer {
         wobbleAnimationGroup.animations = [wobbleAnimation1, wobbleAnimation2, wobbleAnimation3,
                                            wobbleAnimation4]
         wobbleAnimationGroup.duration = wobbleAnimation4.beginTime + wobbleAnimation4.duration
-        wobbleAnimationGroup.repeatCount = 20
+        wobbleAnimationGroup.repeatCount = 100
         add(wobbleAnimationGroup, forKey: nil)
     }
     
