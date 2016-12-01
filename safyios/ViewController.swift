@@ -379,10 +379,34 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
 
     //MARK: Apariencia según estado
     func updateButtons(){
-        //A: Tint crypt button
+        //A: Tint crypt button and admin helloview
         if(self.fileDataPath == nil && self.textview.text.characters.count == 0){
             self.buttonDecrypt.backgroundColor = UIColor.clear
             self.buttonDecrypt.setTitleColor(globaldarktxt, for: .normal)
+            
+            //Aunque estas cosas valgan 0/nil, si textview tiene focus y helloview tiene alpha1, oculto
+            if(self.textview.isFirstResponder && helloView.alpha == 1){
+                helloView.alpha = 0.99
+                DispatchQueue.main.async {
+                    UIView.animate(withDuration: 0.2, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+                        self.helloView.alpha = 0
+                    }, completion: {_ in
+                        self.helloView.isHidden = true
+                    })
+                }
+            //Si el textview deja de ser responder, no hay nada escrito, y tampoco url.. pues muestro helloview again
+            }else if(!self.textview.isFirstResponder && helloView.alpha == 0){
+                //Show helloview again
+                self.helloView.isHidden = false
+                DispatchQueue.main.async {
+                    UIView.animate(withDuration: 0.3, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+                        self.helloView.alpha = 0.99
+                    }, completion: {_ in
+                        self.helloView.alpha = 1
+                    })
+                }
+            }
+
         }else{
             self.buttonDecrypt.backgroundColor = globalcolor
             self.buttonDecrypt.setTitleColor(UIColor.white, for: .normal)
