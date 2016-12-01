@@ -34,7 +34,11 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     
     @IBOutlet weak var fileimage: UIImageView!
     @IBOutlet weak var helloView: UIView!
+    
+    @IBOutlet weak var filedetailView: UIView!
+    @IBOutlet weak var filedetailSize:UILabel!
 
+    
     let picker = UIImagePickerController()
     
     var busyWorking:Bool = false
@@ -55,7 +59,10 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         
         self.passOne.delegate = self
         self.passTwo.delegate = self
-       
+        
+        //Avoid background black
+        self.view.window?.backgroundColor = globallightbg;
+        
         //INstantiate loader
         self.loader = SALoaderOvalBlur(onView: self.view, radius: 20, blurBackground: true, color: globalcolor)
         
@@ -452,12 +459,13 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
                             self.buttonDecrypt.setTitle("Encrypt", for: .normal)
                             self.passOne.alpha = 1
                             self.fileimage.alpha = 0
+                            self.filedetailView.alpha = 0
                             self.textview.alpha = 1 //fade imageicon and show text again
                         }, completion: {_ in
                             print("Status cambiado a .encryptText")
                             self.busyChangingStatus = false
                             self.fileimage.isHidden = true
-
+                            self.filedetailView.isHidden = true
                         })
                     }
                 }
@@ -472,10 +480,25 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
                     //Animate
                     DispatchQueue.main.async {
                         self.fileimage.isHidden = false;
+                        self.filedetailView.isHidden = false;
+                        //Get file size
+                        do{
+                            let attr:NSDictionary? = try FileManager.default.attributesOfItem(atPath: self.fileDataPath!.path) as NSDictionary?
+                            var filesize:UInt64 = 0;
+                            if let _attr = attr {
+                                filesize = _attr.fileSize();
+                            }
+                            self.filedetailSize.text = "\((filesize/1024)/1024) mb"
+                        }catch{
+                            print("ERROR obteniendo file size.")
+                            self.filedetailSize.text = "-- mb"
+                        }
+                        //Animate
                         UIView.animate(withDuration: 0.5, delay: 0.02, options: UIViewAnimationOptions.curveEaseOut, animations: {
                             self.buttonDecrypt.setTitle("Decrypt file", for: .normal)
                             self.passOne.alpha = 0
                             self.fileimage.alpha = 1
+                            self.filedetailView.alpha = 1
                             self.textview.alpha = 0 //change text for image
                         }, completion: {_ in
                             print("Status cambiado a .decryptFile")
@@ -502,15 +525,18 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
                     DispatchQueue.main.async {
                         self.fileimage.isHidden = false;
                         self.passOne.isHidden = false
+                    
                         UIView.animate(withDuration: 0.5, delay: 0.02, options: UIViewAnimationOptions.curveEaseOut, animations: {
                             self.buttonDecrypt.setTitle("Encrypt file", for: .normal)
                             self.passOne.alpha = 1 //keep passone shown
                             self.fileimage.alpha = 0.8
+                            self.filedetailView.alpha = 0
                             self.textview.alpha = 0 //change text for image
                         }, completion: {_ in
                             self.busyChangingStatus = false
                             self.passTwo.text = ""
                             self.passOne.text = ""
+                            self.filedetailView.isHidden = true
                             //self.passTwo.becomeFirstResponder()
                         })
                     }
@@ -780,6 +806,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         //Cleans the actual file
         self.fileDataPath = nil;
         self.textview.text = ""
+        self.passOne.text = ""
+        self.passTwo.text = ""
         self.textview.becomeFirstResponder()
     }
     

@@ -117,6 +117,40 @@
                                     <action selector="CrossPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zxx-Jb-Zgg"/>
                                 </connections>
                             </button>
+                            <view hidden="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nY5-xi-4XJ" userLabel="FileDetailView">
+                                <rect key="frame" x="107" y="345" width="160" height="48"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Encrypted file" textAlignment="center" lineBreakMode="middleTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sbS-HN-ThG">
+                                        <rect key="frame" x="0.0" y="0.0" width="160" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="pER-II-QuZ"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="14"/>
+                                        <color key="textColor" red="0.60777515169999996" green="0.60788232090000005" blue="0.60776835679999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2mb" textAlignment="center" lineBreakMode="middleTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PgS-eZ-RIh">
+                                        <rect key="frame" x="5" y="20" width="149" height="18"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="18" id="9pB-BO-Ci5"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="13"/>
+                                        <color key="textColor" red="0.60777515169999996" green="0.60788232090000005" blue="0.60776835679999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="6pj-Gh-fqS"/>
+                                    <constraint firstItem="PgS-eZ-RIh" firstAttribute="top" secondItem="sbS-HN-ThG" secondAttribute="bottom" id="CZ4-Ph-3QN"/>
+                                    <constraint firstItem="sbS-HN-ThG" firstAttribute="leading" secondItem="nY5-xi-4XJ" secondAttribute="leading" id="VVG-Gb-dhW"/>
+                                    <constraint firstAttribute="width" constant="160" id="Z3z-ms-A6e"/>
+                                    <constraint firstItem="sbS-HN-ThG" firstAttribute="top" secondItem="nY5-xi-4XJ" secondAttribute="top" id="aD6-B9-J6r"/>
+                                    <constraint firstAttribute="trailing" secondItem="PgS-eZ-RIh" secondAttribute="trailing" constant="6" id="atV-9Y-jtP"/>
+                                    <constraint firstItem="PgS-eZ-RIh" firstAttribute="leading" secondItem="nY5-xi-4XJ" secondAttribute="leading" constant="5" id="dyx-IU-zdZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="sbS-HN-ThG" secondAttribute="trailing" id="heE-U9-YPx"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.96068006750000001" green="0.96084433790000001" blue="0.96066969629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -134,17 +168,21 @@
                             <constraint firstItem="BtM-iW-eKS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="PmV-ea-DUx"/>
                             <constraint firstAttribute="trailing" secondItem="OGa-CM-Xc8" secondAttribute="trailing" id="QfF-hy-osR"/>
                             <constraint firstItem="Zhy-0R-Pxt" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="QjN-ty-kXj"/>
+                            <constraint firstItem="nY5-xi-4XJ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="VTe-MU-0Cg"/>
                             <constraint firstItem="OGa-CM-Xc8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="YUg-6a-URA"/>
                             <constraint firstItem="FDZ-aX-u56" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Z3m-7N-vyb"/>
                             <constraint firstItem="KiD-qS-HU8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cFC-ZY-GoB"/>
                             <constraint firstAttribute="trailing" secondItem="BtM-iW-eKS" secondAttribute="trailing" id="ea6-iV-Vld"/>
                             <constraint firstItem="Zhy-0R-Pxt" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="12" id="mvX-Bk-ub0"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="BtM-iW-eKS" secondAttribute="bottom" id="rla-AA-pW7"/>
+                            <constraint firstItem="nY5-xi-4XJ" firstAttribute="top" secondItem="FDZ-aX-u56" secondAttribute="bottom" constant="5" id="yRi-Wr-xfs"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="buttonCross" destination="Zhy-0R-Pxt" id="p3F-Ww-ZkP"/>
                         <outlet property="buttonDecrypt" destination="BtM-iW-eKS" id="tqI-QG-rUa"/>
+                        <outlet property="filedetailSize" destination="PgS-eZ-RIh" id="rxW-3x-eQk"/>
+                        <outlet property="filedetailView" destination="nY5-xi-4XJ" id="2Eh-8g-iOc"/>
                         <outlet property="fileimage" destination="FDZ-aX-u56" id="jb1-1e-MLu"/>
                         <outlet property="helloView" destination="KiD-qS-HU8" id="n45-Oo-pFm"/>
                         <outlet property="passOne" destination="dai-HZ-ADq" id="TyL-zG-x0c"/>
