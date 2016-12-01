@@ -35,6 +35,7 @@
 		49C390E51DE65AF50043F304 /* CryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 49C390D01DE65A5F0043F304 /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		49C390EA1DE65B580043F304 /* CryptoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C390E91DE65B580043F304 /* CryptoHelper.swift */; };
 		49C390ED1DE675790043F304 /* ClassExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C390EC1DE675790043F304 /* ClassExtensions.swift */; };
+		49D6C4AC1DF0D64A0057A3C5 /* SABanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D6C4AB1DF0D64A0057A3C5 /* SABanner.swift */; };
 		49DEBF361DEBED7300A1025D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49C3909F1DE658C80043F304 /* Assets.xcassets */; };
 		49DEBF371DEBEEF000A1025D /* iTunesArtwork@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495FBC0A1DE6A8CB0071AD16 /* iTunesArtwork@1x.png */; };
 		49DEBF381DEBEEF000A1025D /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495FBC0B1DE6A8CB0071AD16 /* iTunesArtwork@2x.png */; };
@@ -164,6 +165,7 @@
 		49C390CA1DE65A5F0043F304 /* CryptoSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoSwift.xcodeproj; path = CryptoSwift/CryptoSwift.xcodeproj; sourceTree = "<group>"; };
 		49C390E91DE65B580043F304 /* CryptoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoHelper.swift; sourceTree = "<group>"; };
 		49C390EC1DE675790043F304 /* ClassExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassExtensions.swift; sourceTree = "<group>"; };
+		49D6C4AB1DF0D64A0057A3C5 /* SABanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SABanner.swift; sourceTree = "<group>"; };
 		49F605941DF07D900077DD87 /* QRCenterLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QRCenterLogo.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -264,6 +266,7 @@
 		49811D161DE725D8007D2051 /* classes */ = {
 			isa = PBXGroup;
 			children = (
+				49D6C4AA1DF0D64A0057A3C5 /* SABanner */,
 				494924001DEDC8CD00FAE199 /* QRCode */,
 				49811D171DE725D8007D2051 /* SALoader */,
 			);
@@ -354,6 +357,14 @@
 				49C390D21DE65A5F0043F304 /* Tests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		49D6C4AA1DF0D64A0057A3C5 /* SABanner */ = {
+			isa = PBXGroup;
+			children = (
+				49D6C4AB1DF0D64A0057A3C5 /* SABanner.swift */,
+			);
+			path = SABanner;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -627,6 +638,7 @@
 				494924031DEDC8D900FAE199 /* QRCode.swift in Sources */,
 				495FBC031DE692DD0071AD16 /* ClassExtensions.swift in Sources */,
 				495FBBDA1DE692A90071AD16 /* safyios.xcdatamodeld in Sources */,
+				49D6C4AC1DF0D64A0057A3C5 /* SABanner.swift in Sources */,
 				49811D211DE725D8007D2051 /* SALoaderOvalBlur.swift in Sources */,
 				495FBBD41DE692A90071AD16 /* ViewController.swift in Sources */,
 				495FBC011DE692C20071AD16 /* CryptoHelper.swift in Sources */,

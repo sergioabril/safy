@@ -459,7 +459,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
                     self.fileimage.isHidden = false
                     //Anim
                     DispatchQueue.main.async {
-                        UIView.animate(withDuration: 1.0, delay: 0.1, options: UIViewAnimationOptions.curveEaseOut, animations: {
+                        UIView.animate(withDuration: 0.5, delay: 0.1, options: UIViewAnimationOptions.curveEaseOut, animations: {
                             self.buttonDecrypt.setTitle("Decrypt", for: .normal)
                             self.passOne.alpha = 0
                             self.fileimage.alpha = 1
@@ -480,7 +480,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
                     //Anim
                     DispatchQueue.main.async {
                         self.passOne.isHidden = false
-                        UIView.animate(withDuration: 1.0, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+                        UIView.animate(withDuration: 0.5, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
                             self.buttonDecrypt.setTitle("Encrypt", for: .normal)
                             self.passOne.alpha = 1
                             self.fileimage.alpha = 0
