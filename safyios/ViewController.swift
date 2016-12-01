@@ -769,11 +769,15 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     }
     
     func scanQr() {
-    
         qrview = UIView(frame: self.view.bounds)
         self.view.addSubview(qrview!)
         self.view.bringSubview(toFront: qrview!)
         isCameraScanning = true;
+        //Resign responders
+        self.passTwo.resignFirstResponder()
+        self.passOne.resignFirstResponder()
+        self.textview.resignFirstResponder()
+        //Prepare camera
         qrscanner.prepareScan(qrview!) { (stringValue) -> () in
             if(stringValue.range(of: "safyqr:/") == nil){
                 self.showMessage(isError: true, text: "Error: That's not a Safy QR encrypted code", warnuser: true);
