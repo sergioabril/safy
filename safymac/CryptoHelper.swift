@@ -96,7 +96,6 @@ class CryptoHelper{
     
     //Separate Headers and Encrypted data
     static func separateHeadersFromChipherString(cipher:String) -> (fileformat:fileFormat, cipher:String, iv:String, iterations: Int){
-        
         //First byte is File Format. 2 Hex Char.
         let fformStartIndex = cipher.index(cipher.startIndex, offsetBy: 0)
         let fformEndIndex = cipher.index(cipher.startIndex, offsetBy: 1)

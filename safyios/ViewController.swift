@@ -153,7 +153,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         }
                 
         //Background decrypt
-        DispatchQueue.global(qos: .background).async {
+         DispatchQueue.global(qos: .userInitiated).async {
             //reset status so it has to change after compression
             self.lastStatus = .none
 
@@ -214,7 +214,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
 
         
         //3. Obtengo data para encryptar. Todo en background
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: .userInitiated).async {
             var dataToDecrypt:Data?
             if(self.lastStatus == .decryptText){
                 //Obtengo texto y quito headers y footers. Esa es mi base64
@@ -247,11 +247,15 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
                     return
                 }
             }
+            print("Datos leidos. Convirtiendo a bytes...")
+
             let bytesToDecrypt:Array<UInt8> = dataToDecrypt!.bytes;
-            
+            print("Convertido a bytes")
+
             //5. Desencripto (in background too)
             //Decrypt
             let cryptofunction = CryptoHelper.decryptAES256fromBytes(databytes: bytesToDecrypt, password: self.passTwo.text!)
+
             let decryptedBytes:Array<UInt8> = cryptofunction.plaintext;
             let fileformat = cryptofunction.fileformat
             let decryptionstatus:CryptoHelper.decryptionresult = cryptofunction.status
@@ -298,6 +302,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
             
             //B: Si es una foto jpg
             if(fileformat == CryptoHelper.fileFormat.jpg){
+
                 //Dejo la string de texto vacia
                 newstring = ""
                 //Creo un archivo con extension jpg y guardo lo que he desencriptado
@@ -310,6 +315,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
                 }catch{
                     print("Error escribiendo foto jpg tras desencriptar")
                 }
+                print("Guardado en disco")
                 //Borro el antiguo .safy
                 print("Borro referencia a:\(self.fileDataPath!)")
                 do{
