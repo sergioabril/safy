@@ -39,3 +39,31 @@ extension NSTextField{
         return true
     }
 }
+
+//NSTextView for dragging
+
+extension NSTextView{
+    
+    override open func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation
+    {
+        debugPrint("dragging entered")
+        return NSDragOperation.copy
+    }
+
+    //Esto es lo que administra el archivo que estás soltando. al overridear, ya no se pega la url.
+    open override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
+        //Get list of files
+        let paths = sender.draggingPasteboard().propertyList(forType: NSFilenamesPboardType)! as! Array<String>
+        //For now, only get first
+        let pathOne = paths[0] as String
+        //build url
+        let url = URL(fileURLWithPath: pathOne)
+        //Return false if its not safy (for now)
+        if(url.pathExtension != "safy"){
+            return false
+        }
+        //Send to VC
+        VCShared?.myDraggEnded(url: url)
+        return true
+    }
+}

@@ -151,7 +151,7 @@
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="safymac" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XfG-lQ-9wD" customClass="OSXViewController" customModule="safymac" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="380" height="480"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -162,9 +162,9 @@
                                     <constraint firstAttribute="height" constant="20" id="gsM-lS-hEf"/>
                                 </constraints>
                                 <secureTextFieldCell key="cell" selectable="YES" editable="YES" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" focusRingType="none" alignment="center" title="password" placeholderString="repeat" drawsBackground="YES" usesSingleLineMode="YES" id="eYN-2t-pwV">
-                                    <font key="font" metaFont="system" size="16"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="backgroundColor" red="0.16470441645433759" green="0.28755044571397043" blue="0.48842075892857145" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <font key="font" size="15" name="Avenir-Roman"/>
+                                    <color key="textColor" red="0.60777515169999996" green="0.60788232090000005" blue="0.60776835679999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="backgroundColor" red="0.96068006750000001" green="0.96084433790000001" blue="0.96066969629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <allowedInputSourceLocales>
                                         <string>NSAllRomanInputSourcesLocaleIdentifier</string>
                                     </allowedInputSourceLocales>
@@ -176,9 +176,9 @@
                                     <constraint firstAttribute="height" constant="40" id="Agv-M0-Grh"/>
                                     <constraint firstAttribute="width" constant="380" id="jOu-WC-W5x"/>
                                 </constraints>
-                                <buttonCell key="cell" type="inline" title="encrypt" bezelStyle="inline" imagePosition="overlaps" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="T8f-XC-XYz">
+                                <buttonCell key="cell" type="inline" title="Encrypt" bezelStyle="inline" imagePosition="overlaps" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="T8f-XC-XYz">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="smallSystemBold"/>
+                                    <font key="font" size="12" name="Avenir-Roman"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="mainButtonAction:" target="XfG-lQ-9wD" id="Esf-pc-IVS"/>
@@ -190,11 +190,11 @@
                                     <rect key="frame" x="0.0" y="0.0" width="340" height="336"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textView drawsBackground="NO" importsGraphics="NO" richText="NO" usesFontPanel="YES" findStyle="panel" allowsUndo="YES" usesRuler="YES" dashSubstitution="YES" smartInsertDelete="YES" id="woa-nC-mb2">
+                                        <textView drawsBackground="NO" importsGraphics="NO" richText="NO" usesFontPanel="YES" findStyle="panel" allowsUndo="YES" usesRuler="YES" dashSubstitution="YES" smartInsertDelete="YES" id="woa-nC-mb2" customClass="CustomNSText" customModule="safymac" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="340" height="336"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="textColor" name="selectedMenuItemColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" red="0.96068006750000001" green="0.96084433790000001" blue="0.96066969629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <size key="minSize" width="340" height="336"/>
                                             <size key="maxSize" width="463" height="10000000"/>
                                             <color key="insertionPointColor" name="selectedControlColor" catalog="System" colorSpace="catalog"/>
@@ -224,17 +224,26 @@
                                     <constraint firstAttribute="height" constant="20" id="LdS-vv-lvd"/>
                                 </constraints>
                                 <secureTextFieldCell key="cell" selectable="YES" editable="YES" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" focusRingType="none" alignment="center" title="password" placeholderString="password" drawsBackground="YES" usesSingleLineMode="YES" id="LPn-ZN-CZU">
-                                    <font key="font" metaFont="system" size="16"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="backgroundColor" red="0.16470441650000001" green="0.28755044569999999" blue="0.48842075889999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <font key="font" size="15" name="Avenir-Roman"/>
+                                    <color key="textColor" red="0.60777515169999996" green="0.60788232090000005" blue="0.60776835679999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="backgroundColor" red="0.96068006750000001" green="0.96084433790000001" blue="0.96066969629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <allowedInputSourceLocales>
                                         <string>NSAllRomanInputSourcesLocaleIdentifier</string>
                                     </allowedInputSourceLocales>
                                 </secureTextFieldCell>
                             </secureTextField>
+                            <imageView translatesAutoresizingMaskIntoConstraints="NO" id="CBp-R1-Ul9">
+                                <rect key="frame" x="130" y="230" width="120" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="K9E-yl-8Zw"/>
+                                    <constraint firstAttribute="height" constant="120" id="aK7-N7-aJh"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="fileprotected" id="EHw-fu-cTZ"/>
+                            </imageView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="10p-JK-tur" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="2ND-2N-qaj"/>
+                            <constraint firstItem="CBp-R1-Ul9" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="130" id="3Cu-Cp-qqK"/>
                             <constraint firstAttribute="bottom" secondItem="zzn-cY-D83" secondAttribute="bottom" id="3eY-yT-wPe"/>
                             <constraint firstAttribute="trailing" secondItem="10p-JK-tur" secondAttribute="trailing" constant="20" id="6EO-56-Ngj"/>
                             <constraint firstItem="zzn-cY-D83" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="8Ag-n8-m9D"/>
@@ -244,11 +253,14 @@
                             <constraint firstAttribute="trailing" secondItem="RWN-xb-E9C" secondAttribute="trailing" id="R3A-au-hB9"/>
                             <constraint firstItem="RWN-xb-E9C" firstAttribute="top" secondItem="7in-vA-pQt" secondAttribute="bottom" id="RNN-2k-Agj"/>
                             <constraint firstItem="zzn-cY-D83" firstAttribute="top" secondItem="RWN-xb-E9C" secondAttribute="bottom" id="Y4z-qk-cSW"/>
+                            <constraint firstItem="CBp-R1-Ul9" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="rXD-Dn-4fe"/>
                             <constraint firstItem="10p-JK-tur" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="60" id="vnt-OE-vN5"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="buttonDecrypt" destination="zzn-cY-D83" id="tzd-Is-IIl"/>
+                        <outlet property="fileimage" destination="CBp-R1-Ul9" id="YUP-Yd-wFe"/>
+                        <outlet property="fileimg" destination="CBp-R1-Ul9" id="dM1-WQ-stH"/>
                         <outlet property="passOne" destination="7in-vA-pQt" id="AMw-9w-5A5"/>
                         <outlet property="passTwo" destination="RWN-xb-E9C" id="ptE-dA-nAI"/>
                         <outlet property="textview" destination="woa-nC-mb2" id="fbM-c6-IYW"/>
@@ -259,4 +271,7 @@
             <point key="canvasLocation" x="74" y="986"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="fileprotected" width="774" height="774"/>
+    </resources>
 </document>

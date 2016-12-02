@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  OSXViewController.swift
 //  safymac
 //
 //  Created by Sergio Abril Herrero on 23/11/16.
@@ -8,12 +8,22 @@
 
 import Cocoa
 
-class ViewController: NSViewController, NSTextFieldDelegate, NSDraggingDestination {
+
+var VCShared:OSXViewController?
+
+let globalcolor = NSColor(hue: 212.0/360.0, saturation: 57.0/100.0, brightness: 89.0/100.0, alpha: 1.0) //Azul
+let globaldarktxt = NSColor(hue: 198.0/360.0, saturation: 25.0/100.0, brightness: 31.0/100.0, alpha: 1.0); //Gris
+let globallighttxt = NSColor(hue: 285.0/360.0, saturation: 0.0/100.0, brightness: 61.0/100.0, alpha: 1.0); //Gris claro para texto
+let globallightbg = NSColor(hue: 0.0/360.0, saturation: 0.0/100.0, brightness: 100.0/100.0, alpha: 1.0); //Gris claro para Fondo
+
+class OSXViewController: NSViewController, NSTextFieldDelegate, NSDraggingDestination {
     
     enum currentLayoutStatus {
         case none
         case encryptText
         case decryptText
+        case encryptFile
+        case decryptFile
     }
     
     @IBOutlet weak var passOne: NSSecureTextField!
@@ -22,27 +32,25 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSDraggingDestinati
     @IBOutlet weak var buttonDecrypt: NSButton!
 
     @IBOutlet var textview: NSTextView!
-    @IBOutlet weak var buttonCross: UIButton!
-    @IBOutlet weak var buttonCross: UIButton!
-    @IBOutlet weak var buttonCross: UIButton!
+    
+    @IBOutlet weak var fileimage: NSImageView!
 
     var busyWorking = false
     var busyChangingStatus:Bool = false
     var statusChecker:Timer = Timer()
     var lastStatus:currentLayoutStatus = currentLayoutStatus.none
-    @IBOutlet weak var helloView: UIView!
-    
-    @IBOutlet weak var helloView: UIView!
-    @IBOutlet weak var helloview: UIView!
-    @IBOutlet weak var hellowview: UIView!
-    @IBOutlet weak var helloView: UIView!
-    @IBOutlet weak var buttonQR: UIButton!
+    var fileDataPath:URL?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        //Set lazy self to VCShared
+        if(VCShared == nil){
+            VCShared = self
+        }
         // Do any additional setup after loading the view.
-        self.textview.textColor = NSColor.white
+        self.textview.textColor = globallighttxt
+        self.textview.font = NSFont(name: "Avenir-Roman", size: 14)
+        
 
     
     }
@@ -51,8 +59,7 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSDraggingDestinati
         
         self.view.window?.titlebarAppearsTransparent = true
         self.view.window?.isMovableByWindowBackground = true
-        let colorfondo:NSColor! = NSColor.init(hue: 201.0/360.0, saturation: 81.0/100.0, brightness: 61.0/100.0, alpha: 0.95)
-        self.view.window?.backgroundColor = colorfondo
+        self.view.window?.backgroundColor = globallightbg
         self.view.window?.isOpaque = false
         
         //self.blur(view: self.view.window?.contentView)
@@ -60,9 +67,9 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSDraggingDestinati
         self.passTwo.delegate = self
 
         //Boton
-        let colorboton:NSColor! = NSColor.init(hue: 201.0/360.0, saturation: 81.0/100.0, brightness: 61.0/100.0, alpha: 1)
+        let colorboton:NSColor! = globalcolor
         self.buttonDecrypt.image = NSImage.swatchWithColor(color: colorboton, size: NSMakeSize(380, 40) )
-        self.buttonDecrypt.alternateImage = NSImage.swatchWithColor(color: NSColor.white, size: NSMakeSize(380, 40) )
+        self.buttonDecrypt.alternateImage = NSImage.swatchWithColor(color: NSColor.clear, size: NSMakeSize(380, 40) )
         
         //Reset timer to check the layout
         statusChecker.invalidate()
@@ -225,30 +232,82 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSDraggingDestinati
     func checkStatusChange(){
         if(busyWorking || busyChangingStatus){return}
         
-        if(canDecrypt()){
-            //Esta en estado textCanDecrypt. Si el last status no es igual, toca animar
-            if(lastStatus != .decryptText){
-                lastStatus = .decryptText
-                busyChangingStatus = true
-                //Anim
-                self.buttonDecrypt.title = "Decrypt"
-                //self.passOne.alpha = 0
-                self.passTwo.isHidden = true
-                self.busyChangingStatus = false
+        //A: Caso tradicional. Ruta nil. Va de texto la cosa.
+        if(self.fileDataPath == nil){
+            self.fileimage.isHidden = true;
+            if(canDecrypt()){
+                //Esta en estado textCanDecrypt. Si el last status no es igual, toca animar
+                if(lastStatus != .decryptText){
+                    lastStatus = .decryptText
+                    busyChangingStatus = true
+                    //Anim
+                    self.buttonDecrypt.title = "Decrypt"
+                    //self.passOne.alphaValue = 0
+                    self.passTwo.isHidden = true
+                    self.busyChangingStatus = false
 
+                }
+            }else{
+                
+                //Esta en estado textCanencrypt. Si el last status no es igual, toca animar
+                if(lastStatus != .encryptText){
+                    //Change button and status
+                    lastStatus = .encryptText
+                    busyChangingStatus = true
+                    //Anim
+                    self.passTwo.isHidden = false
+                    self.buttonDecrypt.title = "Encrypt"
+                    //self.passOne.alphaValue = 1
+                    self.busyChangingStatus = false
+                }
             }
+        
+            //B: When a file is provided
         }else{
-            //Esta en estado textCanencrypt. Si el last status no es igual, toca animar
-            if(lastStatus != .encryptText){
-                //Change button and status
-                lastStatus = .encryptText
-                busyChangingStatus = true
-                //Anim
-                self.passTwo.isHidden = false
-                self.buttonDecrypt.title = "Encrypt"
-                //self.passOne.alpha = 1
-                self.busyChangingStatus = false
+            if(self.fileDataPath!.pathExtension == "safy"){
+                if(lastStatus != .decryptFile){
+                    lastStatus = .decryptFile
+                    //Change image to default encrypted image
+                    self.fileimage.image = NSImage(named: "fileprotected.png")
+                    //Animate
+                    DispatchQueue.main.async {
+                        self.fileimage.isHidden = false;
+
+                        self.buttonDecrypt.title = "Decrypt"
+                        self.passOne.alphaValue = 0
+                        self.fileimage.alphaValue = 1
+                        self.textview.alphaValue = 0 //change text for image
+                        
+                        self.busyChangingStatus = false
+                        self.passOne.isHidden = true
+                        self.passTwo.stringValue = ""
+                        self.passOne.stringValue = ""
+                    }
+                }
+            }else{
+                if(lastStatus != .encryptFile){
+                    lastStatus = .encryptFile
+                    print("Status cambiado a .encryptFile")
+                    if(self.fileDataPath!.pathExtension == "jpg"){
+                        //Change image to the given img
+                        self.fileimage.image = NSImage(contentsOfFile: self.fileDataPath!.path)
+                    }
+                    //Animate the central image and everything
+                    DispatchQueue.main.async {
+                        self.fileimage.isHidden = false;
+                        self.passOne.isHidden = false
+                        self.buttonDecrypt.title = "Encrypt"
+                        self.passOne.alphaValue = 1 //keep passone shown
+                        self.fileimage.alphaValue = 0.8
+                        self.textview.alphaValue = 0 //change text for image
+                        self.busyChangingStatus = false
+                        self.passTwo.stringValue = ""
+                        self.passOne.stringValue = ""
+
+                    }
+                }
             }
+            
         }
     }
     
@@ -287,13 +346,12 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSDraggingDestinati
        //Warn user
     }
     
-    //MARK: Textfield delegate
-    override func controlTextDidBeginEditing(_ obj: Notification) {
-
+    
+    //MARK : DRAGG ended called from NSTextView Extension
+    func myDraggEnded(url:URL){
+        print("Drag ended. url: \(url)");
+        self.fileDataPath = url
     }
-    
-    
-
  
 }
 
