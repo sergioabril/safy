@@ -457,6 +457,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
                     lastStatus = .decryptText
                     busyChangingStatus = true
                     self.fileimage.isHidden = false
+                    self.fileimage.image = UIImage(named: "fileprotected")
                     //Anim
                     DispatchQueue.main.async {
                         UIView.animate(withDuration: 0.5, delay: 0.1, options: UIViewAnimationOptions.curveEaseOut, animations: {
