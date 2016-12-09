@@ -204,7 +204,7 @@ class CryptoHelper{
         
         let salt: Array<UInt8> = AES.randomIV(AES.blockSize)
         
-        let iterations = 1
+        let iterations = 7
         let iterBytes:[UInt8] = [UInt8(iterations)]
         //let iterHex = iterBytes.toHexString()
         
@@ -219,14 +219,16 @@ class CryptoHelper{
         let iv = derived.iv
         
         //HMAC
+        /*
         do{
-            let hmacsig = try HMAC(key: derived, variant: .sha256).authenticate(input)
+            //let hmacsig = try HMAC(key: derived, variant: .sha256).authenticate(input)
             //Add hmac signature at the end of the hole
-            input.append(contentsOf: hmacsig)
+            //input.append(contentsOf: hmacsig)
         }catch{
             print("Error hasing HMAC")
             return []
         }
+        */
         
         //Encrypt
         do {

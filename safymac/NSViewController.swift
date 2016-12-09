@@ -109,7 +109,7 @@ class OSXViewController: NSViewController, NSTextFieldDelegate, NSDraggingDestin
     func compressText(){
             //Check if passwords are null
             if self.passOne.stringValue.characters.count < 1{
-                showMessage(isError: true, text: "Contraseña vacía", warnuser: true)
+                showMessage(isError: true, text: "Contraseña vacía en encryption", warnuser: true)
                 unmarkBusy()
                 return;
             }else{
@@ -153,38 +153,64 @@ class OSXViewController: NSViewController, NSTextFieldDelegate, NSDraggingDestin
     func decompressText(){
         
             //Check if passwords are null
-            if self.passOne.stringValue.characters.count < 1{
+            if self.passTwo.stringValue.characters.count < 1{
                 showMessage(isError: true, text: "Contraseña vacía", warnuser: true)
                 unmarkBusy()
                 return;
             }else{
                 print("Using password:\(self.passOne.stringValue)")
             }
-            
-            //Avoid empty texts
-            if(textview.string == nil){
-                showMessage(isError: true, text: "No hay nada que desencriptar", warnuser: true)
-                unmarkBusy()
-                return;
+        
+            //prepare vars
+            var bytesToDecrypt:Array<UInt8> = Array<UInt8>()
+        
+            //IF its text to decrypt
+            if(lastStatus == .decryptText){
+                //Avoid empty texts
+                if(textview.string == nil){
+                    showMessage(isError: true, text: "No hay nada que desencriptar", warnuser: true)
+                    unmarkBusy()
+                    return;
+                }
+                
+                //Obtengo texto y quito headers y footers. Esa es mi base64
+                var newBase64:String! = textview.string!.replacingOccurrences(of: CryptoHelper.armorHeader, with: "")
+                newBase64 = newBase64.replacingOccurrences(of: CryptoHelper.armorFooter, with: "")
+                
+                //COnvierto base64 a data. Si falla suele ser porque esta alterada, asique error y salgo
+                let dataToDecrypt:Data? = Data(base64Encoded: newBase64)
+                if(dataToDecrypt == nil){
+                    showMessage(isError: true, text: "Datos corruptos o alterados!", warnuser: true)
+                    unmarkBusy()
+                    return
+                }
+                bytesToDecrypt = dataToDecrypt!.bytes;
             }
-            
-            //Obtengo texto y quito headers y footers. Esa es mi base64
-            var newBase64:String! = textview.string!.replacingOccurrences(of: CryptoHelper.armorHeader, with: "")
-            newBase64 = newBase64.replacingOccurrences(of: CryptoHelper.armorFooter, with: "")
-            
-            //COnvierto base64 a data. Si falla suele ser porque esta alterada, asique error y salgo
-            let dataToDecrypt:Data? = Data(base64Encoded: newBase64)
-            if(dataToDecrypt == nil){
-                showMessage(isError: true, text: "Datos corruptos o alterados!", warnuser: true)
-                unmarkBusy()
-                return
+        
+            //If it's a file to decrypt.. read it
+            if(lastStatus == .decryptFile){
+                showMessage(isError: false, text: "Desencriptando file...", warnuser: false)
+                if(fileDataPath == nil){
+                    showMessage(isError: true, text: "Ruta de file vacia.", warnuser: true)
+                    return
+                }
+                //Read data of file to bytesToDecrypt
+                do{
+                    bytesToDecrypt = try Data(contentsOf: self.fileDataPath!).bytes
+                }catch{
+                    DispatchQueue.main.async {
+                        self.showMessage(isError: true, text: "Datos corruptos o alterados! Can't get anyting", warnuser: true)
+                        self.unmarkBusy()
+                        return
+                    }
+                }
+
             }
-            let bytesToDecrypt:Array<UInt8> = dataToDecrypt!.bytes;
-            
+        
             //Desencripto in background
             DispatchQueue.global(qos: .background).async {
                 //Decrypt
-                let cryptofunction = CryptoHelper.decryptAES256fromBytes(databytes: bytesToDecrypt, password: self.passOne.stringValue)
+                let cryptofunction = CryptoHelper.decryptAES256fromBytes(databytes: bytesToDecrypt, password: self.passTwo.stringValue)
                 let decryptedBytes:Array<UInt8> = cryptofunction.plaintext;
                 let decryptionstatus:CryptoHelper.decryptionresult = cryptofunction.status
                 //print("Decrypted bytes:\(decryptedBytes), status: \(decryptionstatus)")
@@ -216,6 +242,8 @@ class OSXViewController: NSViewController, NSTextFieldDelegate, NSDraggingDestin
                     self.textview.string = newstring;
                     //Not work anymore
                     self.unmarkBusy()
+                    //Remove filepath to show text
+                    self.fileDataPath = nil
                 }
             }
 
@@ -316,6 +344,9 @@ class OSXViewController: NSViewController, NSTextFieldDelegate, NSDraggingDestin
         var valor:Bool = false;
         if(textview.string?.range(of: CryptoHelper.armorHeader) != nil && textview.string?.range(of: CryptoHelper.armorFooter) != nil){
             //Can be decrypted
+            valor = true;
+        }
+        if(self.fileDataPath != nil){
             valor = true;
         }
         return valor;
