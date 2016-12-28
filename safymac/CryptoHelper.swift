@@ -78,24 +78,23 @@ class CryptoHelper{
     }
     
     //MARK: Previous operations
-    
-    //Derive password
+    //Derive password from string/iterations/vectorsalt
     static func deriveKeyFromPassword(pass:String, vectorsalt: Array<UInt8>, iterationFactor: Int) -> (key:Array<UInt8>, iv:Array<UInt8>, iv2:Array<UInt8>){
         var key: [UInt8] = []
         var iv: [UInt8] = []
         var iv2: [UInt8] = []
         do{
-            //Preparo la pass y el salt en Bytes. El salt ahora es el mismo que el IV, que es random.
+            //Prepare string to bytes, ans same for salt if needed.
             let password: Array<UInt8> = pass.utf8.map {$0}
-            let salt: Array<UInt8> = vectorsalt;//vectorsalt.utf8.map {$0}
-            //Derivo en sha256 para obtener 64bytes
+            let salt: Array<UInt8> = vectorsalt;
+            //Derive using sha512 to get a 64byte string. Then split it.
             let value: [UInt8] = try PKCS5.PBKDF2(password: password, salt: salt, iterations: 16384 * iterationFactor, variant: .sha512).calculate()
             print("derived key has \(value.count)")
-            //32 bytes para cada cosa: key
+            //32 bytes as key for AES256
             key = Array(value[0..<32])
-            //iv de 16bytes
+            //iv, 16bytes
             iv = Array(value[32..<48])
-            //otro iv de 16bytes
+            //Another iv of 16bytes. Will be used for HMAC.
             iv2 = Array(value[48..<value.count])
 
         }catch{
@@ -129,7 +128,7 @@ class CryptoHelper{
         return (fileformat: fileform, cipher:Array(ciphertext), salt: Array(saltBytes), iterations: capturedIterator)
     }
 
-    //MARK: HMAC
+    //MARK: HMAC Hash
     //Has Hmac from bytes
     static func getHMACfromBytes(input:Array<UInt8>, salt:Array<UInt8>) -> Array<UInt8>{
         var hmacsig:[UInt8] = [UInt8]()
@@ -159,7 +158,6 @@ class CryptoHelper{
             status = true;
         }
         return(isPassOk:status, decrypted:plaintext)
-
     }
     
     //MARK: Encryption functions
@@ -172,10 +170,11 @@ class CryptoHelper{
         let iterations = separator.iterations
         let fileformat = separator.fileformat
         
-        //Derive given password and get key/iv
+        //Derive given password with given salt, and get key/iv/hmacsalt
         let derived = deriveKeyFromPassword(pass: password, vectorsalt: salt, iterationFactor: iterations)
         let key = derived.key
         let iv = derived.iv
+        
         //Decrypt:
         do {
             let decrypted = try AES(key: key, iv: iv, blockMode: .CBC, padding: PKCS7()).decrypt(input)
@@ -189,56 +188,52 @@ class CryptoHelper{
                 if(isPassOk){
                     return (plaintext: newArrayOfBytes, status: .ok, fileformat:fileformat)
                 }else{
-                    return (plaintext: [], status: .error, fileformat: nil)
+                    return (plaintext: [], status: .error, fileformat: nil) //HMAC failed. data corrupted or wrong password.
                 }
-
             }
         } catch {
             print(error)
         }
         return (plaintext: [], status: .error, fileformat: nil)
     }
+    
     //Encrypt
     static func encryptAES256fromBytes(databytes: Array<UInt8>, password: String, urlfile: URL? = nil) -> Array<UInt8>{
+        //Copy input plaintext to an array
         var input: Array<UInt8> = databytes
-        //for _ in 0...3 { input.insert(80, at: 0)} //add 4 0x80 bytes that will be checked after decrypt (a clampsy way of checking if the password was right) //now I use HMAC
         
-        let salt: Array<UInt8> = AES.randomIV(AES.blockSize)
-        
+        //Create the flag for file format
+        var fileformatFlag:Array<UInt8> = [self.getByteFlagForFileFormat(fileformat: self.getFileFormatFromPath(path: urlfile))]
+
+        //Create flag for iterations count (for the derived key)
         let iterations = 7
         let iterBytes:[UInt8] = [UInt8(iterations)]
-        //let iterHex = iterBytes.toHexString()
         
-        var fileformatFlag:Array<UInt8> = [self.getByteFlagForFileFormat(fileformat: self.getFileFormatFromPath(path: urlfile))]
-        //print("Flag file format for \(urlfile) is \(fileformatFlag)")
+        //Salt for the key
+        let salt: Array<UInt8> = AES.randomIV(AES.blockSize)
         
-        
+        //Derive key, iv and salt for hMAC
         let derived = deriveKeyFromPassword(pass: password, vectorsalt: salt, iterationFactor: iterations)
         let key = derived.key
         let iv = derived.iv
+        let hmacsalt = derived.iv2
         
-        //HMAC. Hash input and add to the end before encryption. It's 32Bytes. Use iv2.
-        //print("Input \(input)")
-        let hmacsig = getHMACfromBytes(input: input, salt: derived.iv2);
-        //print("Hmac es \(hmacsig)");
+        //Hash HMAC. Hash input and add to the end. *Before encryption*. It's 32Bytes. Use iv2 as salt.
+        let hmacsig = getHMACfromBytes(input: input, salt: hmacsalt);
+        
+        //Add HMAC at the end of the plaintext before encrypting
         input.append(contentsOf: hmacsig)
-        //print("Input now after appending \(input)")
+        
         //Encrypt
         do {
             //1. Encrypt. Get cipher text in bytes
             let ciphertext = try AES(key: key, iv: iv, blockMode: .CBC, padding: PKCS7()).encrypt(input)
-            //2. Create a long hexadecimal string appending all the parts /header, body, etc
-            //let hexString = fileformatFlag.toHexString().appending(iv.toHexString()).appending(iterHex).appending(ciphertext.toHexString())
-            //ciphertext = Array<UInt8>(hex: hexString)
-
-            //Better: appending headers as bytes
+            //2. Appending headers (as bytes) to the first array (which happens to be fileformatFlag)
             fileformatFlag.append(contentsOf: salt)
             fileformatFlag.append(contentsOf: iterBytes)
             fileformatFlag.append(contentsOf: ciphertext)
             return fileformatFlag
-            
-            //Return
-            //return ciphertext
+
         } catch {
             print(error)
         }

@@ -113,7 +113,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     func compressText(){
         //Check if passwords are null
         if (self.passOne.text!.characters.count < 1 || self.passTwo.text!.characters.count < 1 || self.passOne.text! == "password"){
-            showMessage(isError: true, text: "Contraseña vacía o sin cambiar", warnuser: true)
+            showMessage(isError: true, text: "Type a password", warnuser: true)
             unmarkBusy()
             return;
         }else{
@@ -122,7 +122,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         
         //Check if passwords are equal
         if(self.passOne.text! != self.passTwo.text!){
-            showMessage(isError: true, text: "Contraseñas no coinciden", warnuser: true)
+            showMessage(isError: true, text: "Passwords don't match", warnuser: true)
             unmarkBusy()
             return;
         }
@@ -189,7 +189,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         
         //Check if passwords are null
         if self.passTwo.text!.characters.count < 1{
-            showMessage(isError: true, text: "Contraseña vacía", warnuser: true)
+            showMessage(isError: true, text: "Password can't be empty!", warnuser: true)
             unmarkBusy()
             return;
         }else{
@@ -200,13 +200,13 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         //Avoid empty texts if it's a textfile
         if(lastStatus == .decryptText){
             if(textview.text == nil){
-                showMessage(isError: true, text: "No hay texto que desencriptar", warnuser: true)
+                showMessage(isError: true, text: "No text to decrypt", warnuser: true)
                 unmarkBusy()
                 return;
             }
         }else if(lastStatus == .decryptFile){
             if(self.fileDataPath == nil){
-                showMessage(isError: true, text: "No hay file que desencriptar", warnuser: true)
+                showMessage(isError: true, text: "No file to decrypt", warnuser: true)
                 unmarkBusy()
                 return;
             }
@@ -231,7 +231,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
                 }catch{
                     print("Error convirtiendo file a Data: \(error)")
                     DispatchQueue.main.async {
-                        self.showMessage(isError: true, text: "Datos corruptos o alterados! Can't get anyting", warnuser: true)
+                        self.showMessage(isError: true, text: "Corrupted data. Can't continue.", warnuser: true)
                         self.unmarkBusy()
                         return
                     }
@@ -242,7 +242,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
             //4. Check if data is nil.. because you can't encrypt. COnvert to bytes
             if(dataToDecrypt == nil){
                 DispatchQueue.main.async {
-                    self.showMessage(isError: true, text: "Datos corruptos o alterados! Can't get anyting", warnuser: true)
+                    self.showMessage(isError: true, text: "Corrupted data. Can't continue.", warnuser: true)
                     self.unmarkBusy()
                     return
                 }
@@ -263,7 +263,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
             if(decryptionstatus == CryptoHelper.decryptionresult.error){
                 DispatchQueue.main.async {
                     //Set string to textview
-                    self.showMessage(isError: true, text: "Password wrong or text corrupted (I)", warnuser: true)
+                    self.showMessage(isError: true, text: "Wrong password", warnuser: true)
                     //Not work anymore
                     self.unmarkBusy()
                 }
@@ -281,7 +281,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
                 if(newstring.characters.count == 0){
                     //SInce this was text, and the string given wasn't text, assume the password was wrong or data corrupted
                     DispatchQueue.main.async {
-                        self.showMessage(isError: true, text: "Password wrong or text corrupted (II)", warnuser: true)
+                        self.showMessage(isError: true, text: "Wrong password or corrupted data", warnuser: true)
                         //Not work anymore
                         self.unmarkBusy()
                     }
@@ -621,8 +621,25 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         }else{
             print("Aviso:\(text)")
         }
-        //Warn user
+        //Prepare color
+        var bgcolor:UIColor? = nil;
+        if(isError){
+            bgcolor = UIColor(hue: 9/360, saturation: 62/100, brightness: 97/100, alpha: 1)
+            bgcolor = globalcolor;
+        }
+        //Create instance of popup
+        var myPopup:SATopPopup? = SATopPopup(title: text, frame: self.view.frame, bgcolor: bgcolor, image: nil, noStatusBar: false)
+        myPopup!.delay = 4;
+        //Add it
+        self.view.addSubview(myPopup!)
+        //Show and listen
+        myPopup!.show { (finished) in
+            myPopup?.removeFromSuperview()
+            myPopup = nil;
+        }
+
     }
+
     
     //MARK: Textfield delegates
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -812,7 +829,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         //Prepare camera
         qrscanner.prepareScan(qrview!) { (stringValue) -> () in
             if(stringValue.range(of: "safyqr:/") == nil){
-                self.showMessage(isError: true, text: "Error: That's not a Safy QR encrypted code", warnuser: true);
+                self.showMessage(isError: true, text: "That's not a Safy QR encrypted code", warnuser: true);
             }else{
                 //Create a string removing safyqr:/ and adding header+footer
                 let stringToShow = CryptoHelper.armorHeader.appending(stringValue.replacingOccurrences(of: "safyqr:/", with: "")).appending(CryptoHelper.armorFooter)
