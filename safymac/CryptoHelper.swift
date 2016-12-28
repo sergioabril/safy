@@ -104,43 +104,6 @@ class CryptoHelper{
         return (key:key, iv:iv, iv2:iv2)
     }
     
-    //Separate Headers and Encrypted data
-    static func separateHeadersFromChipherString(cipher:String) -> (fileformat:fileFormat, cipher:String, iv:String, iterations: Int){
-        //First byte is File Format. 2 Hex Char.
-        let fformStartIndex = cipher.index(cipher.startIndex, offsetBy: 0)
-        let fformEndIndex = cipher.index(cipher.startIndex, offsetBy: 1)
-        let rangeFF = fformStartIndex...fformEndIndex
-        let ffHexString:String = cipher[rangeFF]
-        let ffBytes:Array<UInt8> = Array<UInt8>(hex: ffHexString)
-        let fileform = self.getFileFormatForByteFlag(bytenumber: ffBytes[0])
-        //print("Leyendo fake fileflag: \(ffHexString) - \(ffBytes) - \(fileform)");
-        
-        //Try to read the iv. Next 16Bytes/Octets (32HexChar)
-        let ivStartIndex = cipher.index(cipher.startIndex, offsetBy: 2)
-        let ivEndIndex = cipher.index(cipher.startIndex, offsetBy: 33)
-        let rangeIV = ivStartIndex...ivEndIndex
-        let capturedIV:String = cipher[rangeIV]
-        //print("Captured UV \(capturedIV)")
-        
-        //Get iteration factor: 1 byte (0-255) : 2 characteres of an HexString
-        let iterStartIndex = cipher.index(cipher.startIndex, offsetBy: 34)
-        let iterEndIndex = cipher.index(cipher.startIndex, offsetBy: 35)
-        let rangeIter = iterStartIndex...iterEndIndex
-        let capturedIteratorString = cipher[rangeIter]
-        var capturedIterator = 1; //By default 1 * 4096
-        if let value = UInt8(capturedIteratorString, radix: 16) {
-            capturedIterator = Int(value)
-        }
-        //Get Real Cipher: the rest
-        let cipherStartIndex = cipher.index(cipher.startIndex, offsetBy:36)
-        let cipherEndIndex = cipher.index(cipher.endIndex, offsetBy:-1)
-        let restCipher:String = cipher[cipherStartIndex...cipherEndIndex]
-        //print("Captured cipher \(restCipher)")
-
-        //Return
-        return (fileformat: fileform, cipher:restCipher, iv: capturedIV, iterations: capturedIterator)
-    }
-    
     //Separate Headers and Encrypted data (using bytes)
     static func separateHeadersFromBytes(encryptedbytes:[UInt8]) -> (fileformat:fileFormat, cipher:Array<UInt8>, salt:Array<UInt8>, iterations: Int){
         
@@ -166,6 +129,38 @@ class CryptoHelper{
         return (fileformat: fileform, cipher:Array(ciphertext), salt: Array(saltBytes), iterations: capturedIterator)
     }
 
+    //MARK: HMAC
+    //Has Hmac from bytes
+    static func getHMACfromBytes(input:Array<UInt8>, salt:Array<UInt8>) -> Array<UInt8>{
+        var hmacsig:[UInt8] = [UInt8]()
+        //print("HMAC... from input \(input) and salt \(salt)");
+        do{
+            hmacsig = try HMAC(key: salt, variant: .sha256).authenticate(input)
+            //Add hmac signature at the end of the hole
+        }catch{
+            print("Error hasing HMAC")
+            return []
+        }
+        //print("HMAC is \(hmacsig). count \(hmacsig.count)");
+        return hmacsig;
+    }
+    //Separate plaintext and hmac hash from a decrypted array, and check integrity/password
+    static func separateAndCheckHMAC(input:Array<UInt8>, salt:Array<UInt8>) -> (isPassOk:Bool, decrypted:Array<UInt8>){
+        //Separate string
+        let plaintext = Array(input[0..<input.count-32])
+        let hmacsig = Array(input[input.count-32..<input.count])
+        //print("plaintext and hmac separated: \(plaintext) - - - \(hmacsig)");
+        //Create HMAC from plaintext and compare
+        let hmacsignew = getHMACfromBytes(input: plaintext, salt: salt);
+        //print("hmac sig from plaintext:\(hmacsignew)");
+        //Compare and return status
+        var status = false;
+        if(hmacsignew == hmacsig){
+            status = true;
+        }
+        return(isPassOk:status, decrypted:plaintext)
+
+    }
     
     //MARK: Encryption functions
     //Decrypt
@@ -184,13 +179,19 @@ class CryptoHelper{
         //Decrypt:
         do {
             let decrypted = try AES(key: key, iv: iv, blockMode: .CBC, padding: PKCS7()).decrypt(input)
+            //print("decrypted \(decrypted)");
             if(decrypted.count>0){
-                //Test if password was right. First 4 bytes have to be 80. If not, password was wrong or data corrupted...
-                if(decrypted[0] == 80 && decrypted[1] == 80 && decrypted[2] == 80 && decrypted[3] == 80){
-                        var newArrayOfBytes = decrypted;
-                        for _ in 0...3 { newArrayOfBytes.remove(at: 0)} //remove 4 bytes
+                //Separate text from HMAC and test.
+                var newArrayOfBytes = decrypted;
+                let hmacCalculations = separateAndCheckHMAC(input: newArrayOfBytes, salt: derived.iv2);
+                let isPassOk = hmacCalculations.isPassOk;
+                newArrayOfBytes = hmacCalculations.decrypted;
+                if(isPassOk){
                     return (plaintext: newArrayOfBytes, status: .ok, fileformat:fileformat)
+                }else{
+                    return (plaintext: [], status: .error, fileformat: nil)
                 }
+
             }
         } catch {
             print(error)
@@ -200,7 +201,7 @@ class CryptoHelper{
     //Encrypt
     static func encryptAES256fromBytes(databytes: Array<UInt8>, password: String, urlfile: URL? = nil) -> Array<UInt8>{
         var input: Array<UInt8> = databytes
-        for _ in 0...3 { input.insert(80, at: 0)} //add 4 0x80 bytes that will be checked after decrypt (a clampsy way of checking if the password was right)
+        //for _ in 0...3 { input.insert(80, at: 0)} //add 4 0x80 bytes that will be checked after decrypt (a clampsy way of checking if the password was right) //now I use HMAC
         
         let salt: Array<UInt8> = AES.randomIV(AES.blockSize)
         
@@ -212,24 +213,16 @@ class CryptoHelper{
         //print("Flag file format for \(urlfile) is \(fileformatFlag)")
         
         
-
-        
         let derived = deriveKeyFromPassword(pass: password, vectorsalt: salt, iterationFactor: iterations)
         let key = derived.key
         let iv = derived.iv
         
-        //HMAC
-        /*
-        do{
-            //let hmacsig = try HMAC(key: derived, variant: .sha256).authenticate(input)
-            //Add hmac signature at the end of the hole
-            //input.append(contentsOf: hmacsig)
-        }catch{
-            print("Error hasing HMAC")
-            return []
-        }
-        */
-        
+        //HMAC. Hash input and add to the end before encryption. It's 32Bytes. Use iv2.
+        //print("Input \(input)")
+        let hmacsig = getHMACfromBytes(input: input, salt: derived.iv2);
+        //print("Hmac es \(hmacsig)");
+        input.append(contentsOf: hmacsig)
+        //print("Input now after appending \(input)")
         //Encrypt
         do {
             //1. Encrypt. Get cipher text in bytes

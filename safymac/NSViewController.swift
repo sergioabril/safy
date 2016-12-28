@@ -210,7 +210,7 @@ class OSXViewController: NSViewController, NSTextFieldDelegate, NSDraggingDestin
             //Desencripto in background
             DispatchQueue.global(qos: .background).async {
                 //Decrypt
-                let cryptofunction = CryptoHelper.decryptAES256fromBytes(databytes: bytesToDecrypt, password: self.passTwo.stringValue)
+                let cryptofunction = CryptoHelper.decryptAES256fromBytes(databytes: bytesToDecrypt, password: self.passOne.stringValue)
                 let decryptedBytes:Array<UInt8> = cryptofunction.plaintext;
                 let decryptionstatus:CryptoHelper.decryptionresult = cryptofunction.status
                 //print("Decrypted bytes:\(decryptedBytes), status: \(decryptionstatus)")
