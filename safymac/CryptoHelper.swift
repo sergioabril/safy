@@ -88,7 +88,7 @@ class CryptoHelper{
             let password: Array<UInt8> = pass.utf8.map {$0}
             let salt: Array<UInt8> = vectorsalt;
             //Derive using sha512 to get a 64byte string. Then split it.
-            let value: [UInt8] = try PKCS5.PBKDF2(password: password, salt: salt, iterations: 16384 * iterationFactor, variant: .sha512).calculate()
+            let value: [UInt8] = try PKCS5.PBKDF2(password: password, salt: salt, iterations: 25000 * iterationFactor, variant: .sha512).calculate()
             print("derived key has \(value.count)")
             //32 bytes as key for AES256
             key = Array(value[0..<32])
@@ -206,7 +206,7 @@ class CryptoHelper{
         var fileformatFlag:Array<UInt8> = [self.getByteFlagForFileFormat(fileformat: self.getFileFormatFromPath(path: urlfile))]
 
         //Create flag for iterations count (for the derived key)
-        let iterations = 7
+        let iterations = 5
         let iterBytes:[UInt8] = [UInt8(iterations)]
         
         //Salt for the key
