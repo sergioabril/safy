@@ -897,5 +897,12 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         print("Dismissed picker without picture")
         dismiss(animated: true, completion: nil)
     }
+    
+    
+    //MARK UNWIND SEGUE
+    @IBAction func unwindSegue(segue: UIStoryboardSegue){
+        //This does nothing, but I had to create one function to be able to link the back button (from options View Controller) to the exit square. Once I wrote this function, and linking the button to exit, tapping it unwinds the transition.
+    }
+
 }
 
