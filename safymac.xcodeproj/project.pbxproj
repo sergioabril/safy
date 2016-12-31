@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		491A61721E17F6A700A9E80D /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491A61711E17F6A600A9E80D /* Options.swift */; };
 		494924031DEDC8D900FAE199 /* QRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494924021DEDC8D900FAE199 /* QRCode.swift */; };
 		494E99281DF12D6700C6F241 /* fileprotected.png in Resources */ = {isa = PBXBuildFile; fileRef = 49A0F55E1DEA87350070C296 /* fileprotected.png */; };
 		495FBBD21DE692A90071AD16 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495FBBD11DE692A90071AD16 /* AppDelegate.swift */; };
@@ -130,6 +131,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		491A61711E17F6A600A9E80D /* Options.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Options.swift; sourceTree = "<group>"; };
 		494924021DEDC8D900FAE199 /* QRCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCode.swift; sourceTree = "<group>"; };
 		495FBBCF1DE692A90071AD16 /* safyios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = safyios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		495FBBD11DE692A90071AD16 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 				495FBBD11DE692A90071AD16 /* AppDelegate.swift */,
 				495FBBD31DE692A90071AD16 /* ViewController.swift */,
 				495FBBD51DE692A90071AD16 /* Main.storyboard */,
+				491A61711E17F6A600A9E80D /* Options.swift */,
 				495FBBDB1DE692A90071AD16 /* AssetsiOS.xcassets */,
 				495FBBDD1DE692A90071AD16 /* LaunchScreen.storyboard */,
 				495FBBE01DE692A90071AD16 /* Info.plist */,
@@ -645,6 +648,7 @@
 				495FBC031DE692DD0071AD16 /* ClassExtensions.swift in Sources */,
 				497061CD1E1466C9004882AC /* SATopPopup.swift in Sources */,
 				495FBBDA1DE692A90071AD16 /* safyios.xcdatamodeld in Sources */,
+				491A61721E17F6A700A9E80D /* Options.swift in Sources */,
 				49811D211DE725D8007D2051 /* SALoaderOvalBlur.swift in Sources */,
 				495FBBD41DE692A90071AD16 /* ViewController.swift in Sources */,
 				495FBC011DE692C20071AD16 /* CryptoHelper.swift in Sources */,
