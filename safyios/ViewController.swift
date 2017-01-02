@@ -737,6 +737,11 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
             }))
         }
         settingsActionSheet.addAction(UIAlertAction(title:"Cancel", style:UIAlertActionStyle.cancel, handler:nil))
+
+        if (UIDevice.current.userInterfaceIdiom == .pad){
+            //It's an ipad, set popover location!
+           settingsActionSheet.popoverPresentationController?.sourceView = self.view
+        }
         present(settingsActionSheet, animated:true, completion:nil)
     }
     
@@ -752,7 +757,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         
         let activityViewController:UIActivityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
         activityViewController.excludedActivityTypes = [UIActivityType.postToWeibo]
-        
+
         //Before showing the controller, check if it's ipad or iphone
         if (UIDevice.current.userInterfaceIdiom == .pad){
             //It's an ipad, set popover location!
