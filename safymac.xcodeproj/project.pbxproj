@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4918CB851EC453D500D5A644 /* CryptoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4918CB841EC453D500D5A644 /* CryptoHelper.swift */; };
+		4918CB861EC453D500D5A644 /* CryptoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4918CB841EC453D500D5A644 /* CryptoHelper.swift */; };
 		491A61721E17F6A700A9E80D /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491A61711E17F6A600A9E80D /* Options.swift */; };
 		494924031DEDC8D900FAE199 /* QRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494924021DEDC8D900FAE199 /* QRCode.swift */; };
 		494E99281DF12D6700C6F241 /* fileprotected.png in Resources */ = {isa = PBXBuildFile; fileRef = 49A0F55E1DEA87350070C296 /* fileprotected.png */; };
@@ -16,9 +18,6 @@
 		495FBBDA1DE692A90071AD16 /* safyios.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 495FBBD81DE692A90071AD16 /* safyios.xcdatamodeld */; };
 		495FBBDC1DE692A90071AD16 /* AssetsiOS.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 495FBBDB1DE692A90071AD16 /* AssetsiOS.xcassets */; };
 		495FBBDF1DE692A90071AD16 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 495FBBDD1DE692A90071AD16 /* LaunchScreen.storyboard */; };
-		495FBBEA1DE692A90071AD16 /* safyiosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495FBBE91DE692A90071AD16 /* safyiosTests.swift */; };
-		495FBBF51DE692A90071AD16 /* safyiosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495FBBF41DE692A90071AD16 /* safyiosUITests.swift */; };
-		495FBC011DE692C20071AD16 /* CryptoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C390E91DE65B580043F304 /* CryptoHelper.swift */; };
 		495FBC031DE692DD0071AD16 /* ClassExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495FBC021DE692DD0071AD16 /* ClassExtensions.swift */; };
 		495FBC051DE6961F0071AD16 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C390D01DE65A5F0043F304 /* CryptoSwift.framework */; };
 		495FBC061DE6961F0071AD16 /* CryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 49C390D01DE65A5F0043F304 /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -33,11 +32,8 @@
 		49C3909B1DE658C80043F304 /* NSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C3909A1DE658C80043F304 /* NSViewController.swift */; };
 		49C3909E1DE658C80043F304 /* safymac.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 49C3909C1DE658C80043F304 /* safymac.xcdatamodeld */; };
 		49C390A31DE658C80043F304 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49C390A11DE658C80043F304 /* Main.storyboard */; };
-		49C390AE1DE658C80043F304 /* safymacTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C390AD1DE658C80043F304 /* safymacTests.swift */; };
-		49C390B91DE658C80043F304 /* safymacUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C390B81DE658C80043F304 /* safymacUITests.swift */; };
 		49C390E41DE65AF50043F304 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C390D01DE65A5F0043F304 /* CryptoSwift.framework */; };
 		49C390E51DE65AF50043F304 /* CryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 49C390D01DE65A5F0043F304 /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		49C390EA1DE65B580043F304 /* CryptoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C390E91DE65B580043F304 /* CryptoHelper.swift */; };
 		49C390ED1DE675790043F304 /* ClassExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C390EC1DE675790043F304 /* ClassExtensions.swift */; };
 		49DEBF361DEBED7300A1025D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49C3909F1DE658C80043F304 /* Assets.xcassets */; };
 		49DEBF371DEBEEF000A1025D /* iTunesArtwork@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 495FBC0A1DE6A8CB0071AD16 /* iTunesArtwork@1x.png */; };
@@ -131,6 +127,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4918CB841EC453D500D5A644 /* CryptoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoHelper.swift; sourceTree = "<group>"; };
 		491A61711E17F6A600A9E80D /* Options.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Options.swift; sourceTree = "<group>"; };
 		494924021DEDC8D900FAE199 /* QRCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCode.swift; sourceTree = "<group>"; };
 		495FBBCF1DE692A90071AD16 /* safyios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = safyios.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -142,11 +139,7 @@
 		495FBBDE1DE692A90071AD16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		495FBBE01DE692A90071AD16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		495FBBE51DE692A90071AD16 /* safyiosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = safyiosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		495FBBE91DE692A90071AD16 /* safyiosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = safyiosTests.swift; sourceTree = "<group>"; };
-		495FBBEB1DE692A90071AD16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		495FBBF01DE692A90071AD16 /* safyiosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = safyiosUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		495FBBF41DE692A90071AD16 /* safyiosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = safyiosUITests.swift; sourceTree = "<group>"; };
-		495FBBF61DE692A90071AD16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		495FBC021DE692DD0071AD16 /* ClassExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassExtensions.swift; sourceTree = "<group>"; };
 		495FBC0A1DE6A8CB0071AD16 /* iTunesArtwork@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@1x.png"; sourceTree = "<group>"; };
 		495FBC0B1DE6A8CB0071AD16 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
@@ -163,14 +156,9 @@
 		49C390A21DE658C80043F304 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		49C390A41DE658C80043F304 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49C390A91DE658C80043F304 /* safymacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = safymacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		49C390AD1DE658C80043F304 /* safymacTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = safymacTests.swift; sourceTree = "<group>"; };
-		49C390AF1DE658C80043F304 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49C390B41DE658C80043F304 /* safymacUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = safymacUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		49C390B81DE658C80043F304 /* safymacUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = safymacUITests.swift; sourceTree = "<group>"; };
-		49C390BA1DE658C80043F304 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49C390CA1DE65A5F0043F304 /* CryptoSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoSwift.xcodeproj; path = CryptoSwift/CryptoSwift.xcodeproj; sourceTree = "<group>"; };
-		49C390E91DE65B580043F304 /* CryptoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoHelper.swift; sourceTree = "<group>"; };
-		49C390EC1DE675790043F304 /* ClassExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassExtensions.swift; sourceTree = "<group>"; };
+		49C390EC1DE675790043F304 /* ClassExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ClassExtensions.swift; path = safymac/ClassExtensions.swift; sourceTree = SOURCE_ROOT; };
 		49F605941DF07D900077DD87 /* QRCenterLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QRCenterLogo.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -222,6 +210,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4918CB831EC4536700D5A644 /* safy */ = {
+			isa = PBXGroup;
+			children = (
+				4918CB841EC453D500D5A644 /* CryptoHelper.swift */,
+			);
+			path = safy;
+			sourceTree = "<group>";
+		};
 		494924001DEDC8CD00FAE199 /* QRCode */ = {
 			isa = PBXGroup;
 			children = (
@@ -249,24 +245,6 @@
 				495FBC021DE692DD0071AD16 /* ClassExtensions.swift */,
 			);
 			path = safyios;
-			sourceTree = "<group>";
-		};
-		495FBBE81DE692A90071AD16 /* safyiosTests */ = {
-			isa = PBXGroup;
-			children = (
-				495FBBE91DE692A90071AD16 /* safyiosTests.swift */,
-				495FBBEB1DE692A90071AD16 /* Info.plist */,
-			);
-			path = safyiosTests;
-			sourceTree = "<group>";
-		};
-		495FBBF31DE692A90071AD16 /* safyiosUITests */ = {
-			isa = PBXGroup;
-			children = (
-				495FBBF41DE692A90071AD16 /* safyiosUITests.swift */,
-				495FBBF61DE692A90071AD16 /* Info.plist */,
-			);
-			path = safyiosUITests;
 			sourceTree = "<group>";
 		};
 		497061CA1E1466C9004882AC /* SATopPopup */ = {
@@ -309,12 +287,9 @@
 			isa = PBXGroup;
 			children = (
 				49C390CA1DE65A5F0043F304 /* CryptoSwift.xcodeproj */,
+				4918CB831EC4536700D5A644 /* safy */,
 				49C390971DE658C80043F304 /* safymac */,
-				49C390AC1DE658C80043F304 /* safymacTests */,
-				49C390B71DE658C80043F304 /* safymacUITests */,
 				495FBBD01DE692A90071AD16 /* safyios */,
-				495FBBE81DE692A90071AD16 /* safyiosTests */,
-				495FBBF31DE692A90071AD16 /* safyiosUITests */,
 				49C390961DE658C80043F304 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -335,34 +310,15 @@
 		49C390971DE658C80043F304 /* safymac */ = {
 			isa = PBXGroup;
 			children = (
-				49C390E91DE65B580043F304 /* CryptoHelper.swift */,
+				49C390EC1DE675790043F304 /* ClassExtensions.swift */,
 				49C390981DE658C80043F304 /* AppDelegate.swift */,
 				49C3909A1DE658C80043F304 /* NSViewController.swift */,
 				49C3909F1DE658C80043F304 /* Assets.xcassets */,
 				49C390A11DE658C80043F304 /* Main.storyboard */,
 				49C390A41DE658C80043F304 /* Info.plist */,
 				49C3909C1DE658C80043F304 /* safymac.xcdatamodeld */,
-				49C390EC1DE675790043F304 /* ClassExtensions.swift */,
 			);
 			path = safymac;
-			sourceTree = "<group>";
-		};
-		49C390AC1DE658C80043F304 /* safymacTests */ = {
-			isa = PBXGroup;
-			children = (
-				49C390AD1DE658C80043F304 /* safymacTests.swift */,
-				49C390AF1DE658C80043F304 /* Info.plist */,
-			);
-			path = safymacTests;
-			sourceTree = "<group>";
-		};
-		49C390B71DE658C80043F304 /* safymacUITests */ = {
-			isa = PBXGroup;
-			children = (
-				49C390B81DE658C80043F304 /* safymacUITests.swift */,
-				49C390BA1DE658C80043F304 /* Info.plist */,
-			);
-			path = safymacUITests;
 			sourceTree = "<group>";
 		};
 		49C390CB1DE65A5F0043F304 /* Products */ = {
@@ -649,9 +605,9 @@
 				497061CD1E1466C9004882AC /* SATopPopup.swift in Sources */,
 				495FBBDA1DE692A90071AD16 /* safyios.xcdatamodeld in Sources */,
 				491A61721E17F6A700A9E80D /* Options.swift in Sources */,
+				4918CB861EC453D500D5A644 /* CryptoHelper.swift in Sources */,
 				49811D211DE725D8007D2051 /* SALoaderOvalBlur.swift in Sources */,
 				495FBBD41DE692A90071AD16 /* ViewController.swift in Sources */,
-				495FBC011DE692C20071AD16 /* CryptoHelper.swift in Sources */,
 				495FBBD21DE692A90071AD16 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -660,7 +616,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				495FBBEA1DE692A90071AD16 /* safyiosTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -668,7 +623,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				495FBBF51DE692A90071AD16 /* safyiosUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -679,8 +633,8 @@
 				49C390ED1DE675790043F304 /* ClassExtensions.swift in Sources */,
 				49C3909E1DE658C80043F304 /* safymac.xcdatamodeld in Sources */,
 				49C3909B1DE658C80043F304 /* NSViewController.swift in Sources */,
-				49C390EA1DE65B580043F304 /* CryptoHelper.swift in Sources */,
 				49C390991DE658C80043F304 /* AppDelegate.swift in Sources */,
+				4918CB851EC453D500D5A644 /* CryptoHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -688,7 +642,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49C390AE1DE658C80043F304 /* safymacTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -696,7 +649,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49C390B91DE658C80043F304 /* safymacUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

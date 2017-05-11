@@ -6,7 +6,7 @@ Also, generates QR codes (on iOS) with the resulting cipher (for text encrypted 
 for now, It's intended only for personal use, and I can not guarantee the safety of the implemented encryption process
 
 # Install
-The wrapper itself is located on safymac/CryptoHelper.swift , and it’s shared among Mac/iOS apps. It has all the functions, key-generation processes, etc.
+The wrapper itself is located on safy/CryptoHelper.swift , and it’s shared among the Mac/iOS apps examples in this project. It has all the functions, key-generation processes, etc.
 
 # License
 To sum up, you can download, test and edit; but you can not distribute for commercial use. Either way, you should keep my name at the top of every code file
