@@ -213,12 +213,16 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         }
 
         
+        let thePassw = self.passTwo.text! //He tenido que obtener aqui esto porq me daba un error al llamar al UI desde el background. Tengo que comprobar q no valen null etc, pero de momento me saca del aprieto.
+        let theText = self.textview.text! //Lo mismo.
+        
         //3. Obtengo data para encryptar. Todo en background
+
         DispatchQueue.global(qos: .userInitiated).async {
             var dataToDecrypt:Data?
             if(self.lastStatus == .decryptText){
                 //Obtengo texto y quito headers y footers. Esa es mi base64
-                var newBase64:String! = self.textview.text!.replacingOccurrences(of: CryptoHelper.armorHeader, with: "")
+                var newBase64:String! = theText.replacingOccurrences(of: CryptoHelper.armorHeader, with: "")
                 newBase64 = newBase64.replacingOccurrences(of: CryptoHelper.armorFooter, with: "")
                 
                 //COnvierto base64 a data. Si falla suele ser porque esta alterada, asique error y salgo
@@ -251,10 +255,11 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
 
             let bytesToDecrypt:Array<UInt8> = dataToDecrypt!.bytes;
             print("Convertido a bytes")
+            //print("Bytes:\(bytesToDecrypt)")
 
             //5. Desencripto (in background too)
             //Decrypt
-            let cryptofunction = CryptoHelper.decryptAES256fromBytes(databytes: bytesToDecrypt, password: self.passTwo.text!)
+            let cryptofunction = CryptoHelper.decryptAES256fromBytes(databytes: bytesToDecrypt, password: thePassw)
 
             let decryptedBytes:Array<UInt8> = cryptofunction.plaintext;
             let fileformat = cryptofunction.fileformat
@@ -728,6 +733,12 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         
         //Show Alert Action sheet
         let settingsActionSheet: UIAlertController = UIAlertController(title:nil, message:nil, preferredStyle:UIAlertControllerStyle.actionSheet)
+        
+        if (UIDevice.current.userInterfaceIdiom == .pad){
+            //It's an ipad, we do an alert instead, because it's easier and sheets don't worl right out of the box.
+            settingsActionSheet.popoverPresentationController?.sourceView = self.view;
+        }
+        
         settingsActionSheet.addAction(UIAlertAction(title:"Share as QR image", style:UIAlertActionStyle.default, handler:{ action in
             self.shareAsQR(base64string: base64String)
         }))
@@ -738,10 +749,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         }
         settingsActionSheet.addAction(UIAlertAction(title:"Cancel", style:UIAlertActionStyle.cancel, handler:nil))
 
-        if (UIDevice.current.userInterfaceIdiom == .pad){
-            //It's an ipad, set popover location!
-           settingsActionSheet.popoverPresentationController?.sourceView = self.view
-        }
+
         present(settingsActionSheet, animated:true, completion:nil)
     }
     
@@ -809,6 +817,12 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         }else{
             //Show options
             let settingsActionSheet: UIAlertController = UIAlertController(title:nil, message:nil, preferredStyle:UIAlertControllerStyle.actionSheet)
+            
+            if (UIDevice.current.userInterfaceIdiom == .pad){
+                //It's an ipad,
+                settingsActionSheet.popoverPresentationController?.sourceView = self.view;
+            }
+            
             settingsActionSheet.addAction(UIAlertAction(title:"Decrypt QR code", style:UIAlertActionStyle.default, handler:{ action in
                 self.scanQr()
             }))

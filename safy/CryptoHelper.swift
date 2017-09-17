@@ -174,7 +174,7 @@ class CryptoHelper{
         let derived = deriveKeyFromPassword(pass: password, vectorsalt: salt, iterationFactor: iterations)
         let key = derived.key
         let iv = derived.iv
-        
+
         //Decrypt:
         do {
             let decrypted = try AES(key: key, iv: iv, blockMode: .CBC, padding: PKCS7()).decrypt(input)
