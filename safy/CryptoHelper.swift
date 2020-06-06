@@ -143,6 +143,7 @@ class CryptoHelper{
         //print("HMAC is \(hmacsig). count \(hmacsig.count)");
         return hmacsig;
     }
+    
     //Separate plaintext and hmac hash from a decrypted array, and check integrity/password
     static func separateAndCheckHMAC(input:Array<UInt8>, salt:Array<UInt8>) -> (isPassOk:Bool, decrypted:Array<UInt8>){
         //Separate string
